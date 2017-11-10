@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <group android:checkableBehavior="single">
+        <item android:title="Themes">
+        <menu>
+            <item
+                android:id="@+id/nav_allthemes"
+                android:title="     All Themes" />
+            <item
+                android:id="@+id/nav_gbwhatsapp"
+                android:title="     GBWhatsapp" />
+            <item
+                android:id="@+id/nav_yowhatsapp"
+                android:title="     YoWhatsapp" />
+            <item
+                android:id="@+id/nav_gbmaterialmod"
+                android:title="     GB Material Mod" />
+
+            <item
+                android:id="@+id/nav_foudmod"
+                android:title="     Foud Mod" />
+            <item
+                android:id="@+id/nav_gbinsta"
+                android:title="     GBInstagram(Coming Soon)"
+                />
+
+            </menu>
+        </item>
+
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Feedback" />
+        <item
+            android:id="@+id/nav_aboutus"
+            android:icon="@drawable/ic_account_multiple_black_24dp"
+            android:title="About us" />
+    </group>
+
+    <!-- <item android:title="Communicate">
+         <menu>
+             <item
+                 android:id="@+id/nav_share"
+                 android:icon="@drawable/ic_menu_share"
+                 android:title="Share" />
+
+         </menu>
+     </item>
+ -->
+ </menu>

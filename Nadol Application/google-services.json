@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "778190513099",
+    "firebase_url": "https://nadol-91ecb.firebaseio.com",
+    "project_id": "nadol-91ecb",
+    "storage_bucket": "nadol-91ecb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778190513099:android:485758061bb969c6",
+        "android_client_info": {
+          "package_name": "nadol.nadol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778190513099-sjfacu7baq75npdnktcguki3t8mjbpj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAbTgsf0N0Myim0aAg6AEFVYWpdlGfE5k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/fixtureid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/matchno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#ff300e64"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        />
+    <ImageView
+        android:id="@+id/teamalogo"
+        android:layout_width="55dp"
+        android:layout_height="65dp"
+        android:contentDescription="@string/newsimage"
+        android:layout_below="@+id/matchno"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        />
+
+    <TextView
+        android:id="@+id/teama"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+
+        tools:ignore="RtlCompat"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/matchno"
+        android:layout_toRightOf="@+id/teamalogo"
+        android:layout_toEndOf="@+id/teamalogo"
+        />
+
+    <TextView
+        android:id="@+id/vss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vs"
+        android:layout_marginTop="20dp"
+        android:padding="2dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_below="@+id/matchno"
+        android:layout_toRightOf="@+id/teama"
+        android:layout_toEndOf="@+id/teama"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        />
+    <ImageView
+        android:id="@+id/teamblogo"
+        android:layout_width="55dp"
+        android:layout_height="65dp"
+
+        android:contentDescription="@string/newsimage"
+        android:layout_below="@+id/matchno"
+        android:layout_toRightOf="@+id/vss"
+        android:layout_toEndOf="@+id/vss"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        />
+
+    <TextView
+        android:id="@+id/teamb"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+
+
+        tools:ignore="RtlCompat"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/matchno"
+        android:layout_toRightOf="@+id/teamblogo"
+        android:layout_toEndOf="@+id/teamblogo"
+
+        />
+</RelativeLayout>

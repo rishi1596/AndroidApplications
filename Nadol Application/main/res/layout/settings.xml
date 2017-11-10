@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/newspush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/newspush"
+        android:textSize="20sp"
+        android:padding="4dp"
+
+        android:textColor="#000"/>
+    <Switch
+        android:id="@+id/newsswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:layout_marginTop="4dp"
+        android:checked="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/newspush"
+        />
+    <TextView
+        android:id="@+id/cricketpush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newspush"
+        android:text="@string/cricketpush"
+        android:textSize="20sp"
+        android:padding="4dp"
+
+        android:textColor="#000"
+        />
+    <Switch
+        android:id="@+id/cricketswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newsswitch"
+        android:padding="4dp"
+        android:layout_marginTop="11dp"
+        android:checked="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/cricketpush"
+        />
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="top"
+
+    android:background="#ffffff"
+    android:weightSum="2"
+    >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mandevyouthgrouplogo"
+
+        android:contentDescription="@string/app_name"
+        android:layout_weight="1"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/mobileno"
+        android:hint="@string/mobileno"
+        android:textColorHint="@android:color/black"
+        android:textSize="20sp"
+
+        android:gravity="top|center"
+        android:inputType="number"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
+        android:textStyle="bold"
+
+        android:backgroundTint="@android:color/holo_blue_dark"
+
+        />
+
+</LinearLayout>

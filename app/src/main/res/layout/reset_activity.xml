@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rj.bkinfotech.MainActivity"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="@drawable/black1"
+    android:paddingStart="50dp"
+    android:paddingLeft="50dp"
+    android:paddingEnd="50dp"
+    android:paddingRight="50dp"
+    >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/mobile_no"
+        android:id="@+id/et_mobileno"
+        android:inputType="number"
+        android:maxLines="1"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:textColor="@color/inputColor"
+        android:textColorHint="#8394ab"
+        android:drawableStart="@drawable/blackphone20"
+        android:drawableLeft="@drawable/blackphone20"
+        android:drawablePadding="5dp"
+        android:background="@drawable/customize_edit_text"
+        android:layout_marginBottom="15dp"
+        android:textCursorDrawable="@drawable/cursor_color"
+        />
+
+ <!--   <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_emailid"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:hint="@string/email"
+        />
+-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_otp"
+        android:inputType="number"
+        android:maxLines="1"
+        android:hint="@string/otp"
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:textColor="@color/inputColor"
+        android:textColorHint="#8394ab"
+        android:drawableStart="@drawable/blackpassword20"
+        android:drawableLeft="@drawable/blackpassword20"
+        android:drawablePadding="5dp"
+        android:background="@drawable/customize_edit_text"
+        android:layout_marginBottom="15dp"
+        android:textCursorDrawable="@drawable/cursor_color"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_error"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:textColor="@color/errorColor"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_reset"
+        android:text="@string/reset"
+        android:background="@drawable/customize_button"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/fontColor"
+        />
+
+
+
+
+</LinearLayout>

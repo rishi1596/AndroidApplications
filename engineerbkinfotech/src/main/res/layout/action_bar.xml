@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:weightSum="2"
+    >
+<ImageView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:src="@drawable/bk_logo_resized"
+    android:scaleType="fitCenter"
+    android:layout_weight="0.3"
+    />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/fontColor"
+        android:id="@+id/tv_id_custom_action_bar_title"
+        android:fontFamily="sans-serif"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="2dp"
+        android:layout_weight="1.3"
+        android:gravity="center"
+       />
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/info25"
+        android:id="@+id/iv_id_info"
+        android:layout_weight="0.2"
+        android:layout_marginTop="7dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        />
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logoutvariant"
+        android:id="@+id/iv_id_log_out"
+        android:layout_weight="0.2"
+        android:layout_marginTop="7dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:contentDescription="@string/log_out"
+        />
+
+</LinearLayout>

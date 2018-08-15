@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/customize_list_view"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+
+        android:background="@color/ticket_id_bg_color"
+        >
+        <View
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/ticket_pending"
+            android:id="@+id/view_id_ticket_status_color"
+            />
+        <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ticket No"
+        android:textColor="#111111"/>-->
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_id_ticketid"
+            android:textColor="#F58634"
+            android:text="@string/ticket_no"
+            android:layout_weight="2.7"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@string/fontFamily"
+            android:padding="5dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/raisedagain"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/iv_id_raisedagain"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:padding="5dp">
+        <!-- Customer Name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:id="@+id/ll_id_customer_name"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/customer_name"
+                android:textColor="@color/inputColor"
+                android:layout_weight=".85"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_name"
+                android:textColor="@color/inputColor"
+                android:layout_weight="1.15"/>
+        </LinearLayout>
+
+        <!-- Company Name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:id="@+id/ll_id_company_name"
+            android:visibility="gone"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/company_name"
+                android:textColor="@color/inputColor"
+                android:layout_weight=".85"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_company_name"
+                android:textColor="@color/inputColor"
+                android:layout_weight="1.15"/>
+        </LinearLayout>
+
+        <!-- Service Type -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/service_type"
+                android:textColor="@color/inputColor"
+                android:layout_weight=".85"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_usertype"
+                android:textColor="@color/inputColor"
+                android:layout_weight="1.15"
+                />
+        </LinearLayout>
+
+
+        <!-- Problem Type -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/problem_type"
+                android:textColor="@color/inputColor"
+                android:layout_weight=".85"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_problemtype"
+                android:textColor="@color/inputColor"
+                android:layout_weight="1.15"
+                />
+        </LinearLayout>
+
+        <!-- Appointment Details -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:id="@+id/ll_id_appointment">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_appointment"
+                android:text="@string/appointment"
+                android:textColor="@color/inputColor"
+                android:layout_weight=".85"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_id_allotted_date"
+                    android:textColor="@color/inputColor"
+
+                    android:layout_weight="0.57"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_id_allotted_slot"
+                    android:textColor="@color/inputColor"
+
+                    android:layout_weight="0.57"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Problem Description -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/prob_desc"
+                android:textColor="@color/inputColor"
+                android:layout_weight=".85"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_description"
+                android:textColor="@color/inputColor"
+                android:layout_weight="1.15"
+                />
+
+        </LinearLayout>
+
+
+        <!-- Client Address -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/customer_address"
+                android:textColor="@color/inputColor"
+                android:layout_weight=".85"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_address"
+                android:textColor="@color/inputColor"
+                android:layout_weight="1.15"
+
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!-- Partial and Closebutton -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_id_partially_done"
+            android:text="@string/partially_done"
+            android:layout_weight="1"
+            android:background="@drawable/customize_button"
+            android:textColor="@color/fontColor"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_id_close"
+            android:text="@string/close"
+            android:layout_weight="1"
+            android:background="@drawable/customize_button"
+            android:textColor="@color/fontColor"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            />
+    </LinearLayout>
+
+    <!-- Complaint Reg Date And Time  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_id_reg_time"
+            android:textColor="@color/inputColor"
+
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="12sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_id_reg_date"
+            android:textColor="@color/inputColor"
+            android:textSize="12sp"
+            />
+    </LinearLayout>
+</LinearLayout>

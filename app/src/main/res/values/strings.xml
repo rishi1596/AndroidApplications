@@ -1,0 +1,112 @@
+<resources>
+    <string name="app_name">B K InfoTech</string>
+    <string name="mobile_no">Please Enter your Mobile no.</string>
+
+    <string name="email">Please Enter your Email Address</string>
+    <string name="already"><u> Already Registered? </u></string>
+    <string name="register">Register</string>
+    <string name="validation_mobile_no">Please Enter a Valid Mobile No.</string>
+    <string name="validation_email">Please Enter a Valid Email Address</string>
+
+    <string name="otp">Please Enter the OTP </string>
+    <string name="reset">Reset Password</string>
+    <string name="validation_otp">Please Enter a Valid OTP</string>
+    <string name="register_complaint">Raise Ticket</string>
+    <string name="register_new_complaint">Register Complaint</string>
+    <string name="name">Full Name</string>
+    <string name="asterisk">*</string>
+    <string name="company_name">Company Name</string>
+
+    <string name="validation_name">Please Enter a Valid Name</string>
+    <string name="validation_company_name">Please Enter a Valid Company Name</string>
+    <string name="validation_user_type">Please Select a User type</string>
+    <string name="validation_problem_type">Please Select a Problem type</string>
+    <string name="validation_alt_mno">Please Enter a Valid Mobile No.</string>
+    <string name="validation_address">Please Enter a Valid Address</string>
+    <string name="validation_desc">Please Enter a Valid Description</string>
+
+    <string name="select_user_type">Select Type</string>
+    <string-array name="select_type">
+        <item>Select User Type</item>
+        <item>AMC</item>
+        <item>Non-AMC</item>
+    </string-array>
+
+
+    <string name="alt_no">Alternate No.</string>
+    <string name="address">Address</string>
+    <string name="description">Description of problem</string>
+    <string name="contact_registered">Contact No.</string>
+    <string name="all_tickets">All Tickets</string>
+    <string name="in_process_complaints">Tickets In Queue</string>
+    <string name="close">Close</string>
+    <string name="ticket_status">Ticket Status</string>
+    <string name="engineer_ticket_status">Engineer\'s Status</string>
+    <string name="validate_otp">Confirm OTP</string>
+    <string name="closed">Closed</string>
+    <string name="open">Open</string>
+    <string name="select_problem_type">Problem Type</string>
+    <string-array name="problem_type">
+        <item>Select Problem Type</item>
+        <item>Software</item>
+        <item>Hardware</item>
+    </string-array>
+    <string name="no_complaints">No Complaints</string>
+    <string name="no_network">No Network!</string>
+    <string name="raise_again">Raise Again</string>
+    <string name="ticket_no">Ticket No.</string>
+    <string name="service_type">Service Type -</string>
+    <string name="problem_type">Problem Type -</string>
+    <string name="prob_desc">Description -</string>
+    <string name="engineer_name">Engineer\'s Name -</string>
+    <string name="allotted_date">Allotted Date -</string>
+
+    <string name="spinner_allotment_error">Please Select one of the Date</string>
+    <string name="spinner_slot_error">Please Select one of the Slot</string>
+    <string name="about_us">About Us</string>
+    <string name="settings">Settings</string>
+    <string name="offers">Offers</string>
+    <string name="rate_service">Service Rating</string>
+    <string name="rate_engineer">Engineer Rating</string>
+    <string name="remark">Any remark regarding our service, engineer or overall process?</string>
+    <string name="submit">Submit</string>
+    <string name="error_remark">Please Don\'t Include Special Charaters</string>
+    <string name="unsuccessful">Unsuccessful.Please Try Again Later.</string>
+    <string name="appointment">Appointment -</string>
+    <string name="requested">Requested Appt -</string>
+    <string name="engineer_appointed_on">Engg. Appt On</string>
+    <string name="engineer_closing">Engg. Closed Ticket on</string>
+    <string name="fontFamily">serif</string>
+    <string name="date_not_alloted">Date Yet To Be Alloted</string>
+
+    <string name="ticket_penidng">Ticket Pending</string>
+    <string name="ticket_in_process">Ticket In Process</string>
+    <string name="ticket_processed_partially">Ticket Processed Partially</string>
+    <string name="ticket_processed">Ticket Processed</string>
+    <string name="ticket_closed">Ticket Closed</string>
+    <string name="ticket_raised_again">Ticket Raised Again</string>
+    <string name="web_app_name">B.K.InfoTech</string>
+    <string name="our_vision">Our vision</string>
+    <string name="our_vision_content"><![CDATA[To be a leading organization in Information Technology and providing a comprehensive range of Networking solution & Services to our customers.]]></string>
+    <string name="our_aim">Our aim</string>
+    <string name="our_aim_content">To delight customers with our expertise and to be the preferred service provider in the world of IT solutions.</string>
+    <string name="choose_us">Why Choose Us?</string>
+    <string name="what_can_we_offer_you">What can we offer you?</string>
+    <string name="choose_us_content">B.K. Infotech is a leading provider of IT Infrastructure, Networing, Security equipment services and Desktop management. Our services are engineered to improve your existing IT infrastructure and help you align your business objectives with IT strategies. With our extensive industry expertise and best practices with clients, we will make your business stronger and enhance your business processes.  We provide 24X7 support with multi tiered staff structure so your business runs independent of any single person that is part of your staff, or ours. We act as shadow resource to your current IT Staff so that your business continues as usual when your IT staff is unavailable for any reason. Our strategy revolves around setting up systems correctly, and proactively monitoring them so as to reduce downtime to a minimum.</string>
+    <string name="what_can_we_offer_you_content">B.K. Infotech offers you services that allow you to get control of your IT systems. From conducting comprehensive requirement analysis to providing custom tailored solutions, We provide you with single point of contact for all your IT needs.</string>
+    <string name="kalpesh_jain">KALPESH JAIN</string>
+    <string name="sandeep_jain">SANDEEP JAIN</string>
+    <string name="founder">Founder</string>
+    <string name="co_founder">CO-Founder</string>
+    <string name="ok">OK</string>
+    <string name="arrow"><![CDATA[-->]]></string>
+    <string name="request_appointment">Request New Appt.</string>
+    <string name="reset_activity_mobile_no_confirmation">Are the Details Correct? OTP will be send on given mobile number </string>
+    <string name="opt_confirmation">Is the OTP Correct?</string>
+    <string name="no_registration_confirmation">Are You Sure about Mobile No? As this number will be the point of contact </string>
+    <string name="no_internet_con">There is no active network connection!</string>
+    <string name="info">INFO</string>
+    <string name="ticket_feedback">TICKET FEEDBACK</string>
+    <string name="raise_ticket_dailog">Are you sure you want to raise a complaint?</string>
+    <string name="change_appointment_dailog">Are you sure you want to request for another appointment?</string>
+</resources>

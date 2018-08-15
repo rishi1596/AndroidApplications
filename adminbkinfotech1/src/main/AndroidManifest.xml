@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="rj.adminbkinfotech1">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application android:allowBackup="true"
+        android:icon="@drawable/bk_logo_resized"
+        android:label="@string/android_app_name"
+        android:roundIcon="@drawable/bk_logo_resized"
+        android:supportsRtl="true"
+        android:theme="@style/actionBar" >
+        <activity android:name="rj.adminbkinfotech1.SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="rj.adminbkinfotech1.AdminLogin">
+            <intent-filter>
+                <action android:name="android.intent.action.AdminLogin" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="rj.adminbkinfotech1.AdminActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.AdminActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="rj.adminbkinfotech1.NewComplaint"
+            android:noHistory="false"
+            android:label="@string/new_complaint">
+            <intent-filter>
+                <action android:name="android.intent.action.NewComplaint" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="rj.adminbkinfotech1.NewSpecificComplaint"
+            android:noHistory="true"
+            android:label="@string/complaint_details">
+            <intent-filter>
+                <action android:name="android.intent.action.NewSpecificComplaint" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="rj.adminbkinfotech1.AllComplaint"
+            android:noHistory="false"
+            android:label="@string/all_complaint">
+            <intent-filter>
+                <action android:name="android.intent.action.AllComplaint" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="rj.adminbkinfotech1.AppointedComplaint"
+            android:label="@string/processed_complaints"
+            android:noHistory="false">
+            <intent-filter>
+                <action android:name="android.intent.action.AppointedComplaint" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TicketInfo"
+            android:theme="@style/AppDialogTheme"
+            android:noHistory="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.TicketInfo" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="rj.adminbkinfotech1.FirebaseService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="rj.adminbkinfotech1.FirebaseClassID">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

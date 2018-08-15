@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/black1"
+    android:padding="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+        <AutoCompleteTextView
+            android:id="@+id/et_id_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/name"
+            android:textColorHint="@color/hintColor"
+            android:textColor="@color/edit_text_state"
+            android:background="@drawable/customize_edit_text"
+
+            android:layout_marginEnd="3dp"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:maxLines="1"
+            />
+        <!--<EditText
+            android:id="@+id/et_id_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/name" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asterisk"
+            android:textColor="@android:color/holo_red_light"
+            android:id="@+id/tv_id_name_ast"/>
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/et_id_company_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/company_name"
+        android:textColorHint="@color/hintColor"
+        android:textColor="@color/edit_text_state"
+        android:background="@drawable/customize_edit_text"
+        android:layout_marginBottom="10dp"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:maxLines="1"
+        android:inputType="text"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1" android:layout_marginBottom="10dp">
+    <Spinner
+        android:id="@+id/spinner_select_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:entries="@array/select_type"
+
+        android:layout_weight="1"
+
+        android:layout_marginEnd="3dp"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asterisk"
+            android:textColor="@android:color/holo_red_light"
+            android:id="@+id/tv_id_user_type_ast"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1" android:layout_marginBottom="10dp">
+    <Spinner
+        android:id="@+id/spinner_problem_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:entries="@array/problem_type"
+
+        android:layout_weight="1"
+        android:layout_marginEnd="3dp"
+
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asterisk"
+            android:textColor="@android:color/holo_red_light"
+            android:id="@+id/tv_id_problem_type_ast"/>
+    </LinearLayout>
+    <EditText
+        android:id="@+id/et_id_reg_contact_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/contact_registered"
+        android:textColorHint="@color/hintColor"
+        android:textColor="@color/edit_text_state"
+        android:background="@drawable/customize_edit_text"
+        android:layout_marginBottom="10dp"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:maxLines="1"
+        android:inputType="phone"
+      />
+
+    <EditText
+        android:id="@+id/et_id_alt_contact_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/alt_no"
+        android:textColorHint="@color/hintColor"
+        android:textColor="@color/edit_text_state"
+        android:background="@drawable/customize_edit_text"
+        android:layout_marginBottom="10dp"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:maxLines="1"
+        android:inputType="phone"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1" android:layout_marginBottom="10dp">
+
+        <EditText
+            android:id="@+id/et_id_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/description"
+            android:maxLines="5"
+            android:textColorHint="@color/hintColor"
+            android:textColor="@color/edit_text_state"
+            android:background="@drawable/customize_edit_text"
+            android:inputType="text"
+            android:layout_marginEnd="3dp"
+            android:textCursorDrawable="@drawable/cursor_color"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asterisk"
+            android:textColor="@android:color/holo_red_light"
+            android:id="@+id/tv_id_desc_ask"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/ll_id_already_allotted_time"
+        android:visibility="gone"
+        android:weightSum="3"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/customize_edit_text"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="@string/allotted_date"
+            android:textColorHint="@color/hintColor"
+            android:textColor="@color/inputColor"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tv_id_allotted_date"
+            android:textColorHint="@color/hintColor"
+            android:textColor="@color/inputColor"
+
+            android:layout_marginEnd="4dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/tv_id_allotted_slot"
+            android:textColorHint="@color/hintColor"
+            android:textColor="@color/inputColor"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:visibility="gone"
+        android:id="@+id/ll_id_apt_dates" android:layout_marginBottom="10dp">
+        <Spinner
+            android:id="@+id/spinner_appointment_dates"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asterisk"
+            android:textColor="@android:color/holo_red_light"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:visibility="gone"
+        android:id="@+id/ll_id_apt_slots" android:layout_marginBottom="10dp">
+        <Spinner
+            android:id="@+id/spinner_appointment_date_slots"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asterisk"
+            android:textColor="@android:color/holo_red_light"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_error"
+        android:visibility="gone"
+
+        android:textColor="@color/errorColor"
+        android:layout_marginTop= "2dp"
+
+        />
+    <Button
+        android:id="@+id/btn_id_launch_complaint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_new_complaint"
+        android:layout_gravity="center"
+
+        android:textColor="@color/fontColor"
+        android:background="@drawable/customize_button"
+        android:layout_marginTop= "5dp"
+        />
+
+
+</LinearLayout>
+</ScrollView>

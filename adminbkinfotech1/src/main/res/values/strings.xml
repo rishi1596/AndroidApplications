@@ -1,0 +1,81 @@
+<resources>
+    <string name="android_app_name">BKInfo Admin</string>
+    <string name="app_name">B K InfoTech</string>
+    <string name="app_type">ADMIN</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="validation_username">Please Enter a Valid Username</string>
+    <string name="validation_password">Please Enter a Valid Password</string>
+    <string name="new_complaint">New Tickets</string>
+    <string name="appointed_complaint">In Process Tickets</string>
+    <string name="all_complaint">All Tickets Details</string>
+    <string name="appoint_engineer">Appoint Engineer</string>
+    <string name="select_engineer">Select Engineer</string>
+    <string name="spinner_error">Please Select one of the engineer</string>
+    <string name="spinner_allotment_error">Please Select one of the Date</string>
+    <string name="spinner_slot_error">Please Select one of the Slot</string>
+    <string name="error_msg_specific_complaint">Unsuccessful. Please Try Again</string>
+    <string name="incorrect">Credentials are incorrect or Already Logged In</string>
+    <string name="log_out">Log Out</string>
+    <string name="log_out_text">Are you sure you want to LogOut?</string>
+    <string name="no_internet">No Network!</string>
+    <string name="complaint_details">Complaint Details</string>
+    <string name="processed_complaints">Processed Complaints</string>
+    <string-array name="engineers">
+        <item>Select Engineer</item>
+        <item>Mayur Pitale</item>
+        <item>Rambharat Gupta</item>
+        <item>Dinkar Yadav</item>
+        <item>Nilesh</item>
+        <item>Sharad Pawar</item>
+        <item>Rupesh Bhovad</item>
+        <item>Akhilesh Tiwari</item>
+    </string-array>
+
+    <string name="ticket_no">Ticket No.</string>
+    <string name="service_type">Service Type</string>
+    <string name="problem_type">Problem Type</string>
+    <string name="prob_desc">Description</string>
+    <string name="engineer_name">Engineer\'s Name</string>
+    <string name="user_name">Client\'s Name</string>
+    <string name="contact_no">Contact No.</string>
+    <string name="not_yet">N/A</string>
+    <string name="registration_time">Ticket Reg. Time</string>
+    <string name="registration_date">Ticket Reg. Date</string>
+    <string name="company_name">Company Name</string>
+    <string name="user_type">User Type</string>
+    <string name="alt_contact_no">Alternate Contact no.</string>
+    <string name="address">Please Enter The Address</string>
+    <string name="validation_address">Please Enter a Valid Address</string>
+    <string name="engineer_allotment_time">Engineer Allotment Time</string>
+    <string name="engineer_allotment_date">Engineer Allotment Date</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_slot">Select Slot</string>
+    <string name="appointment">Appointment</string>
+    <string name="requested">Requested Appt</string>
+    <string name="engineer_appointed_on">Engg. Appt On</string>
+    <string name="engineer_closing">Engg. Closed Ticket on</string>
+    <string name="admin_name">Appt By Admin</string>
+    <string name="prev_engineer_name">Prev. Engg. Appt</string>
+    <string name="ticket_closing">Ticket Closed On</string>
+    <string name="prev_solution">Previous Solution</string>
+    <string name="engg_solution">Solution</string>
+    <string name="open">Open</string>
+    <string name="closed">Closed</string>
+    <string name="no_network">No Network.</string>
+    <string name="no_complaints">No Complaints</string>
+
+    <string name="raise_ticket">Raise Ticket</string>
+
+
+    <string name="info">INFO</string>
+    <string name="ticket_pending">Ticket Pending</string>
+    <string name="ticket_in_process">Ticket In Process</string>
+    <string name="ticket_processed_partially">Ticket Processed Partially</string>
+    <string name="ticket_processed">Ticket Processed</string>
+    <string name="ticket_closed">Ticket Closed</string>
+    <string name="ticket_raised_again">Ticket Raised Again</string>
+
+    <string name="fontFamily">serif</string>
+</resources>

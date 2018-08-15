@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="#d6d6d6"
+    android:id="@+id/ll_id_info_ticket_xml"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/info"
+        android:background="@color/inputColor"
+        android:textColor="@color/fontColor"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:padding="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:drawableEnd="@drawable/whiteclose15"
+        android:drawableRight="@drawable/whiteclose15"
+        android:drawablePadding="3dp"
+        android:id="@+id/tv_id_info_close"
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_weight="0.1"
+            android:src="@drawable/pending"
+            />
+        <!-- <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/arrow"
+            android:gravity="center"
+            android:textColor="@color/editTextBgColor"
+            />-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="@string/ticket_pending"
+            android:textColor="@color/ticket_pending"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:weightSum="1"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_weight="0.1"
+            android:src="@drawable/inprocess"
+            />
+        <!--  <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:text="@string/arrow"
+        android:gravity="center"
+            android:textColor="@color/editTextBgColor"
+        />-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="@string/ticket_in_process"
+            android:textColor="@color/ticket_in_process"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:weightSum="1"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_weight="0.1"
+            android:src="@drawable/partial"
+            />
+        <!-- <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:text="@string/arrow"
+        android:gravity="center"
+            android:textColor="@color/editTextBgColor"
+        />-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="@string/ticket_processed_partially"
+            android:textColor="@color/ticket_processed_partially" android:textSize="16sp" android:fontFamily="sans-serif"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:weightSum="1"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_weight="0.1"
+            android:src="@drawable/processed"
+
+            />
+        <!--  <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:text="@string/arrow"
+        android:gravity="center"
+            android:textColor="@color/editTextBgColor"
+        />-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="@string/ticket_processed"
+            android:textColor="@color/ticket_processed" android:textSize="16sp" android:fontFamily="sans-serif"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:weightSum="1"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_weight="0.1"
+            android:src="@drawable/closed"
+            />
+        <!--   <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:text="@string/arrow"
+        android:gravity="center"
+            android:textColor="@color/editTextBgColor"
+        />-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="@string/ticket_closed"
+            android:textColor="@color/ticket_closed" android:textSize="16sp" android:fontFamily="sans-serif"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:weightSum="1"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="15dp"
+            android:layout_weight="0.1"
+            android:src="@drawable/raisedagain"
+            />
+        <!--  <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:text="@string/arrow"
+        android:gravity="center"
+            android:textColor="@color/editTextBgColor"
+            android:layout_marginBottom="10dp"
+        />-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="@string/ticket_raised_again"
+            android:textColor="@color/raised_again"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            />
+    </LinearLayout>
+    <!--<Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:background="@drawable/customize_button"
+        android:textColor="@color/fontColor"
+        android:layout_marginTop="10dp"
+
+        />-->
+</LinearLayout>

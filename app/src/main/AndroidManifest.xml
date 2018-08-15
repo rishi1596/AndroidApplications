@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="rj.bkinfotech">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/bk_logo_resized"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/actionBar"
+        >
+        <activity android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ResetActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.ResetActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".UserActivity"
+            android:theme="@style/actionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.UserActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ResgisterComplaintActivity"
+            android:label="@string/register_complaint"
+            android:noHistory="true"
+            android:theme="@style/actionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.ResgisterComplaintActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".InProcessComplaintActivity"
+            android:label="@string/in_process_complaints"
+            android:noHistory="false"
+            android:theme="@style/actionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.InProcessComplaintActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AllComplaintsStatusActivity"
+            android:noHistory="false"
+            android:label="@string/all_tickets"
+            android:theme="@style/actionBar"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.AllComplaintsStatusActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TicketFeedback"
+            android:theme="@style/AppDialogTheme"
+            android:label="Feedback"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.TicketFeedback" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TicketInfo"
+            android:theme="@style/AppDialogTheme"
+            android:noHistory="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.TicketInfo" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AboutUs"
+            android:noHistory="true"
+            android:label="@string/about_us"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+
+
+        <service
+            android:name=".FirebaseService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".FirebaseClassID">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

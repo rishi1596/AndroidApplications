@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    android:weightSum="6">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ticket_solution"
+        android:background="@color/inputColor"
+        android:textColor="@color/fontColor"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:padding="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:drawableEnd="@drawable/whiteclose15"
+        android:drawableRight="@drawable/whiteclose15"
+        android:drawablePadding="3dp"
+        android:id="@+id/tv_id_ticket_solution_close"
+        android:layout_marginBottom="10dp"
+
+        />
+
+
+   <!-- <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_id_cancel"
+        android:src="@drawable/cancel"
+        android:layout_gravity="end"/>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/problem_desc"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/editTextBgColor"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_id_problem_desc"
+        android:visibility="gone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        android:hint="@string/problems_solution"
+        android:id="@+id/et_id_solution"
+        android:textAlignment="textStart"
+        android:layout_gravity="start"
+        android:background="@drawable/customize_edit_text"
+        android:textColorHint="@color/hintColor"
+        android:textColor="@color/edit_text_state"
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:textCursorDrawable="@drawable/cursor_color"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_id_error"
+        android:visibility="gone"
+        android:textColor="@color/errorColor"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="@string/submit"
+        android:id="@+id/btn_id_submit"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/customize_button"
+        android:textColor="@color/fontColor"
+        android:layout_margin="10dp"
+        />
+
+</LinearLayout>

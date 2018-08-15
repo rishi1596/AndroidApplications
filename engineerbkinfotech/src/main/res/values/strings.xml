@@ -1,0 +1,49 @@
+<resources>
+    <string name="android_app_name">BKInfo Engineer</string>
+    <string name="app_name">B K InfoTech</string>
+    <string name="app_type">ENGINEER</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="validation_username">Please Enter a Valid Username</string>
+    <string name="validation_password">Please Enter a Valid Password</string>
+    <string name="close">Close</string>
+
+    <string name="log_out">Log Out</string>
+    <string name="log_out_text">Are you sure you want to LogOut?</string>
+    <string name="no_internet">No Network!</string>
+    <string name="incorrect">Credentials are incorrect or Already Logged In</string>
+    <string name="partially_done">Partial</string>
+    <string name="problem_desc">Problem\'s Description:</string>
+    <string name="problems_solution">Solution of the ticket</string>
+    <string name="submit">Submit</string>
+    <string name="solutionError">Please enter problem\'s solution in detail</string>
+    <string name="unsuccessful">Unsuccessful. Please Try Again!</string>
+
+    <string name="no_complaints">No Complaints</string>
+    <string name="no_network">No Network!</string>
+    <string name="raise_again">Raise Again</string>
+    <string name="ticket_no">Ticket No.</string>
+    <string name="service_type">Service Type -</string>
+    <string name="problem_type">Problem Type -</string>
+    <string name="prob_desc">Description -</string>
+    <string name="appointment">Appointment -</string>
+    <string name="customer_name">Customer Name -</string>
+    <string name="company_name">Company Name -</string>
+    <string name="customer_address">Customer Address -</string>
+
+
+
+    <string name="info">INFO</string>
+    <string name="ticket_pending">Ticket Pending</string>
+    <string name="ticket_in_process">Ticket In Process</string>
+    <string name="ticket_processed_partially">Ticket Processed Partially</string>
+    <string name="ticket_processed">Ticket Processed</string>
+    <string name="ticket_closed">Ticket Closed</string>
+    <string name="ticket_raised_again">Ticket Raised Again</string>
+
+    <string name="fontFamily">serif</string>
+    <string name="ticket_solution">TICKET SOLUTION</string>
+    <string name="credentials_dailog">Are the credentials correct?</string>
+</resources>

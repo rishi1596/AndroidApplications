@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="actionBar" parent="Theme.AppCompat.Light" >
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/actionBarStyle</item>
+
+    </style>
+
+    <style name="actionBarStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">#a3d044</item>
+
+    </style>
+
+
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/ticket_id_bg_color</item>
+        <item name="colorControlActivated">@color/fontColor</item>
+    </style>
+
+   <!-- <style name="AppDialogTheme" parent="@style/Theme.AppCompat.Dialog">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:actionBarTheme">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowFrame">@null</item>
+
+    </style>-->
+</resources>

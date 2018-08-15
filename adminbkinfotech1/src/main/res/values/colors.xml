@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="fontColor">#F58634</color>
+    <color name="hintColor">#8394ab</color>
+    <color name="inputColor">#272d35</color>
+    <color name="errorColor">#cf0006</color>
+    <color name="editTextBgColor">#fff</color>
+
+    <!-- ticket status -->
+    <color name="ticket_pending">#68004a</color>
+    <color name="ticket_in_process">#ff4400</color>
+    <color name="ticket_processed_partially">#1e0054</color>
+    <color name="ticket_processed">#7b1fa2</color>
+    <color name="ticket_closed">#00A859</color>
+    <color name="raised_again">#cf0006</color>
+
+    <color name="ticket_id_bg_color">#2867B5</color>
+
+</resources>

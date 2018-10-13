@@ -34,7 +34,6 @@
     <string name="customer_address">Customer Address -</string>
 
 
-
     <string name="info">INFO</string>
     <string name="ticket_pending">Ticket Pending</string>
     <string name="ticket_in_process">Ticket In Process</string>
@@ -46,4 +45,5 @@
     <string name="fontFamily">serif</string>
     <string name="ticket_solution">TICKET SOLUTION</string>
     <string name="credentials_dailog">Are the credentials correct?</string>
+    <string name="privacy_policy"><u>Privacy Policy</u></string>
 </resources>

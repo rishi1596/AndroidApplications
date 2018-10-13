@@ -1,79 +1,48 @@
 package rj.engineerbkinfotech;
 
-import android.*;
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
-import android.provider.Settings;
-
-
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.Permission;
-import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import rj.engineerbkinfotech.Constants.Constants;
-
-import static android.support.v4.app.ActivityCompat.requestPermissions;
 
 
 /**
  * Created by jimeet29 on 04-02-2018.
  */
 
-public class GPS extends Service  {
+public class GPS extends Service {
 
-    private static final String TAG = "GPS" ;
+    private static final String TAG = "GPS";
     public static Boolean isRunning = false;
     private Context mContext;
 
@@ -101,13 +70,14 @@ public class GPS extends Service  {
     FileOutputStream locfile;
     InputStream fis;
     File fileName;
-    int count=1,send_or_not=0;
-    String rootpath,readDataFromFile,date,time;
+    int count = 1, send_or_not = 0;
+    String rootpath, readDataFromFile, date, time;
     StringBuilder finalData;
     SharedPreferences spGPS;
     JSONArray locArray;
     ConnectivityManager cm;
     NetworkInfo ni;
+
     public GPS() {
 
     }
@@ -120,8 +90,8 @@ public class GPS extends Service  {
 
     @Override
     public void onCreate() {
-        mlocation =  new location_listener();
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        mlocation = new location_listener();
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         isGPSEnabled = locationManager
                 .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
@@ -130,25 +100,22 @@ public class GPS extends Service  {
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
 
-
-
-
         rootpath = Environment.getExternalStorageDirectory().toString();
         new File(rootpath + "/BK Infotech").mkdir();
-        fileName = new File(rootpath+"/BK Infotech","topsecret.txt");
+        fileName = new File(rootpath + "/BK Infotech", "topsecret.txt");
         finalData = new StringBuilder();
         locArray = new JSONArray();
 
 
         getLocation();
 
-        Log.d("on create","create");
+        Log.d("on create", "create");
         super.onCreate();
     }
 
     public void getLocation() {
         try {
-            Log.d("inside getlocation","getlocation");
+            Log.d("inside getlocation", "getlocation");
             //TODO uncomment in next update
             /*if (isGPSEnabled) {
                     locationManager.requestLocationUpdates(
@@ -210,7 +177,7 @@ public class GPS extends Service  {
         alertDialog.show();
     }*/
 
-   //TODO Uncomment in next update
+    //TODO Uncomment in next update
    /* public void showSettingsAlert() {
         GoogleApiClient googleApiClient = new GoogleApiClient.Builder(mContext)
                 .addApi(LocationServices.API).build();
@@ -252,11 +219,10 @@ public class GPS extends Service  {
         });
     }
 */
-    private void writefile(double lat, double lng,String dte,String tme)
-    {
+    private void writefile(double lat, double lng, String dte, String tme) {
 
         try {
-            cm = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+            cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
             ni = cm.getActiveNetworkInfo();
             spGPS = getSharedPreferences("gps", 0);
             String data;
@@ -269,13 +235,13 @@ public class GPS extends Service  {
                 rootpath = Environment.getExternalStorageDirectory().toString();
                 // new File(rootpath + "/BK Infotech").mkdir();
 
-                locfile = new FileOutputStream(fileName,true);
+                locfile = new FileOutputStream(fileName, true);
                 // if file doesnt exists, then create it
                 if (!fileName.exists()) {
                     fileName.createNewFile();
-                }else {
+                } else {
 
-                    data = "{\"locno\":\""+count+"\",\"lat\":\""+lat+"\",\"lng\":\""+lng+"\","+"\"dte\":\""+dte+"\",\"tme\":\""+tme+"\"},";
+                    data = "{\"locno\":\"" + count + "\",\"lat\":\"" + lat + "\",\"lng\":\"" + lng + "\"," + "\"dte\":\"" + dte + "\",\"tme\":\"" + tme + "\"},";
                     //data = "{locno:"+count+",lat:"+lat+",lng:"+lng+","+"dte:"+dte+",tme:"+tme+"},";
                     // get the content in bytes
                     byte[] contentInBytes = data.getBytes();
@@ -283,7 +249,7 @@ public class GPS extends Service  {
                     locfile.flush();
                     locfile.close();
                     count++;
-                    Log.d("Success","locations");
+                    Log.d("Success", "locations");
                     SharedPreferences.Editor edit = spGPS.edit();
                     edit.putString("lat", String.valueOf(lat));
                     edit.putString("lng", String.valueOf(lng));
@@ -291,8 +257,8 @@ public class GPS extends Service  {
                 }
                 if (ni != null && ni.isConnected() && ni.isAvailable()) {
                     //if(isInternetActive()) {
-                        readfile();
-                  //  }
+                    readfile();
+                    //  }
                 }
 
                /* JSONObject finalLocationWithDetails = new JSONObject();
@@ -305,7 +271,7 @@ public class GPS extends Service  {
 
                 new SendLocation().execute(finalLocationWithDetails.toString());*/
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -344,82 +310,78 @@ public class GPS extends Service  {
                         eelse nothing*/
     }
 
-    public boolean isInternetActive()
-    {
+    public boolean isInternetActive() {
         try {
             String command = "ping -i 3 -c 1 google.com";
             return (Runtime.getRuntime().exec(command).waitFor() == 0);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
-    private void readfile(){
-        try {
-            JSONObject finalLocationWithDetails= new JSONObject();
 
-            finalData.insert(0,"[");
+    private void readfile() {
+        try {
+            JSONObject finalLocationWithDetails = new JSONObject();
+
+            finalData.insert(0, "[");
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             //
-            while ((readDataFromFile=br.readLine())!=null)
-            {
+            while ((readDataFromFile = br.readLine()) != null) {
                 finalData.append(readDataFromFile);
             }
 
             br.close();
-            finalData.replace(finalData.length()-1,finalData.length(),"]");
-         //   finalData.delete();
-           Log.d("File Content", String.valueOf(finalData));
-           //
+            finalData.replace(finalData.length() - 1, finalData.length(), "]");
+            //   finalData.delete();
+            Log.d("File Content", String.valueOf(finalData));
+            //
 
             locArray.put(finalData);
-            Log.d("locarray",locArray.toString());
-            finalLocationWithDetails.put(Constants.strClientIdKey,Constants.clientId);
-            finalLocationWithDetails.put("username",getSharedPreferences("settings",0).getString("username",null));
-            finalLocationWithDetails.put("locations",finalData);
-            Log.d("Data",finalLocationWithDetails.toString());
+            Log.d("locarray", locArray.toString());
+            finalLocationWithDetails.put(Constants.strClientIdKey, Constants.clientId);
+            finalLocationWithDetails.put("username", getSharedPreferences(Constants.sharedPreferencesFileNameSettings, 0).getString("username", null));
+            finalLocationWithDetails.put("locations", finalData);
+            Log.d("Data", finalLocationWithDetails.toString());
 
             new SendLocation().execute(finalLocationWithDetails.toString());
 
 
-
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public class location_listener implements LocationListener {
+
+
+        @Override
+        public void onLocationChanged(Location location) {
+
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            time = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+            date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+            Log.d("lat", String.valueOf(latitude));
+            Log.d("long", String.valueOf(longitude));
+            writefile(latitude, longitude, date, time);
         }
 
-   public class location_listener implements LocationListener{
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
 
+        }
 
-       @Override
-       public void onLocationChanged(Location location) {
+        @Override
+        public void onProviderEnabled(String provider) {
 
-           latitude = location.getLatitude();
-           longitude = location.getLongitude();
-           time = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-           date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
-           Log.d("lat", String.valueOf(latitude));
-           Log.d("long", String.valueOf(longitude));
-           writefile(latitude,longitude,date,time);
-       }
+        }
 
-       @Override
-       public void onStatusChanged(String provider, int status, Bundle extras) {
+        @Override
+        public void onProviderDisabled(String provider) {
 
-       }
-
-       @Override
-       public void onProviderEnabled(String provider) {
-
-       }
-
-       @Override
-       public void onProviderDisabled(String provider) {
-
-       }
-   }
+        }
+    }
 
     @Nullable
     @Override
@@ -427,45 +389,44 @@ public class GPS extends Service  {
         return null;
     }
 
-    private class SendLocation extends AsyncTask<String,Void,String> {
+    private class SendLocation extends AsyncTask<String, Void, String> {
         URL link;
         HttpURLConnection urlConnection;
+
         @Override
         protected String doInBackground(String... params) {
             try {
                 link = new URL("http://bkinfotech.in/app/insertLocation.php");
-                urlConnection =(HttpURLConnection) link.openConnection();
+                urlConnection = (HttpURLConnection) link.openConnection();
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type","application/json;charset=utf-8");
-                urlConnection.setRequestProperty("Accept","application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                urlConnection.setRequestProperty("Accept", "application/json");
                 urlConnection.setConnectTimeout(3000);
                 urlConnection.connect();
 
-                Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(),"UTF-8"));
+                Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
                 writer.write(params[0]);
                 writer.close();
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 StringBuilder sb = new StringBuilder();
-                String response,finalres;
+                String response, finalres;
 
-                while((response=br.readLine())!=null)
-                {
+                while ((response = br.readLine()) != null) {
                     sb.append(response).append("\n");
                 }
                 finalres = sb.toString().trim();
-                Log.d("Response",finalres);
+                Log.d("Response", finalres);
 
 
-                if(finalres.equals("1")) {
+                if (finalres.equals("1")) {
 
-                    while(locArray.length()!=0)
-                    {
+                    while (locArray.length() != 0) {
                         locArray.remove(locArray.length());
                     }
                     fileName.delete();
-                    finalData.delete(0,finalData.length());
+                    finalData.delete(0, finalData.length());
                 }
                 /*
                 if(finalres.equals("1"))
@@ -477,9 +438,8 @@ public class GPS extends Service  {
                     fileName.delete();
                 }
                 finalData.delete(0,finalData.length());*/
-            }catch (Exception e)
-            {
-                Log.d("Gps Service",e.toString());
+            } catch (Exception e) {
+                Log.d("Gps Service", e.toString());
                 e.printStackTrace();
             }
             return null;

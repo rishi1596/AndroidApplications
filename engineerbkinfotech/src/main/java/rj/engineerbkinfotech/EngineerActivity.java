@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -36,11 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.InetAddress;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import rj.engineerbkinfotech.Constants.Constants;
 
@@ -48,16 +45,16 @@ import rj.engineerbkinfotech.Constants.Constants;
  * Created by jimeet29 on 26-12-2017.
  */
 
-public class EngineerActivity extends AppCompatActivity implements TaskCompleted,View.OnClickListener{
-     // 1 get complaints ,2 for close , 3 for partial close
+public class EngineerActivity extends AppCompatActivity implements TaskCompleted, View.OnClickListener {
+    // 1 get complaints ,2 for close , 3 for partial close
     ProgressDialog pg;
     ListAdapter adapter;
     ListView listView;
-    JSONObject engineer_complaint,send_details,logOut_details;
+    JSONObject engineer_complaint, send_details, logOut_details;
     JSONArray all_complaints;
     static JSONArray STATIC_ALL_COMPLAINTS;
     ArrayList<ComplaintModel> complaintModel;
-    TextView tv_error;
+    TextView tv_error, tv_privacy_policy;
     static int RESULT;
     SharedPreferences sp;
     public static final int CALL_BACK_CODE = 1;
@@ -70,7 +67,6 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
     public static Activity fa;
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,15 +74,14 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
         ctx = getApplicationContext();
         fa = this;
         sp = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
-        String engineerUName = sp.getString("username",null);
+        String engineerUName = sp.getString("username", null);
         engineerUName = engineerUName.substring(0, 1).toUpperCase() + engineerUName.substring(1);
-        titleText = "Welcome "+engineerUName;
-        setTitle("Welcome "+engineerUName);
+        titleText = "Welcome " + engineerUName;
+        setTitle("Welcome " + engineerUName);
 
         setContentView(R.layout.list_new_complaint_activity);
 
         initialize();
-
 
 
         setCustomActionBar();
@@ -105,25 +100,19 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
         }*/
 
 
-
-
-
-
-
-        if(savedInstanceState == null)
-        {
-            ConnectivityManager cm =(ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (savedInstanceState == null) {
+            ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
                 send_details = new JSONObject();
                 try {
                     //SharedPreferences sf = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
-                    String uname = sp.getString("username",null);
+                    String uname = sp.getString("username", null);
                     String code = "1";
-                    send_details.put(Constants.strClientIdKey,Constants.clientId);
-                    send_details.put("username",uname);
-                    send_details.put("code",code);
-                    Log.d("Engineer Detail",send_details.toString());
+                    send_details.put(Constants.strClientIdKey, Constants.clientId);
+                    send_details.put("username", uname);
+                    send_details.put("code", code);
+                    Log.d("Engineer Detail", send_details.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -131,8 +120,7 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                 new ComplaintsAsync(this).execute(send_details.toString());
 
 
-            }
-            else{
+            } else {
                 //Toast.makeText(getApplicationContext(),"No Network",Toast.LENGTH_SHORT).show();
                 tv_error.setText(R.string.no_network);
                 tv_error.setVisibility(View.VISIBLE);
@@ -140,16 +128,17 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
         }
 
 
-
     }
 
     private void initialize() {
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         GPSObj = new GPS(EngineerActivity.this);
         pg = new ProgressDialog(EngineerActivity.this);
-        tv_error =(TextView)findViewById(R.id.empty);
+        tv_error = (TextView) findViewById(R.id.empty);
+        tv_privacy_policy = (TextView) findViewById(R.id.tv_id_privacy_policy);
         complaintModel = new ArrayList<>();
-        listView = (ListView)findViewById(R.id.lv_id_complaints_list);
+        listView = (ListView) findViewById(R.id.lv_id_complaints_list);
+        tv_privacy_policy.setOnClickListener(this);
     }
 
     private void setCustomActionBar() {
@@ -161,8 +150,8 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
         tv_custom_action_bar_title.setText(titleText);
         tv_custom_action_bar_title.setTextSize(23.0f);
         tv_custom_action_bar_title.setGravity(Gravity.START);
-        ImageView iv_info = (ImageView)actionBar.getCustomView().findViewById(R.id.iv_id_info);
-        ImageView iv_log_out = (ImageView)actionBar.getCustomView().findViewById(R.id.iv_id_log_out);
+        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        ImageView iv_log_out = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_log_out);
         iv_info.setOnClickListener(this);
         iv_log_out.setOnClickListener(this);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -228,10 +217,9 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
 
     @Override
     public void onClick(View v) {
-        switch(v.getId())
-        {
+        switch (v.getId()) {
             case R.id.iv_id_info:
-                Intent ticket_info_activity = new Intent(getApplicationContext(),TicketInfo.class);
+                Intent ticket_info_activity = new Intent(getApplicationContext(), TicketInfo.class);
                 startActivity(ticket_info_activity);
                 break;
             case R.id.iv_id_log_out:
@@ -244,11 +232,11 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                         SharedPreferences sf = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
 
                         try {
-                            logOut_details.put("username",sf.getString("username",null));
+                            logOut_details.put("username", sf.getString("username", null));
                             String code = "2";
-                            logOut_details.put(Constants.strClientIdKey,Constants.clientId);
-                            logOut_details.put("code",code);
-                            Log.d("Engineer Details",logOut_details.toString());
+                            logOut_details.put(Constants.strClientIdKey, Constants.clientId);
+                            logOut_details.put("code", code);
+                            Log.d("Engineer Details", logOut_details.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -259,7 +247,7 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                             // Log.d("Inside if","true");
                             if (logOut_details.length() > 0) {
                                 new LogInOutAsync(EngineerActivity.this).execute(logOut_details.toString());
-                            }else {
+                            } else {
                                 Toast.makeText(getApplicationContext(), "No Network! Please Try Again.", Toast.LENGTH_SHORT).show();
                             }
                             // }
@@ -277,43 +265,45 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                 AlertDialog logOutAlert = alertBuilder.create();
                 logOutAlert.show();
                 break;
+
+            case R.id.tv_id_privacy_policy:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bkinfotech.in/privacy_policy.html"));
+                startActivity(browserIntent);
+                break;
         }
     }
 
-    public boolean isInternetActive()
-    {
-        Log.d("Inside isInternetActive","true");
-        try { InetAddress ipAddr = InetAddress.getByName("www.google.com");
+    public boolean isInternetActive() {
+        Log.d("Inside isInternetActive", "true");
+        try {
+            InetAddress ipAddr = InetAddress.getByName("www.google.com");
             //You can replace it with your name
             Log.d("Inside isInternetActive", String.valueOf(ipAddr));
             return !ipAddr.equals("");
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
     @Override
     public void onTaskComplete(String result) {
-        if(result.equals("1") || result.equals("0") )
-        {
-           RESULT = Integer.parseInt(result);
+        if (result.equals("1") || result.equals("0")) {
+            RESULT = Integer.parseInt(result);
 
             SharedPreferences.Editor editor = sp.edit();
-            editor.putBoolean("fr",false);
+            editor.putBoolean("fr", false);
             editor.apply();
 
-            Intent engineerActivity = new Intent(getApplicationContext(),EngineerLogin.class);
+            Intent engineerActivity = new Intent(getApplicationContext(), EngineerLogin.class);
             startActivity(engineerActivity);
             EngineerActivity.this.finish();
-        }
-        else {
+        } else {
 
             Log.d("NewComplaint", result);
             try {
                 all_complaints = new JSONArray(result);
-                if(all_complaints.length()==0)
-                {
+                if (all_complaints.length() == 0) {
                     tv_error.setText("No Complaints");
                     tv_error.setVisibility(View.VISIBLE);
                 }
@@ -336,7 +326,7 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                     String ticketstatus = engineer_complaint.getString("ticketstatus");
                     String raisedagain = engineer_complaint.getString("raisedagain");
                     complaintModel.add(new ComplaintModel(ticket_id, name, company_name, user_type, problemtype, description,
-                            address,complaint_reg_time,complaint_reg_date,allotted_date,allotted_slot,ticketstatus,raisedagain));
+                            address, complaint_reg_time, complaint_reg_date, allotted_date, allotted_slot, ticketstatus, raisedagain));
                     adapter = new CustomAdaptorNewComplaint(complaintModel, getApplicationContext());
 
                     listView.setAdapter(adapter);
@@ -356,14 +346,13 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i ("isMyServiceRunning?", true+"");
+                Log.i("isMyServiceRunning?", true + "");
                 return true;
             }
         }
-        Log.i ("isMyServiceRunning?", false+"");
+        Log.i("isMyServiceRunning?", false + "");
         return false;
     }
-
 
 
     @Override
@@ -372,12 +361,12 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
         super.onActivityResult(requestCode, resultCode, data);
         try {
 
-            Log.d("CallBack","inside call back");
-            if (resultCode  == RESULT_OK) {
+            Log.d("CallBack", "inside call back");
+            if (resultCode == RESULT_OK) {
 
                 //EngineerActivity.this.finish();
-                Log.d("CallBack","done");
-            }else {
+                Log.d("CallBack", "done");
+            } else {
                 //TODO uncomment in next update
                 //GPSObj.showSettingsAlert();
             }

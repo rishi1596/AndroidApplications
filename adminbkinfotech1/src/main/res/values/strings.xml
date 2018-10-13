@@ -12,9 +12,9 @@
     <string name="all_complaint">All Tickets Details</string>
     <string name="appoint_engineer">Appoint Engineer</string>
     <string name="select_engineer">Select Engineer</string>
-    <string name="spinner_error">Please Select one of the engineer</string>
     <string name="spinner_allotment_error">Please Select one of the Date</string>
     <string name="spinner_slot_error">Please Select one of the Slot</string>
+    <string name="spinner_engineer_error">Please Select one of the Engineer</string>
     <string name="error_msg_specific_complaint">Unsuccessful. Please Try Again</string>
     <string name="incorrect">Credentials are incorrect or Already Logged In</string>
     <string name="log_out">Log Out</string>
@@ -43,11 +43,8 @@
     <string name="not_yet">N/A</string>
     <string name="registration_time">Ticket Reg. Time</string>
     <string name="registration_date">Ticket Reg. Date</string>
-    <string name="company_name">Company Name</string>
     <string name="user_type">User Type</string>
     <string name="alt_contact_no">Alternate Contact no.</string>
-    <string name="address">Please Enter The Address</string>
-    <string name="validation_address">Please Enter a Valid Address</string>
     <string name="engineer_allotment_time">Engineer Allotment Time</string>
     <string name="engineer_allotment_date">Engineer Allotment Date</string>
     <string name="select_date">Select Date</string>
@@ -61,8 +58,6 @@
     <string name="ticket_closing">Ticket Closed On</string>
     <string name="prev_solution">Previous Solution</string>
     <string name="engg_solution">Solution</string>
-    <string name="open">Open</string>
-    <string name="closed">Closed</string>
     <string name="no_network">No Network.</string>
     <string name="no_complaints">No Complaints</string>
 
@@ -78,4 +73,51 @@
     <string name="ticket_raised_again">Ticket Raised Again</string>
 
     <string name="fontFamily">serif</string>
+
+
+    <!-- For Raise NewTicket Form -->
+    <string name="register_complaint">Raise Ticket</string>
+    <string name="register_new_complaint">Register Complaint</string>
+    <string name="name">Full Name</string>
+    <string name="asterisk">*</string>
+    <string name="company_name">Company Name</string>
+    <string name="raise_ticket_dailog">Are you sure you want to raise a complaint?</string>
+
+    <string name="validation_name">Please Enter a Valid Name</string>
+    <string name="validation_company_name">Please Enter a Valid Company Name</string>
+    <string name="validation_user_type">Please Select a User type</string>
+    <string name="validation_problem_type">Please Select a Problem type</string>
+    <string name="validation_mno">Please Enter a Valid Mobile No.</string>
+    <string name="validation_alt_mno">Please Enter a Valid Alternate Mobile No.</string>
+    <string name="validation_address">Please Enter a Valid Address</string>
+    <string name="validation_desc">Please Enter a Valid Description</string>
+
+    <string name="select_user_type">Select Type</string>
+    <string-array name="select_type">
+        <item>Select User Type</item>
+        <item>AMC</item>
+        <item>Non-AMC</item>
+    </string-array>
+
+
+    <string name="alt_no">Alternate No.</string>
+    <string name="address">Address</string>
+    <string name="description">Description of problem</string>
+    <string name="contact_registered">Contact No.</string>
+    <string name="all_tickets">All Tickets</string>
+    <string name="in_process_complaints">Tickets In Queue</string>
+    <string name="close">Close</string>
+    <string name="ticket_status">Ticket Status</string>
+    <string name="engineer_ticket_status">Engineer\'s Status</string>
+    <string name="validate_otp">Confirm OTP</string>
+    <string name="closed">Closed</string>
+    <string name="open">Open</string>
+    <string name="select_problem_type">Problem Type</string>
+    <string-array name="problem_type">
+        <item>Select Problem Type</item>
+        <item>Software</item>
+        <item>Hardware</item>
+    </string-array>
+    <string name="allotted_date">Allotted Date -</string>
+
 </resources>

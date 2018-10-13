@@ -18,7 +18,7 @@ import rj.adminbkinfotech1.Constants.Constants;
  */
 
 public class SplashActivity extends AppCompatActivity {
-    ImageView bk_logo,bk_name;
+    ImageView bk_logo, bk_name;
     TextView tv_admin;
     Animation blink;
 
@@ -35,11 +35,12 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void initialize() {
-        bk_logo = (ImageView)findViewById(R.id.iv_id_bk_logo);
-        bk_name = (ImageView)findViewById(R.id.iv_id_bk_name);
-        tv_admin = (TextView)findViewById(R.id.tv_id_admin);
-        blink = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.blink);
+        bk_logo = (ImageView) findViewById(R.id.iv_id_bk_logo);
+        bk_name = (ImageView) findViewById(R.id.iv_id_bk_name);
+        tv_admin = (TextView) findViewById(R.id.tv_id_admin);
+        blink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
     }
+
     private void startAnimation() {
         bk_logo.startAnimation(blink);
         bk_name.startAnimation(blink);
@@ -51,23 +52,20 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SharedPreferences firstrun = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
-                final boolean state = firstrun.getBoolean("fr",false);
-                if(state)
-                {
+                final boolean state = firstrun.getBoolean("fr", false);
+                if (state) {
                     // Registered user
-                    Intent userActivity = new Intent(getApplicationContext(),AdminActivity.class);
+                    Intent userActivity = new Intent(getApplicationContext(), AdminActivity.class);
                     startActivity(userActivity);
                     finish();
-                }
-                else
-                {
+                } else {
                     //Registeration page will be displayed
-                    Intent mainActivity = new Intent(getApplicationContext(),AdminLogin.class);
+                    Intent mainActivity = new Intent(getApplicationContext(), AdminLogin.class);
                     startActivity(mainActivity);
                     finish();
                 }
             }
-        },2000);
+        }, 2000);
     }
 
 }

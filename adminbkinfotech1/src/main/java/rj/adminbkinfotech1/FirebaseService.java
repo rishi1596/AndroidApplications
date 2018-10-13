@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -22,7 +22,7 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        String title =remoteMessage.getData().get("title");
+        String title = remoteMessage.getData().get("title");
         String content = remoteMessage.getData().get("content");
         sendNotification(title, content);
 
@@ -43,11 +43,12 @@ public class FirebaseService extends FirebaseMessagingService {
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
+
     private void sendNotification(String title, String content) {
 
         Intent intent;
-        String ftitle,fcontent;
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        String ftitle, fcontent;
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         ftitle = title;
         fcontent = content;
@@ -66,7 +67,6 @@ public class FirebaseService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-
 
 
     }

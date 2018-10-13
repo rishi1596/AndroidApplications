@@ -21,18 +21,16 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONObject;
 
+import rj.adminbkinfotech1.AsyncTasks.LogInOutAsync;
 import rj.adminbkinfotech1.Constants.Constants;
 
-public class AdminLogin extends AppCompatActivity implements TaskCompleted,View.OnClickListener {
+public class AdminLogin extends AppCompatActivity implements TaskCompleted, View.OnClickListener {
     EditText et_username, et_password;
     TextView tv_error;
     Button btn_login;
     String in_username, in_password, UsernamePattern = "^[a-zA-Z0-9]+$", PasswordPattern = "^[a-zA-Z0-9@!$&]+$", firebase_token;
     JSONObject login_details;
 
-    String jsonResponse ;
-    //String url="http://192.168.1.35:81/bkinfotech/adminLogin.php";
-    String url="http://bkinfotech.in/app/adminLogin.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +46,7 @@ public class AdminLogin extends AppCompatActivity implements TaskCompleted,View.
 
         btn_login.setOnClickListener(this);
     }
+
     private void setCustomActionBar() {
 
         ActionBar actionBar = getSupportActionBar();
@@ -55,12 +54,13 @@ public class AdminLogin extends AppCompatActivity implements TaskCompleted,View.
         actionBar.setCustomView(R.layout.action_bar);
         TextView tv_custom_action_bar_title = (TextView) actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
         tv_custom_action_bar_title.setText(R.string.app_name);
-        ImageView iv_info = (ImageView)actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
         iv_info.setVisibility(View.GONE);
         //iv_info.setOnClickListener(this);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
     }
+
     private void confirmationdialog() {
 
         final AlertDialog.Builder alertBox = new AlertDialog.Builder(AdminLogin.this);
@@ -74,11 +74,10 @@ public class AdminLogin extends AppCompatActivity implements TaskCompleted,View.
 
                     firebase_token = FirebaseInstanceId.getInstance().getToken();
                     login_details.put(Constants.strClientIdKey, Constants.clientId);
-                    login_details.put("username", in_username);
-                    login_details.put("password", in_password);
-                    login_details.put("token",firebase_token);
-                    String code ="1";
-                    login_details.put("code",code);
+                    login_details.put(Constants.strUserNameKey, in_username);
+                    login_details.put(Constants.strPasswordKey, in_password);
+                    login_details.put(Constants.strTokenKey, firebase_token);
+                    login_details.put(Constants.strCodeKey, Constants.strLogin);
                     Log.d("Login_details Addmin", login_details.toString());
 
                 } catch (Exception e) {
@@ -89,7 +88,7 @@ public class AdminLogin extends AppCompatActivity implements TaskCompleted,View.
                 if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
                     if (login_details.length() > 0) {
                         new LogInOutAsync(AdminLogin.this).execute(login_details.toString());
-                    }else{
+                    } else {
                         tv_error.setText(R.string.no_internet);
                         tv_error.setVisibility(View.VISIBLE);
                     }
@@ -110,23 +109,20 @@ public class AdminLogin extends AppCompatActivity implements TaskCompleted,View.
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.btn_id_submit:
-            in_username = et_username.getText().toString().trim();
-            in_password = et_password.getText().toString().trim();
+                in_username = et_username.getText().toString().trim();
+                in_password = et_password.getText().toString().trim();
 
-            if (!in_username.matches(UsernamePattern)) {
-                //Toast.makeText(getApplicationContext(), "Please Enter a Valid Username", Toast.LENGTH_SHORT).show();
-                tv_error.setText(R.string.validation_username);
-                tv_error.setVisibility(View.VISIBLE);
-            } else if (!in_password.matches(PasswordPattern)) {
-                //Toast.makeText(getApplicationContext(), "Please Enter a Valid Password", Toast.LENGTH_SHORT).show();
-                tv_error.setText(R.string.validation_password);
-                tv_error.setVisibility(View.VISIBLE);
-            } else {
-                confirmationdialog();
-            }
+                if (!in_username.matches(UsernamePattern)) {
+                    tv_error.setText(R.string.validation_username);
+                    tv_error.setVisibility(View.VISIBLE);
+                } else if (!in_password.matches(PasswordPattern)) {
+                    tv_error.setText(R.string.validation_password);
+                    tv_error.setVisibility(View.VISIBLE);
+                } else {
+                    confirmationdialog();
+                }
                 break;
             default:
                 break;
@@ -135,35 +131,32 @@ public class AdminLogin extends AppCompatActivity implements TaskCompleted,View.
 
     @Override
     public void onTaskComplete(String result) {
-        Log.d("AdminLogin",result);
+        Log.d("AdminLogin", result);
         try {
-            //JSONObject response_server = new JSONObject(s);
-            if(result.equals("1"))
-            {
+            if (result.equals("1")) {
                 SharedPreferences sp = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putBoolean("fr",true);
-                editor.putString("username",in_username);
+                editor.putBoolean("fr", true);
+                editor.putString("username", in_username);
                 editor.apply();
 
-                Intent adminActivity = new Intent(getApplicationContext(),AdminActivity.class);
-                // adminActivity.putExtra("firstrun",0);
-                adminActivity.putExtra("AdminUsername",in_username);
+                Intent adminActivity = new Intent(getApplicationContext(), AdminActivity.class);
+                adminActivity.putExtra("AdminUsername", in_username);
                 startActivity(adminActivity);
                 finish();
-            }
-            else {
+            } else {
                 tv_error.setText(R.string.incorrect);
                 tv_error.setVisibility(View.VISIBLE);
-                // Toast.makeText(getApplicationContext(), "Credentials are incorrect", Toast.LENGTH_SHORT).show();
             }
-        }
-        catch (Exception e)
-        {
-            Log.d("Admin Login response",e.toString());
+        } catch (Exception e) {
+            Log.d("Admin Login response", e.toString());
         }
     }
 
+    @Override
+    public void onTaskComplete(String[] result) {
+
+    }
 
 
 }

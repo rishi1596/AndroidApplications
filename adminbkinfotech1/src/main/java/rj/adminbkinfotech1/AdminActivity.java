@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -25,14 +24,16 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import rj.adminbkinfotech1.AsyncTasks.LogInOutAsync;
+import rj.adminbkinfotech1.AsyncTasks.getEngineerNamesOrAddressAsync;
 import rj.adminbkinfotech1.Constants.Constants;
 
 /**
  * Created by jimeet29 on 21-12-2017.
  */
 
-public class AdminActivity extends AppCompatActivity implements View.OnClickListener,TaskCompleted {
-    Button btn_new_complaint,btn_appointed,btn_all_complaint;
+public class AdminActivity extends AppCompatActivity implements View.OnClickListener, TaskCompleted {
+    Button btnNewPendingTickets, btnAppointedTickets, btnAllTickets, btnRaiseNewTicket;
     JSONObject logOut_details;
 
     SharedPreferences sp;
@@ -41,6 +42,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     NetworkInfo networkInfo;
     String titleText;
     FloatingActionButton fab_app_feedback;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,16 +59,16 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
         try {
             if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
-                    JSONObject send_details = new JSONObject();
-                    send_details.put(Constants.strClientIdKey, Constants.clientId);
-                    new getEngineers().execute(send_details.toString());
-            }else{
-                Toast.makeText(getApplicationContext(),"No Network! Please Try Again.",Toast.LENGTH_SHORT).show();
+                JSONObject send_details = new JSONObject();
+                send_details.put(Constants.strClientIdKey, Constants.clientId);
+                new getEngineerNamesOrAddressAsync(AdminActivity.this)
+                        .execute(send_details.toString(), Constants.getEngineerNamesEP);
+            } else {
+                Toast.makeText(getApplicationContext(), "No Network! Please Try Again.", Toast.LENGTH_SHORT).show();
             }
 
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -77,17 +79,19 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
 
-        btn_new_complaint = (Button) findViewById(R.id.btn_id_new_complaint);
-        btn_appointed = (Button) findViewById(R.id.btn_id_appointed);
-        btn_all_complaint = (Button) findViewById(R.id.btn_id_all_complaint);
-        fab_app_feedback = (FloatingActionButton)findViewById(R.id.fab_id_app_feedback);
+        btnNewPendingTickets = (Button) findViewById(R.id.btn_id_new_complaint);
+        btnAppointedTickets = (Button) findViewById(R.id.btn_id_appointed);
+        btnAllTickets = (Button) findViewById(R.id.btn_id_all_complaint);
+        btnRaiseNewTicket = (Button) findViewById(R.id.btn_id_raise_new_ticket);
+        fab_app_feedback = (FloatingActionButton) findViewById(R.id.fab_id_app_feedback);
 
     }
 
     private void setListerners() {
-        btn_new_complaint.setOnClickListener(this);
-        btn_appointed.setOnClickListener(this);
-        btn_all_complaint.setOnClickListener(this);
+        btnNewPendingTickets.setOnClickListener(this);
+        btnAppointedTickets.setOnClickListener(this);
+        btnAllTickets.setOnClickListener(this);
+        btnRaiseNewTicket.setOnClickListener(this);
         fab_app_feedback.setOnClickListener(this);
     }
 
@@ -99,7 +103,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         TextView tv_custom_action_bar_title = (TextView) actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
         tv_custom_action_bar_title.setText(titleText);
         tv_custom_action_bar_title.setGravity(Gravity.START);
-        ImageView iv_info = (ImageView)actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
         //Changed info to logout just for homescreen
         iv_info.setImageResource(R.drawable.logoutvariant);
         iv_info.setOnClickListener(this);
@@ -117,20 +121,23 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.btn_id_new_complaint:
-                Intent new_complaint = new Intent(getApplicationContext(),NewComplaint.class);
+                Intent new_complaint = new Intent(getApplicationContext(), NewComplaint.class);
                 startActivity(new_complaint);
                 break;
             case R.id.btn_id_appointed:
-                Intent appointed_complaint = new Intent(getApplicationContext(),AppointedComplaint.class);
+                Intent appointed_complaint = new Intent(getApplicationContext(), AppointedComplaint.class);
                 startActivity(appointed_complaint);
                 break;
             case R.id.btn_id_all_complaint:
-                Intent all_complaint = new Intent(getApplicationContext(),AllComplaint.class);
-                all_complaint.putExtra("UserInterface","1");
+                Intent all_complaint = new Intent(getApplicationContext(), AllComplaint.class);
+                all_complaint.putExtra("UserInterface", "1");
                 startActivity(all_complaint);
+                break;
+            case R.id.btn_id_raise_new_ticket:
+                Intent raiseNewTicketActivity = new Intent(getApplicationContext(), ResgisterComplaintActivity.class);
+                startActivity(raiseNewTicketActivity);
                 break;
             //Logout just for homescreen
             case R.id.iv_id_info:
@@ -140,13 +147,13 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         logOut_details = new JSONObject();
-                        SharedPreferences sf = getSharedPreferences("settings",0);
+                        SharedPreferences sf = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, 0);
 
                         try {
                             logOut_details.put(Constants.strClientIdKey, Constants.clientId);
-                            logOut_details.put("username",sf.getString("username",null));
-                            String code = "2";
-                            logOut_details.put("code",code);
+                            logOut_details.put(Constants.strUserNameKey,
+                                    sf.getString(Constants.sharedPreferencesUserNames, null));
+                            logOut_details.put(Constants.strCodeKey, Constants.strLogout);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -155,8 +162,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                             if (logOut_details.length() > 0) {
                                 new LogInOutAsync(AdminActivity.this).execute(logOut_details.toString());
                             }
-                        }else{
-                            Toast.makeText(getApplicationContext(),"No Network! Please Try Again.",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_network), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -172,7 +179,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 logOutAlert.show();
                 break;
             case R.id.fab_id_app_feedback:
-                Intent implicit_email_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:"+"appbkinfotech@gmail.com"));
+                Intent implicit_email_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "appbkinfotech@gmail.com"));
                 implicit_email_intent.putExtra(Intent.EXTRA_SUBJECT, "Application Feedback (Admin)");
                 startActivity(implicit_email_intent);
                 break;
@@ -181,147 +188,32 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.id_log_out:
-                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AdminActivity.this);
-                alertBuilder.setMessage(R.string.log_out_text);
-                alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logOut_details = new JSONObject();
-                        SharedPreferences sf = getSharedPreferences("settings",0);
-
-                        try {
-                            logOut_details.put("username",sf.getString("username",null));
-                            String code = "2";
-                            logOut_details.put("code",code);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
-                            if (logOut_details.length() > 0) {
-                                new LogInOutAsync(AdminActivity.this).execute(logOut_details.toString());
-                            }
-                        }else{
-                            Toast.makeText(getApplicationContext(),"No Network! Please Try Again.",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-
-                AlertDialog logOutAlert = alertBuilder.create();
-                logOutAlert.show();
-
-               return true;
-            default:
-            return super.onOptionsItemSelected(item);
-        }
-    }*/
-
     @Override
     public void onTaskComplete(String result) {
-        Log.d("AdminLogin",result);
+        Log.d("AdminLogin", result);
         try {
             //JSONObject response_server = new JSONObject(s);
-            if(result.equals("1"))
-            {
+            if (result.equals("1")) {
 
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putBoolean("fr",false);
+                editor.putBoolean("fr", false);
                 editor.apply();
 
-                Intent adminActivity = new Intent(getApplicationContext(),AdminLogin.class);
+                Intent adminActivity = new Intent(getApplicationContext(), AdminLogin.class);
                 startActivity(adminActivity);
                 AdminActivity.this.finish();
-            }
-            else {
+            } else {
                 Toast.makeText(getApplicationContext(), "Please Try Again!", Toast.LENGTH_SHORT).show();
             }
-        }
-        catch (Exception e)
-        {
-            Log.d("Admin Logout response",e.toString());
+        } catch (Exception e) {
+            Log.d("Admin Logout response", e.toString());
         }
     }
 
-    private class getEngineers extends AsyncTask<String,Void,String>
-    {
-        ReusableCodeAdmin rca;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try{
-                rca = new ReusableCodeAdmin();
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-
-        }
-
-
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                //String get_engineer_code = params[0];
-                String url  = "http://bkinfotech.in/app/getEngineersName.php";
-
-                rca.sendCredentials(params[0],url);
-
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            try {
-                String res_get_engineers_list = rca.getCredentialsResponse();
-                Log.d("response Engineer Name",res_get_engineers_list);
-
-                //if(!res_get_engineers_list.equals("0")) {
-                    SharedPreferences sp = getSharedPreferences("settings", 0);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("engineers", res_get_engineers_list);
-                    editor.apply();
-               // }
-              /* Log.d("engineerrr",res_get_engineers_list);
-                JSONArray engineers_array = new JSONArray(res_get_engineers_list);
-                Log.d("engineerrr", String.valueOf(engineers_array));
-                String engineer_name[] = new String[engineers_array.length()];
-                for(int i = 0 ;i<engineers_array.length();i++)
-                {
-                    engineer_name[i] =String.valueOf(engineers_array.get(i));
-                }for(int i = 0 ;i<engineers_array.length();i++)
-                {
-                   Log.d("engineerrr",engineer_name[i]);
-                }*/
-
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
+    @Override
+    public void onTaskComplete(String[] result) {
+        //do nothing
     }
+
 
 }

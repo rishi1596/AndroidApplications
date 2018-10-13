@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black1"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <AutoCompleteTextView
+                android:id="@+id/et_id_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/customize_edit_text"
+                android:hint="@string/name"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textColor="@color/edit_text_state"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@drawable/cursor_color" />
+            <!--<EditText
+                android:id="@+id/et_id_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/name" />-->
+
+            <TextView
+                android:id="@+id/tv_id_name_ast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/asterisk"
+                android:textColor="@android:color/holo_red_light" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/et_id_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customize_edit_text"
+            android:hint="@string/company_name"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/edit_text_state"
+            android:textColorHint="@color/hintColor"
+            android:textCursorDrawable="@drawable/cursor_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/spinner_select_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginEnd="3dp"
+
+                android:layout_weight="1"
+
+                android:entries="@array/select_type" />
+
+            <TextView
+                android:id="@+id/tv_id_user_type_ast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/asterisk"
+                android:textColor="@android:color/holo_red_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/spinner_problem_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginEnd="3dp"
+
+                android:layout_weight="1"
+                android:entries="@array/problem_type"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_id_problem_type_ast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/asterisk"
+                android:textColor="@android:color/holo_red_light" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_id_reg_contact_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customize_edit_text"
+            android:hint="@string/contact_registered"
+            android:imeActionId="1"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:textColor="@color/edit_text_state"
+            android:textColorHint="@color/hintColor"
+            android:textCursorDrawable="@drawable/cursor_color" />
+
+        <EditText
+            android:id="@+id/et_id_alt_contact_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customize_edit_text"
+            android:hint="@string/alt_no"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:textColor="@color/edit_text_state"
+            android:textColorHint="@color/hintColor"
+            android:textCursorDrawable="@drawable/cursor_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <EditText
+                android:id="@+id/et_id_specific_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customize_edit_text"
+                android:hint="@string/address"
+                android:maxLines="3"
+                android:textColor="@color/edit_text_state"
+                android:textColorHint="@color/hintColor" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/et_id_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/customize_edit_text"
+                android:hint="@string/description"
+                android:inputType="text"
+                android:maxLines="5"
+                android:textColor="@color/edit_text_state"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@drawable/cursor_color" />
+
+            <TextView
+                android:id="@+id/tv_id_desc_ask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/asterisk"
+                android:textColor="@android:color/holo_red_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_id_already_allotted_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customize_edit_text"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="@string/allotted_date"
+                android:textColor="@color/inputColor"
+                android:textColorHint="@color/hintColor" />
+
+            <TextView
+                android:id="@+id/tv_id_allotted_date"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:textColor="@color/inputColor"
+
+                android:textColorHint="@color/hintColor" />
+
+            <TextView
+                android:id="@+id/tv_id_allotted_slot"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:textColor="@color/inputColor"
+                android:textColorHint="@color/hintColor" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_id_engineer_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/spinner_engineers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/asterisk"
+                android:textColor="@android:color/holo_red_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_id_apt_dates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/spinner_appointment_dates"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/asterisk"
+                android:textColor="@android:color/holo_red_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_id_apt_slots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/spinner_appointment_date_slots"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/asterisk"
+                android:textColor="@android:color/holo_red_light" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+
+            android:textColor="@color/errorColor"
+            android:visibility="gone"
+
+            />
+
+        <Button
+            android:id="@+id/btn_id_launch_complaint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+
+            android:background="@drawable/customize_button"
+            android:text="@string/register_new_complaint"
+            android:textColor="@color/fontColor" />
+
+
+    </LinearLayout>
+</ScrollView>

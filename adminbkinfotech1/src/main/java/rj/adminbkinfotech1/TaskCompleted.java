@@ -5,5 +5,7 @@ package rj.adminbkinfotech1;
  */
 
 public interface TaskCompleted {
-    public void onTaskComplete(String result);
+    void onTaskComplete(String result);
+
+    void onTaskComplete(String[] result);
 }

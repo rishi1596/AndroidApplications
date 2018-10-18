@@ -77,7 +77,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         if (ReusableCodeAdmin.isOtherDevice()) {
             SharedPreferences sp = getSharedPreferences
                     (Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
-            if (!sp.getBoolean(Constants.sharedPreferencesDontShowAutoStartPermissionDialog, true)) {
+            if (!sp.getBoolean(Constants.sharedPreferencesDontShowAutoStartPermissionDialog, false)) {
                 FragmentManager ft = getSupportFragmentManager();
                 DialogFragment dialogFragment = new CustomDialogBox();
                 dialogFragment.show(ft, "autoStartDialog");

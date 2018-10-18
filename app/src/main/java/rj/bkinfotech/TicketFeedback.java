@@ -1,5 +1,6 @@
 package rj.bkinfotech;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import rj.bkinfotech.AsyncTasks.ComplaintsAsync;
 import rj.bkinfotech.Constants.Constants;
 
 /**
@@ -120,6 +122,7 @@ public class TicketFeedback extends AppCompatActivity implements TaskCompleted, 
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setListeners() {
         rb_service.setOnRatingBarChangeListener(this);
         rb_engineer.setOnRatingBarChangeListener(this);
@@ -131,7 +134,6 @@ public class TicketFeedback extends AppCompatActivity implements TaskCompleted, 
                     finish();
                     return true;
                 }
-
                 return false;
             }
         });

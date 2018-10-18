@@ -109,4 +109,18 @@
     <string name="ticket_feedback">TICKET FEEDBACK</string>
     <string name="raise_ticket_dailog">Are you sure you want to raise a complaint?</string>
     <string name="change_appointment_dailog">Are you sure you want to request for another appointment?</string>
+
+    <!-- Text View Messages-->
+    <string name="tv_no_already_reg_msg">Number already registered!</string>
+    <string name="tv_something_failed_pta">Something went wrong. Please try again!</string>
+
+    <!-- Notifications and its channels -->
+    <string name="channel_name">Complaints Notification</string>
+    <string name="channel_description">This channel is used to provide the user notifications regarding their complaints status.</string>
+
+    <!-- Auto Start Permission for miui devices -->
+    <string name="auto_start_permission">App AutoStart Permission</string>
+    <string name="permission_description">Please enable AutoStart Permission for the BK InfoTech application from the device settings, in order to receive notifications regarding ticket\'s status.</string>
+    <string name="dont_show_it_again">Don\'t show it again</string>
+    <string name="cancel">Cancel</string>
 </resources>

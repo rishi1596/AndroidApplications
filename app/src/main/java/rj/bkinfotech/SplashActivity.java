@@ -18,9 +18,9 @@ import rj.bkinfotech.Constants.Constants;
  * Created by jimeet29 on 23-11-2017.
  */
 
-public class SplashActivity extends AppCompatActivity{
+public class SplashActivity extends AppCompatActivity {
 
-    ImageView bk_logo,bk_name;
+    ImageView bk_logo, bk_name;
     Animation blink;
 
     @Override
@@ -28,11 +28,11 @@ public class SplashActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
 
-        bk_logo = (ImageView)findViewById(R.id.iv_id_bk_logo);
-        bk_name = (ImageView)findViewById(R.id.iv_id_bk_name);
-
+        ReusableCodeAdmin.createNotificationChannel(SplashActivity.this);
+        bk_logo = (ImageView) findViewById(R.id.iv_id_bk_logo);
+        bk_name = (ImageView) findViewById(R.id.iv_id_bk_name);
         blink = AnimationUtils.loadAnimation(getApplicationContext()
-                ,R.anim.blink);
+                , R.anim.blink);
         bk_logo.startAnimation(blink);
         bk_name.startAnimation(blink);
 
@@ -41,20 +41,17 @@ public class SplashActivity extends AppCompatActivity{
             public void run() {
 
                 SharedPreferences firstrun = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
-                final boolean state = firstrun.getBoolean("fr",false);
-                if(state)
-                {
-                    Intent userActivity = new Intent(getApplicationContext(),UserActivity.class); // Registered user
+                final boolean state = firstrun.getBoolean("fr", false);
+                if (state) {
+                    Intent userActivity = new Intent(getApplicationContext(), UserActivity.class); // Registered user
                     startActivity(userActivity);
                     finish();
-                }
-                else
-                {
-                    Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);  //Registeration page will be displayed
+                } else {
+                    Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);  //Registeration page will be displayed
                     startActivity(mainActivity);
                     finish();
                 }
             }
-        },3000);
+        }, 3000);
     }
 }

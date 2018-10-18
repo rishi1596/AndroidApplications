@@ -1,143 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:layout_height="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:gravity="center"
-    >
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="120dp"
-        android:src="@drawable/bk_logo_resized"
-        android:scaleType="fitCenter"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/web_app_name"
-        android:gravity="center_horizontal"
-        android:fontFamily="serif"
-        android:textSize="30sp"
-        />
+    android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bk_logo_resized" />
+
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/kalpesh_jain"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
             android:fontFamily="serif"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="2dp"/>
+            android:gravity="center_horizontal"
+            android:text="@string/web_app_name"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:fontFamily="serif"
+                android:gravity="center_horizontal"
+                android:text="@string/kalpesh_jain"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="serif"
+                android:gravity="center_horizontal"
+                android:text="@string/sandeep_jain"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="serif"
+                android:gravity="center_horizontal"
+                android:text="@string/founder"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="serif"
+                android:gravity="center_horizontal"
+                android:text="@string/co_founder"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/fontColor" />
+
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sandeep_jain"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
-            android:fontFamily="serif"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/our_vision"
+            android:textColor="@color/ticket_id_bg_color"
+            android:textSize="19sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/our_vision_content"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/our_aim"
+            android:textColor="@color/ticket_id_bg_color"
+            android:textSize="19sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/our_aim_content"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/choose_us"
+            android:textColor="@color/ticket_id_bg_color"
+            android:textSize="19sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/choose_us_content"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/what_can_we_offer_you"
+            android:textColor="@color/ticket_id_bg_color"
+            android:textSize="19sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/what_can_we_offer_you_content"
+            android:textSize="15sp" />
+
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/founder"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
-            android:fontFamily="serif"
-            android:textSize="20sp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/co_founder"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
-            android:fontFamily="serif"
-            android:textSize="20sp"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/fontColor"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="4dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/our_vision"
-        android:textSize="19sp"
-        android:textColor="@color/ticket_id_bg_color"
-        android:fontFamily="sans-serif-condensed"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/our_vision_content"
-        android:layout_marginBottom="4dp"
-        android:textSize="15sp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/our_aim"
-        android:textSize="19sp"
-        android:textColor="@color/ticket_id_bg_color"
-        android:fontFamily="sans-serif-condensed"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/our_aim_content"
-        android:layout_marginBottom="4dp"
-        android:textSize="15sp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/choose_us"
-        android:textSize="19sp"
-        android:textColor="@color/ticket_id_bg_color"
-        android:fontFamily="sans-serif-condensed"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/choose_us_content"
-        android:layout_marginBottom="4dp"
-        android:textSize="15sp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/what_can_we_offer_you"
-        android:textSize="19sp"
-        android:textColor="@color/ticket_id_bg_color"
-        android:fontFamily="sans-serif-condensed"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/what_can_we_offer_you_content"
-        android:layout_marginBottom="4dp"
-        android:textSize="15sp"/>
-
-</LinearLayout>
 </ScrollView>

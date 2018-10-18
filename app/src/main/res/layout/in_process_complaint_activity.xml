@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/customize_list_view"
-    >
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-
         android:background="@color/ticket_id_bg_color"
-        >          <!-- Ticket NO. -->
+        android:orientation="horizontal"
+
+        android:weightSum="3">          <!-- Ticket NO. -->
         <!-- <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -22,36 +20,35 @@
             android:layout_weight="1"
             android:textStyle="bold"/> -->
         <View
+            android:id="@+id/view_id_ticket_status_color"
             android:layout_width="5dp"
             android:layout_height="match_parent"
-            android:background="@color/ticket_pending"
-            android:id="@+id/view_id_ticket_status_color"
-            />
+            android:background="@color/ticket_pending" />
+
         <TextView
+            android:id="@+id/tv_id_ticketid"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_id_ticketid"
-            android:textColor="#F58634"
-            android:text="@string/ticket_no"
             android:layout_weight="2.7"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:fontFamily="@string/fontFamily"
             android:padding="5dp"
-            />
+            android:text="@string/ticket_no"
+            android:textColor="#F58634"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <ImageView
+            android:id="@+id/iv_id_raisedagain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/raisedagain"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
             android:layout_gravity="center_vertical"
-            android:id="@+id/iv_id_raisedagain"
-            android:paddingRight="5dp"
-            android:paddingEnd="5dp"
             android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingRight="5dp"
             android:paddingBottom="5dp"
-            />
+            android:scaleType="centerCrop"
+            android:src="@drawable/raisedagain"
+            android:visibility="gone" />
     </LinearLayout>
 
 
@@ -61,305 +58,323 @@
         android:orientation="horizontal"
         android:weightSum="2"
         android:baselineAligned="false"> -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:weightSum="2">
+        <!--Service type  -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".85"
+                android:text="@string/service_type"
+                android:textColor="@color/inputColor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_id_usertype"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+                android:textColor="@color/inputColor" />
+        </LinearLayout>
+        <!-- Problem Type -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".85"
+                android:text="@string/problem_type"
+                android:textColor="@color/inputColor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_id_problemtype"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+                android:textColor="@color/inputColor" />
+        </LinearLayout>
+
+        <!-- Description -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".85"
+                android:text="@string/prob_desc"
+                android:textColor="@color/inputColor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_id_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+                android:maxLines="2"
+                android:textColor="@color/inputColor" />
+        </LinearLayout>
+        <!--Engineer Appointed Name  -->
+        <LinearLayout
+            android:id="@+id/ll_id_engineers_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".85"
+                android:text="@string/engineer_name"
+                android:textColor="@color/inputColor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_id_engineer_appointed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+
+                android:textColor="@color/inputColor" />
+        </LinearLayout>
+        <!-- Ticket Status will not be used then -->
+        <!-- <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:weightSum="2">
+             <TextView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/tv_id_text_status"
+                 android:text="@string/ticket_status"
+                 android:textColor="@color/inputColor"
+                 android:layout_weight="1"
+                 android:textStyle="bold"/>
+             <TextView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/tv_id_status"
+                 android:textColor="@android:color/holo_red_dark"
+                 android:layout_weight="1"/>
+         </LinearLayout> -->
+        <!-- EngineerStatus Not being Used -->
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:weightSum="2"
-            android:padding="5dp">
-            <!--Service type  -->
+            android:visibility="gone">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_text_engineer_status"
+                android:text="@string/engineer_ticket_status"
+                android:textColor="@color/inputColor"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_id_engineer_status"
+                android:textColor="@color/inputColor"
+                android:layout_weight="1"/>
+        </LinearLayout>-->
+
+
+        <!-- Engineer Appointed Date Time Details -->
+        <LinearLayout
+            android:id="@+id/ll_id_engineer_appointed_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_id_engineer_appointed_on"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".85"
+                android:text="@string/engineer_appointed_on"
+                android:textColor="@color/inputColor"
+                android:textStyle="bold" />
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/service_type"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight=".85"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_usertype"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight="1.15"/>
-            </LinearLayout>
-            <!-- Problem Type -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/problem_type"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight=".85"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_problemtype"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight="1.15"/>
-            </LinearLayout>
+                android:layout_weight="1.15"
+                android:orientation="horizontal">
 
-            <!-- Description -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
                 <TextView
+                    android:id="@+id/tv_id_engineer_appointed_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/prob_desc"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight=".85"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_description"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight="1.15"
-                    android:maxLines="2"/>
-            </LinearLayout>
-            <!--Engineer Appointed Name  -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:visibility="gone"
-                android:id="@+id/ll_id_engineers_name">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/engineer_name"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight=".85"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_engineer_appointed"
-                    android:textColor="@color/inputColor"
-
-                    android:layout_weight="1.15"/>
-            </LinearLayout>
-            <!-- Ticket Status will not be used then -->
-           <!-- <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_text_status"
-                    android:text="@string/ticket_status"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight="1"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_status"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:layout_weight="1"/>
-            </LinearLayout> -->
-             <!-- EngineerStatus Not being Used -->
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:visibility="gone">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_text_engineer_status"
-                    android:text="@string/engineer_ticket_status"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight="1"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_engineer_status"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight="1"/>
-            </LinearLayout>-->
-
-
-            <!-- Engineer Appointed Date Time Details -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:visibility="gone"
-                android:id="@+id/ll_id_engineer_appointed_details">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_engineer_appointed_on"
-                    android:text="@string/engineer_appointed_on"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight=".85"
-                    android:textStyle="bold"/>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.15"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_id_engineer_appointed_time"
-                        android:textColor="@color/inputColor"
-                        android:text="@string/about_us"
-                        android:layout_weight="0.57"
-
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_id_engineer_appointed_date"
-                        android:textColor="@color/inputColor"
-                        android:text="@string/about_us"
-                        android:layout_weight="0.57"
-
-                        />
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <!-- Appointment Details -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:visibility="gone"
-                android:id="@+id/ll_id_appointment">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_appointment"
-                    android:text="@string/appointment"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight=".85"
-                    android:textStyle="bold"/>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.15"
-                    android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_allotted_date"
-                    android:textColor="@color/inputColor"
-
                     android:layout_weight="0.57"
+                    android:text="@string/about_us"
+                    android:textColor="@color/inputColor"
+
                     />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_id_allotted_slot"
-                        android:textColor="@color/inputColor"
 
-                        android:layout_weight="0.57"
-                        />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_id_engineer_appointed_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.57"
+                    android:text="@string/about_us"
+                    android:textColor="@color/inputColor"
 
+                    />
             </LinearLayout>
-            <!-- Requested Appointment Details -->
-            <LinearLayout
-                android:layout_width="match_parent"
+
+        </LinearLayout>
+
+
+        <!-- Appointment Details -->
+        <LinearLayout
+            android:id="@+id/ll_id_appointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_id_appointment"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:visibility="gone"
-                android:id="@+id/ll_id_requested_appointment">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_requested_appointment"
-                    android:text="@string/requested"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight=".85"
-                    android:textStyle="bold"/>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.15"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_id_requested_date"
-                        android:textColor="@color/inputColor"
-                        android:text="@string/about_us"
-                        android:layout_weight="0.57"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_id_requested_slot"
-                        android:textColor="@color/inputColor"
-                        android:text="@string/about_us"
-                        android:layout_weight="0.57"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-            <!-- Engineer Closing time date -->
+                android:layout_weight=".85"
+                android:text="@string/appointment"
+                android:textColor="@color/inputColor"
+                android:textStyle="bold" />
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:visibility="gone"
-                android:id="@+id/ll_id_engineer_closing_details">
+                android:layout_weight="1.15"
+                android:orientation="horizontal">
+
                 <TextView
+                    android:id="@+id/tv_id_allotted_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_id_engineer_closed_ticket"
-                    android:text="@string/engineer_closing"
-                    android:textColor="@color/inputColor"
-                    android:layout_weight=".85"
-                    android:textStyle="bold"/>
-                <LinearLayout
+                    android:layout_weight="0.57"
+
+                    android:textColor="@color/inputColor" />
+
+                <TextView
+                    android:id="@+id/tv_id_allotted_slot"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.15"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_id_engineer_close_time"
-                        android:textColor="@color/inputColor"
-                        android:text="@string/about_us"
-                        android:layout_weight="0.57"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_id_engineer_close_date"
-                        android:textColor="@color/inputColor"
-                        android:text="@string/about_us"
-                        android:layout_weight="0.57"
-                        />
-                </LinearLayout>
+                    android:layout_weight="0.57"
+
+                    android:textColor="@color/inputColor" />
             </LinearLayout>
-       <!-- </LinearLayout> -->
+
+        </LinearLayout>
+        <!-- Requested Appointment Details -->
+        <LinearLayout
+            android:id="@+id/ll_id_requested_appointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_id_requested_appointment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".85"
+                android:text="@string/requested"
+                android:textColor="@color/inputColor"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_id_requested_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.57"
+                    android:text="@string/about_us"
+                    android:textColor="@color/inputColor" />
+
+                <TextView
+                    android:id="@+id/tv_id_requested_slot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.57"
+                    android:text="@string/about_us"
+                    android:textColor="@color/inputColor" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- Engineer Closing time date -->
+        <LinearLayout
+            android:id="@+id/ll_id_engineer_closing_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_id_engineer_closed_ticket"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".85"
+                android:text="@string/engineer_closing"
+                android:textColor="@color/inputColor"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_id_engineer_close_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.57"
+                    android:text="@string/about_us"
+                    android:textColor="@color/inputColor" />
+
+                <TextView
+                    android:id="@+id/tv_id_engineer_close_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.57"
+                    android:text="@string/about_us"
+                    android:textColor="@color/inputColor" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- </LinearLayout> -->
         <!-- TicketStatus Indicator -->
         <!--<LinearLayout
             android:layout_width="0dp"
@@ -379,39 +394,37 @@
 
     <!-- Close Button -->
     <Button
+        android:id="@+id/btn_id_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_id_close"
-        android:text="@string/close"
-        android:visibility="gone"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/customize_button"
+        android:text="@string/close"
         android:textColor="@color/fontColor"
-        />
+        android:visibility="gone" />
     <!-- Complaint Reg Date And Time  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:gravity="end">
 
         <TextView
+            android:id="@+id/tv_id_reg_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_id_reg_time"
-            android:textColor="@color/inputColor"
+            android:layout_marginEnd="5dp"
 
             android:layout_marginRight="5dp"
-            android:layout_marginEnd="5dp"
-            android:textSize="12sp"
-            />
+            android:textColor="@color/inputColor"
+            android:textSize="12sp" />
+
         <TextView
+            android:id="@+id/tv_id_reg_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_id_reg_date"
             android:textColor="@color/inputColor"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

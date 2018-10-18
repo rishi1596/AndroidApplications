@@ -34,6 +34,7 @@ public class Constants {
     public static final String ERROR_CODE_103 = "103";
     public static final String ERROR_CODE_104 = "104";
     public static final String ERROR_CODE_105 = "105";
+    public static final String ERROR_CODE_106 = "106";
 
     public static final String ERROR_CODE_100_AND_DEFAULT_MSG = "You are not a registered user. Please contact the authority.";
     public static final String ERROR_CODE_101_MSG = "Failed to insert customer details";
@@ -41,6 +42,7 @@ public class Constants {
     public static final String ERROR_CODE_103_MSG = "Failed to insert ticketcode in feedback table";
     public static final String ERROR_CODE_104_MSG = "Username doesn't exist or not a authorized user.";
     public static final String ERROR_CODE_105_MSG = "Address of the given number not found";
+    public static final String ERROR_CODE_106_MSG = "Number Already Registered! or User Already Exist!";
 
 
     //SharedPreferences

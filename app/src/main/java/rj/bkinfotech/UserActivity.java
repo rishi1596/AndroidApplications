@@ -1,30 +1,31 @@
 package rj.bkinfotech;
 
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URI;
+import rj.bkinfotech.Constants.Constants;
+import rj.bkinfotech.CustomDialog.CustomDialogBox;
 
 /**
  * Created by jimeet29 on 05-12-2017.
  */
 
 public class UserActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btn_register_complaint, btn_in_process_complaints, btn_view_all_complaints, btn_view_about_us, btn_offers;
-    FloatingActionButton fab_app_feedback;
+    private Button btn_register_complaint, btn_in_process_complaints, btn_view_all_complaints, btn_view_about_us, btn_offers;
+    private FloatingActionButton fab_app_feedback;
 
 
     @Override
@@ -35,6 +36,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         setCustomActionBar();
         initialize();
         setListerners();
+        checkIfMiUiDevice();
     }
 
     private void initialize() {
@@ -44,6 +46,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         btn_view_about_us = (Button) findViewById(R.id.btn_id_view_about_us);
         btn_offers = (Button) findViewById(R.id.btn_id_view_offers);
         fab_app_feedback = (FloatingActionButton) findViewById(R.id.fab_id_app_feedback);
+        ReusableCodeAdmin.createNotificationChannel(UserActivity.this);
     }
 
     private void setListerners() {
@@ -70,6 +73,18 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void checkIfMiUiDevice() {
+        if (ReusableCodeAdmin.isOtherDevice()) {
+            SharedPreferences sp = getSharedPreferences
+                    (Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
+            if (!sp.getBoolean(Constants.sharedPreferencesDontShowAutoStartPermissionDialog, true)) {
+                FragmentManager ft = getSupportFragmentManager();
+                DialogFragment dialogFragment = new CustomDialogBox();
+                dialogFragment.show(ft, "autoStartDialog");
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -92,7 +107,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(about_us);
                 break;
             case R.id.btn_id_view_offers:
-                Toast.makeText(getApplicationContext(),"Coming Soon!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Coming Soon!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab_id_app_feedback:
                 Intent implicit_email_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "appbkinfotech@gmail.com"));

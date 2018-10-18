@@ -157,65 +157,6 @@ public class ResetActivity extends AppCompatActivity {
                 {
                     e.printStackTrace();
                 }
-               /*ConnectivityManager conm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo  = conm.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
-                    if (devicedetails.length() > 0) {
-
-                        final ProgressDialog pg = new ProgressDialog(ResetActivity.this);
-                        pg.setMessage("Processing... Please Wait!");
-                        pg.setCancelable(false);
-                        pg.show();
-                        final ReusableCode rc = new ReusableCode();
-                        rc.server_call(url,devicedetails.toString());
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                        pg.dismiss();
-                        res_ref = rc.get_server_response();
-                                Log.d("Reset Activity", String.valueOf(res_ref));
-                        if(res_ref == 1)
-                        {
-                            Log.d("Reset count before", String.valueOf(count));
-                            count += 1;
-                            Log.d("Reset After", String.valueOf(count));
-                            Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
-
-                            if(count==2) {
-
-                                otpValidateUI();
-
-                            }else{
-                                SharedPreferences firstRun = getSharedPreferences("settings", 0);
-                                SharedPreferences.Editor editor = firstRun.edit();
-                                editor.putBoolean("fr", true);
-                                editor.putString("mobileno", in_mno);
-                                editor.apply();
-
-                                Intent userActivity = new Intent(getApplicationContext(), UserActivity.class);
-
-                                startActivity(userActivity);
-                                ResetActivity.this.finish();
-                                //((Activity)getApplicationContext()).finish();
-                            }
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Unsuccessful", Toast.LENGTH_SHORT).show();
-                            tv_error.setText("Please Try Again!");
-                            tv_error.setVisibility(View.VISIBLE);
-                        }
-                            }
-                        },5000);
-                    }
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "There is no active network connection!", Toast.LENGTH_SHORT).show();
-                    tv_error.setText("There is no active network connection!");
-                    tv_error.setVisibility(View.VISIBLE);
-                }*/
-
             }
         });
 

@@ -1,14 +1,11 @@
 package rj.bkinfotech;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import rj.bkinfotech.AsyncTasks.ComplaintsAsync;
 import rj.bkinfotech.Constants.Constants;
-
-import static rj.bkinfotech.AllComplaintsStatusActivity.STATIC_ALL_COMPLAINTS_ACTIVITY;
-import static rj.bkinfotech.AllComplaintsStatusActivity.allcomplaints;
-import static rj.bkinfotech.InProcessComplaintActivity.STATIC_ALL_COMPLAINTS;
 
 
 /**
@@ -58,16 +52,12 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
     private static class ViewHolder {
         TextView ticket_id;
-        /*TextView name;
-        TextView company_name;
-        */ TextView usertype;
+        TextView usertype;
         TextView problemtype;
         TextView description;
-        //TextView status;
         TextView engineer_appointed;
         TextView complaint_reg_time;
         TextView complaint_reg_date;
-        //TextView raisedagain;
         TextView allotted_date;
         TextView allotted_slot;
         TextView engineer_appointed_time;
@@ -76,9 +66,7 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
         TextView requested_slot;
         TextView engineer_close_time;
         TextView engineer_close_date;
-        //TextView engineer_status;
-        //TextView address;
-        ImageView iv_raised_again, iv_ticket_status;
+        ImageView iv_raised_again;
         Button btn_close;
 
         LinearLayout ll_engineer_name, ll_engineer_appointed_date_time, ll_appointment_details, ll_requested_details, ll_engineer_closing_details;
@@ -86,7 +74,7 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
     }
 
-    public CustomAdaptorNewComplaint(ArrayList<ComplaintModel> data, Context context, int activity) {
+    CustomAdaptorNewComplaint(ArrayList<ComplaintModel> data, Context context, int activity) {
         super(context, R.layout.in_process_complaint_activity, data);
         this.complaints = data;
         this.mContext = context;
@@ -109,12 +97,9 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.in_process_complaint_activity, parent, false);
             viewHolder.ticket_id = (TextView) convertView.findViewById(R.id.tv_id_ticketid);
-            /*viewHolder.name = (TextView) convertView.findViewById(R.id.tv_id_name);
-            viewHolder.company_name = (TextView) convertView.findViewById(R.id.tv_id_company_name);*/
             viewHolder.usertype = (TextView) convertView.findViewById(R.id.tv_id_usertype);
             viewHolder.problemtype = (TextView) convertView.findViewById(R.id.tv_id_problemtype);
             viewHolder.description = (TextView) convertView.findViewById(R.id.tv_id_description);
-            //viewHolder.iv_ticket_status = (ImageView) convertView.findViewById(R.id.iv_id_ticket_status);
             viewHolder.engineer_appointed = (TextView) convertView.findViewById(R.id.tv_id_engineer_appointed);
             viewHolder.complaint_reg_time = (TextView) convertView.findViewById(R.id.tv_id_reg_time);
             viewHolder.complaint_reg_date = (TextView) convertView.findViewById(R.id.tv_id_reg_date);
@@ -127,20 +112,12 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
             viewHolder.requested_slot = (TextView) convertView.findViewById(R.id.tv_id_requested_slot);
             viewHolder.engineer_close_time = (TextView) convertView.findViewById(R.id.tv_id_engineer_close_time);
             viewHolder.engineer_close_date = (TextView) convertView.findViewById(R.id.tv_id_engineer_close_date);
-            //viewHolder.address = (TextView) convertView.findViewById(R.id.tv_id_address);
-
-            //viewHolder.status = (TextView) convertView.findViewById(R.id.tv_id_status);
-
-            //viewHolder.engineer_status = (TextView) convertView.findViewById(R.id.tv_id_engineer_status);
             viewHolder.ll_engineer_name = (LinearLayout) convertView.findViewById(R.id.ll_id_engineers_name);
             viewHolder.ll_engineer_appointed_date_time = (LinearLayout) convertView.findViewById(R.id.ll_id_engineer_appointed_details);
             viewHolder.ll_appointment_details = (LinearLayout) convertView.findViewById(R.id.ll_id_appointment);
             viewHolder.ll_requested_details = (LinearLayout) convertView.findViewById(R.id.ll_id_requested_appointment);
             viewHolder.ll_engineer_closing_details = (LinearLayout) convertView.findViewById(R.id.ll_id_engineer_closing_details);
-
             viewHolder.view_ticket_status = convertView.findViewById(R.id.view_id_ticket_status_color);
-
-
             viewHolder.btn_close = (Button) convertView.findViewById(R.id.btn_id_close);
 
             convertView.setTag(viewHolder);
@@ -158,12 +135,10 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
         viewHolder.iv_raised_again.setVisibility(View.GONE);
         viewHolder.btn_close.setVisibility(View.GONE);
         viewHolder.ticket_id.setText(compplaintModel.getTicket_id());
-        //viewHolder.name.setText(compplaintModel.getName());
 
         viewHolder.usertype.setText(compplaintModel.getUser_type());
         viewHolder.problemtype.setText(compplaintModel.getProblem_type());
         viewHolder.description.setText(compplaintModel.getDescription());
-        // viewHolder.status.setText(compplaintModel.getStatus());
 
         viewHolder.complaint_reg_time.setText(compplaintModel.getComplaint_reg_time());
         viewHolder.complaint_reg_date.setText(compplaintModel.getComplaint_reg_date());
@@ -175,17 +150,11 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
         switch (compplaintModel.getStatus()) {
             case "Pending":
-                /*viewHolder.iv_ticket_status.setImageResource(R.drawable.black20);
-                viewHolder.iv_ticket_status.setVisibility(View.VISIBLE);*/
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_pending);
                 break;
             case "Ticket In Process":
                 viewHolder.engineer_appointed.setText(compplaintModel.getEngineer_appointed());
                 viewHolder.ll_engineer_name.setVisibility(View.VISIBLE);
-
-                /*viewHolder.engineer_appointed_time.setText(compplaintModel.getEngineer_appointed_time());
-                viewHolder.engineer_appointed_date.setText(compplaintModel.getEngineer_appointed_date());
-                viewHolder.ll_engineer_appointed_date_time.setVisibility(View.VISIBLE);*/
 
                 viewHolder.allotted_date.setText(compplaintModel.getAllotted_date());
                 viewHolder.allotted_slot.setText(compplaintModel.getAllotted_slot());
@@ -196,38 +165,19 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
                     viewHolder.requested_slot.setText(compplaintModel.getRequested_slot());
                     viewHolder.ll_requested_details.setVisibility(View.VISIBLE);
                 }
-                /*viewHolder.iv_ticket_status.setImageResource(R.drawable.orange20);
-                viewHolder.iv_ticket_status.setVisibility(View.VISIBLE);*/
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_in_process);
                 break;
             case "Ticket Processed":
-                /*viewHolder.engineer_close_time.setText(compplaintModel.getEngineer_close_time());
-                viewHolder.engineer_close_date.setText(compplaintModel.getEngineer_close_date());
-                viewHolder.ll_engineer_closing_details.setVisibility(View.VISIBLE);*/
-
                 viewHolder.btn_close.setVisibility(View.VISIBLE);
-
-                /*viewHolder.iv_ticket_status.setImageResource(R.drawable.green20);
-                viewHolder.iv_ticket_status.setVisibility(View.VISIBLE);*/
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_processed);
                 break;
             case "Ticket Processed Partially":
-                /*viewHolder.engineer_close_time.setText(compplaintModel.getEngineer_close_time());
-                viewHolder.engineer_close_date.setText(compplaintModel.getEngineer_close_date());
-                viewHolder.ll_engineer_closing_details.setVisibility(View.VISIBLE);*/
-               /* viewHolder.iv_ticket_status.setImageResource(R.drawable.blue20);
-                viewHolder.iv_ticket_status.setVisibility(View.VISIBLE);*/
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_processed_partially);
                 break;
             case "Closed":  //for raise again button
-
-                /*viewHolder.iv_ticket_status.setImageResource(R.drawable.grey20);
-                viewHolder.iv_ticket_status.setVisibility(View.VISIBLE);*/
                 if (activity != 0) {
-
                     viewHolder.btn_close.setText(R.string.raise_again);
                     viewHolder.btn_close.setVisibility(View.VISIBLE);
-
                 }
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_closed);
                 break;
@@ -243,12 +193,9 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
                 if (activity == 0) {
                     try {
                         code = "2";
-                        //array_in_custom_adaptor = STATIC_ALL_COMPLAINTS;
-                        //JSONObject get_ticket_id = (JSONObject) array_in_custom_adaptor.get(position);
                         intent = new Intent(mContext, TicketFeedback.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("code", code);
-                        //intent.putExtra("ticket_id",get_ticket_id.get("ticket_id").toString());
                         intent.putExtra("ticket_id", update_ticket_id);
                         Log.d("TicketAdap", String.valueOf(update_ticket_id));
                         mContext.startActivity(intent);
@@ -260,18 +207,11 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
                 } else {
                     code = "4";
-
-                    //array_in_custom_adaptor = STATIC_ALL_COMPLAINTS_ACTIVITY;
-                    /*intent = new Intent(mContext, AllComplaintsStatusActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("UserInterface", "1");*/
                     update_server(update_ticket_id, code);
                 }
 
             }
         });
-
-        // viewHolder.ticket_id.setOnClickListener(this);
 
         // Return the completed view to render on screen
         return convertView;
@@ -282,8 +222,6 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
             ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
-
-
                 code = sv_code;
                 data = new JSONObject();
                 data.put(Constants.strClientIdKey, Constants.clientId);
@@ -292,29 +230,8 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
                 data.put("ticket_id", local_ticket_id);
                 data.put("complaint_raised_again_time", new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()));
                 data.put("complaint_raised_again_date", new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()));
-                /*InProcessComplaintActivity ea = new InProcessComplaintActivity();
-                ea.updateComplaintStatus(data.toString());*/
                 new ComplaintsAsync(mContext).execute(data.toString());
-                /*if (InProcessComplaintActivity.RESULT == 1 || InProcessComplaintActivity.RESULT == 0) {
-                    //ToDO new code added for raise again check it later
 
-                    AlertDialog alertDialog;
-                    AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
-                    alert.setMessage("Ticket successfully raised again");
-
-                    alertDialog = alert.create();
-                    alertDialog.setCancelable(false);
-                    alertDialog.show();
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mContext.startActivity(intent);
-                            allcomplaints.finish();
-                        }
-                    }, 3000); //End
-                }*/
-                //Log.d("Complaint", specific_complaint_in_custom_adaptor.toString());
             } else {
                 Toast.makeText(getContext(), "No Network", Toast.LENGTH_SHORT).show();
             }
@@ -326,25 +243,6 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
     @Override
     public void onTaskComplete(String result) {
-  /*      if (result.equals("1") || result.equals("0")) {
-            //ToDO new code added for raise again check it later
 
-            AlertDialog alertDialog;
-            AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
-            alert.setMessage("Ticket successfully raised again");
-
-            alertDialog = alert.create();
-            alertDialog.setCancelable(false);
-            alertDialog.show();
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mContext.startActivity(intent);
-                    allcomplaints.finish();
-                }
-            }, 3000); //End
-        }
-        //Log.d("Complaint", specific_complaint_in_custom_adaptor.toString());
-  */  }
+    }
 }

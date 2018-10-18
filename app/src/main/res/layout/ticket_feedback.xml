@@ -1,107 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:weightSum="6"
-    >
+    android:orientation="vertical"
+    android:weightSum="6">
+
     <TextView
+        android:id="@+id/tv_id_ticket_feedback_close"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="@string/ticket_feedback"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
         android:background="@color/inputColor"
-        android:textColor="@color/fontColor"
-        android:gravity="center_horizontal"
-        android:textSize="18sp"
-        android:padding="5dp"
-        android:fontFamily="sans-serif-condensed"
-        android:textStyle="bold"
         android:drawableEnd="@drawable/whiteclose15"
         android:drawableRight="@drawable/whiteclose15"
         android:drawablePadding="3dp"
-        android:id="@+id/tv_id_ticket_feedback_close"
-        android:layout_weight="1"
-        android:layout_marginBottom="10dp"
-        />
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="@string/ticket_feedback"
+        android:textColor="@color/fontColor"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/rate_service"
-        android:layout_marginBottom="5dp"
-        android:textColor="@color/editTextBgColor"
-        android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/rate_service"
+        android:textColor="@color/editTextBgColor"
         android:textSize="16sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
+
     <RatingBar
+        android:id="@+id/rb_id_rate_service"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/rb_id_rate_service"
-        android:layout_marginBottom="5dp"
-        android:numStars="5"
         android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:numStars="5"
         android:stepSize="1"
 
         />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/rate_engineer"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginBottom="5dp"
+        android:text="@string/rate_engineer"
         android:textColor="@color/editTextBgColor"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
         android:textSize="16sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
+
     <RatingBar
+        android:id="@+id/rb_id_rate_engineer"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/rb_id_rate_engineer"
-        android:numStars="5"
         android:layout_gravity="center"
-        android:stepSize="1"
-        />
+        android:layout_weight="1"
+        android:numStars="5"
+        android:stepSize="1" />
+
     <EditText
+        android:id="@+id/et_id_remark"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:maxLines="6"
-        android:id="@+id/et_id_remark"
-        android:hint="@string/remark"
-        android:textAlignment="textStart"
         android:layout_gravity="start"
-        android:background="@drawable/customize_edit_text"
-        android:textColorHint="@color/hintColor"
-        android:textColor="@color/edit_text_state"
         android:layout_margin="10dp"
-        android:textSize="16sp"
+        android:layout_weight="2"
+        android:background="@drawable/customize_edit_text"
+        android:hint="@string/remark"
+        android:maxLines="6"
+        android:textAlignment="textStart"
+        android:textColor="@color/edit_text_state"
+        android:textColorHint="@color/hintColor"
         android:textCursorDrawable="@drawable/cursor_color"
-        />
+        android:textSize="16sp" />
+
     <TextView
+        android:id="@+id/tv_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_error"
-        android:visibility="gone"
-        android:textColor="@color/errorColor"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        />
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/errorColor"
+        android:visibility="gone" />
 
     <Button
+        android:id="@+id/btn_id_submit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:text="@string/submit"
-        android:id="@+id/btn_id_submit"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/customize_button"
-        android:textColor="@color/fontColor"
         android:layout_margin="10dp"
-        />
+        android:layout_weight="0.5"
+        android:background="@drawable/customize_button"
+        android:text="@string/submit"
+        android:textColor="@color/fontColor" />
 </LinearLayout>

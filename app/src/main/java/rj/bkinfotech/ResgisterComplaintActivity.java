@@ -52,39 +52,39 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
 
     TextView tv_error;
     Spinner spinner_user_type, spinner_problem_type;
-    String in_name, in_company, in_alt_contact_no, in_description, in_user_type, in_problem_type,in_contact_no;
+    String in_name, in_company, in_alt_contact_no, in_description, in_user_type, in_problem_type, in_contact_no;
     Button register_complaint;
     String NamePattern = "^[A-Z a-z ]+$", CompanyPattern = "^[A-Z a-z@!&$._\\- ]+$", MobilePattern = "^[789][0-9]{9}$", AddressPattern = "^[A-Za-z0-9@,._\\- ]+$", DescriptionPattern = "^[A-Za-z0-9@:();,._'\\- \\s+]+$";
     ProgressDialog pg;
-    HashMap<String,String> complaint_details;
+    HashMap<String, String> complaint_details;
 
-    LinearLayout ll_allotted_date,ll_apt_dates,ll_apt_slots;
-    TextView tv_allotted_date,tv_allotted_slot,tv_ast_name,tv_ast_user_type,tv_ast_problem_type,tv_ast_desc;
-    Spinner spinner_allot_date,spinner_allot_slot;
+    LinearLayout ll_allotted_date, ll_apt_dates, ll_apt_slots;
+    TextView tv_allotted_date, tv_allotted_slot, tv_ast_name, tv_ast_user_type, tv_ast_problem_type, tv_ast_desc;
+    Spinner spinner_allot_date, spinner_allot_slot;
 
 
-    String prefs_name,prefs_company,prefs_alt_mob_no,prefs_address,prefs_in_contact_no;
-    AlertDialog alertDialog ;
+    String prefs_name, prefs_company, prefs_alt_mob_no, prefs_address, prefs_in_contact_no;
+    AlertDialog alertDialog;
     SharedPreferences settings;
-    int get_calling_class_code=0;  // 0 insert 1 update
+    int get_calling_class_code = 0;  // 0 insert 1 update
     String received_ticket_details;
     JSONObject json_received_ticket_details;
-    String in_allotment_date,in_allotment_date_slot;
+    String in_allotment_date, in_allotment_date_slot;
 
-    String array_of_month[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-    String array_of_day_code[] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
-    HashMap<String,Integer> days_associated_code;
+    String array_of_month[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    String array_of_day_code[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    HashMap<String, Integer> days_associated_code;
     ArrayAdapter<String> adapter_spinner_appointment_date, adapter_spinner_appointment_date_slot;
     String appointment_dates[];
-    String appointment_dates_slots[]={"Select the Time","Morning","Afternoon","Evening"};
-    String confirmation_dailog_message="";
+    String appointment_dates_slots[] = {"Select the Time", "Morning", "Afternoon", "Evening"};
+    String confirmation_dailog_message = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        get_calling_class_code = getIntent().getIntExtra("classcode",0);
-        if(get_calling_class_code==1)
-        {
+        get_calling_class_code = getIntent().getIntExtra("classcode", 0);
+        if (get_calling_class_code == 1) {
             setTitle("Change Appointment");
             received_ticket_details = getIntent().getStringExtra("jsonobject");
             confirmation_dailog_message = String.valueOf(R.string.change_appointment_dailog);
@@ -102,65 +102,63 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         et_description = (EditText) findViewById(R.id.et_id_description);
         spinner_user_type = (Spinner) findViewById(R.id.spinner_select_type);
         spinner_problem_type = (Spinner) findViewById(R.id.spinner_problem_type);
-        tv_error = (TextView)findViewById(R.id.tv_error);
-        tv_ast_name= (TextView)findViewById(R.id.tv_id_name_ast);
-        tv_ast_user_type = (TextView)findViewById(R.id.tv_id_user_type_ast);
-        tv_ast_problem_type = (TextView)findViewById(R.id.tv_id_problem_type_ast);
-        tv_ast_desc = (TextView)findViewById(R.id.tv_id_desc_ask);
+        tv_error = (TextView) findViewById(R.id.tv_error);
+        tv_ast_name = (TextView) findViewById(R.id.tv_id_name_ast);
+        tv_ast_user_type = (TextView) findViewById(R.id.tv_id_user_type_ast);
+        tv_ast_problem_type = (TextView) findViewById(R.id.tv_id_problem_type_ast);
+        tv_ast_desc = (TextView) findViewById(R.id.tv_id_desc_ask);
 
-        ll_allotted_date = (LinearLayout)findViewById(R.id.ll_id_already_allotted_time);
-        tv_allotted_date = (TextView)findViewById(R.id.tv_id_allotted_date);
-        tv_allotted_slot = (TextView)findViewById(R.id.tv_id_allotted_slot);
-        spinner_allot_date = (Spinner)findViewById(R.id.spinner_appointment_dates);
-        spinner_allot_slot = (Spinner)findViewById(R.id.spinner_appointment_date_slots);
-        ll_apt_dates = (LinearLayout)findViewById(R.id.ll_id_apt_dates);
-        ll_apt_slots = (LinearLayout)findViewById(R.id.ll_id_apt_slots);
+        ll_allotted_date = (LinearLayout) findViewById(R.id.ll_id_already_allotted_time);
+        tv_allotted_date = (TextView) findViewById(R.id.tv_id_allotted_date);
+        tv_allotted_slot = (TextView) findViewById(R.id.tv_id_allotted_slot);
+        spinner_allot_date = (Spinner) findViewById(R.id.spinner_appointment_dates);
+        spinner_allot_slot = (Spinner) findViewById(R.id.spinner_appointment_date_slots);
+        ll_apt_dates = (LinearLayout) findViewById(R.id.ll_id_apt_dates);
+        ll_apt_slots = (LinearLayout) findViewById(R.id.ll_id_apt_slots);
 
         days_associated_code = new HashMap<>();
-        days_associated_code.put("Sun",1);
-        days_associated_code.put("Mon",2);
-        days_associated_code.put("Tue",3);
-        days_associated_code.put("Wed",4);
-        days_associated_code.put("Thu",5);
-        days_associated_code.put("Fri",6);
-        days_associated_code.put("Sat",7);
+        days_associated_code.put("Sun", 1);
+        days_associated_code.put("Mon", 2);
+        days_associated_code.put("Tue", 3);
+        days_associated_code.put("Wed", 4);
+        days_associated_code.put("Thu", 5);
+        days_associated_code.put("Fri", 6);
+        days_associated_code.put("Sat", 7);
 
 
-        ArrayAdapter userTypeAdapter = ArrayAdapter.createFromResource(this,R.array.select_type,R.layout.custom_spinner);
+        ArrayAdapter userTypeAdapter = ArrayAdapter.createFromResource(this, R.array.select_type, R.layout.custom_spinner);
         userTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_user_type.setAdapter(userTypeAdapter);
         spinner_user_type.getBackground().setColorFilter(getResources().getColor(R.color.editTextBgColor), PorterDuff.Mode.SRC_ATOP);
-        ArrayAdapter problemTypeAdapter = ArrayAdapter.createFromResource(this,R.array.problem_type,R.layout.custom_spinner);
+        ArrayAdapter problemTypeAdapter = ArrayAdapter.createFromResource(this, R.array.problem_type, R.layout.custom_spinner);
         problemTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_problem_type.setAdapter(problemTypeAdapter);
         spinner_problem_type.getBackground().setColorFilter(getResources().getColor(R.color.editTextBgColor), PorterDuff.Mode.SRC_ATOP);
-            settings = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
-            prefs_in_contact_no = settings.getString("mobileno", null);
-            if (prefs_in_contact_no != null) {
-                in_contact_no = prefs_in_contact_no;
-                et_contact_no.setText(prefs_in_contact_no);
-            }
-            et_contact_no.setEnabled(false);
+        settings = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
+        prefs_in_contact_no = settings.getString("mobileno", null);
+        if (prefs_in_contact_no != null) {
+            in_contact_no = prefs_in_contact_no;
+            et_contact_no.setText(prefs_in_contact_no);
+        }
+        et_contact_no.setEnabled(false);
 
 
-
-            prefs_name = settings.getString("name", null);
-            if (prefs_name != null) {
-                in_name = prefs_name;
-                et_name.setText(in_name);
-            }
-            prefs_company = settings.getString("company_name", null);
-            if (prefs_company != null) {
-                in_company = prefs_company;
-                et_company_name.setText(in_company);
-            }
-            prefs_alt_mob_no = settings.getString("alternate_no", null);
-            if (prefs_alt_mob_no != null) {
-                in_alt_contact_no = prefs_alt_mob_no;
-                et_alt_contact_no.setText(in_alt_contact_no);
-            }
-        if(get_calling_class_code==1)
-        {
+        prefs_name = settings.getString("name", null);
+        if (prefs_name != null) {
+            in_name = prefs_name;
+            et_name.setText(in_name);
+        }
+        prefs_company = settings.getString("company_name", null);
+        if (prefs_company != null) {
+            in_company = prefs_company;
+            et_company_name.setText(in_company);
+        }
+        prefs_alt_mob_no = settings.getString("alternate_no", null);
+        if (prefs_alt_mob_no != null) {
+            in_alt_contact_no = prefs_alt_mob_no;
+            et_alt_contact_no.setText(in_alt_contact_no);
+        }
+        if (get_calling_class_code == 1) {
             tv_ast_name.setVisibility(View.GONE);
             tv_ast_user_type.setVisibility(View.GONE);
             tv_ast_problem_type.setVisibility(View.GONE);
@@ -182,10 +180,10 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                 new DateAsync().execute();
                 json_received_ticket_details = new JSONObject(received_ticket_details);
 
-                spinner_user_type.setSelection(((ArrayAdapter)spinner_user_type.getAdapter()).getPosition(json_received_ticket_details.getString("usertype")));
+                spinner_user_type.setSelection(((ArrayAdapter) spinner_user_type.getAdapter()).getPosition(json_received_ticket_details.getString("usertype")));
                 spinner_user_type.setEnabled(false);
 
-                spinner_problem_type.setSelection(((ArrayAdapter)spinner_problem_type.getAdapter()).getPosition(json_received_ticket_details.getString("problemtype")));
+                spinner_problem_type.setSelection(((ArrayAdapter) spinner_problem_type.getAdapter()).getPosition(json_received_ticket_details.getString("problemtype")));
                 //spinner_problem_type.setSelected(Boolean.parseBoolean(json_received_ticket_details.getString("problemtype")));
                 spinner_problem_type.setEnabled(false);
                 et_description.setText(json_received_ticket_details.getString("description"));
@@ -195,8 +193,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                 tv_allotted_slot.setText(json_received_ticket_details.getString("allotted_slot"));
 
 
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -209,38 +206,38 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
             et_address.setText(in_address);
         }*/
 
-        register_complaint = (Button)findViewById(R.id.btn_id_launch_complaint);
+        register_complaint = (Button) findViewById(R.id.btn_id_launch_complaint);
 
 
         register_complaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(get_calling_class_code==0) {
+                if (get_calling_class_code == 0) {
 
                     in_name = et_name.getText().toString().trim();
                     in_company = et_company_name.getText().toString().trim();
                     in_alt_contact_no = et_alt_contact_no.getText().toString().trim();
                     //in_address = et_address.getText().toString().trim();
                     in_description = et_description.getText().toString().trim();
-                    in_user_type = spinner_user_type.getSelectedItem().toString();
-                    in_problem_type = spinner_problem_type.getSelectedItem().toString();
+                    in_user_type = String.valueOf(spinner_user_type.getSelectedItemPosition());
+                    in_problem_type = String.valueOf(spinner_problem_type.getSelectedItemPosition());
                     Log.d("user type", in_user_type + in_problem_type);
-                    if (!in_name.matches(NamePattern)) {
+                    if (in_name.isEmpty() || !in_name.matches(NamePattern)) {
                         Toast.makeText(getApplicationContext(), "Please Enter a Valid Name", Toast.LENGTH_SHORT).show();
                         tv_error.setText(R.string.validation_name);
                         tv_error.setVisibility(View.VISIBLE);
-                    } else if (in_company.length() != 0 && !in_company.matches(CompanyPattern)) {
+                    } else if (!in_company.isEmpty() && !in_company.matches(CompanyPattern)) {
 
                         Toast.makeText(getApplicationContext(), "Please Enter a Valid Company Name", Toast.LENGTH_SHORT).show();
                         tv_error.setText(R.string.validation_company_name);
                         tv_error.setVisibility(View.VISIBLE);
 
-                    } else if (in_user_type.equalsIgnoreCase("Select User Type")) {
+                    } else if (in_user_type.equalsIgnoreCase("0")) {
                         Toast.makeText(getApplicationContext(), "Please Select a User type", Toast.LENGTH_SHORT).show();
                         tv_error.setText(R.string.validation_user_type);
                         tv_error.setVisibility(View.VISIBLE);
-                    } else if (in_problem_type.equalsIgnoreCase("Select Problem Type")) {
+                    } else if (in_problem_type.equalsIgnoreCase("0")) {
                         Toast.makeText(getApplicationContext(), "Please Select a Problem type", Toast.LENGTH_SHORT).show();
                         tv_error.setText(R.string.validation_problem_type);
                         tv_error.setVisibility(View.VISIBLE);
@@ -262,21 +259,19 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                     } else {
                         confirmation_dialog();
                     }
-                }else
-                {
+                } else {
                     in_allotment_date = String.valueOf(spinner_allot_date.getSelectedItemPosition());
                     in_allotment_date_slot = String.valueOf(spinner_allot_slot.getSelectedItemPosition());
-                    if(in_allotment_date.equals("0"))
-                    {
+                    if (in_allotment_date.equals("0")) {
                         tv_error.setText(R.string.spinner_allotment_error);
                         tv_error.setVisibility(View.VISIBLE);
 
-                    }
-                    else if(in_allotment_date_slot.equals("0"))
-                    {
+                    } else if (in_allotment_date_slot.equals("0")) {
                         tv_error.setText(R.string.spinner_slot_error);
                         tv_error.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
+                        in_user_type = spinner_user_type.getSelectedItem().toString();
+                        in_problem_type = spinner_problem_type.getSelectedItem().toString();
                         in_allotment_date = spinner_allot_date.getSelectedItem().toString();
                         in_allotment_date_slot = spinner_allot_slot.getSelectedItem().toString();
                         confirmation_dialog();
@@ -287,19 +282,19 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
 
 
     }
+
     private void setCustomActionBar() {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setCustomView(R.layout.action_bar);
         TextView tv_custom_action_bar_title = (TextView) actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
-        ImageView iv_info = (ImageView)actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
         iv_info.setVisibility(View.GONE);
 
-        if(get_calling_class_code==1)
-        {
+        if (get_calling_class_code == 1) {
             tv_custom_action_bar_title.setText(R.string.request_appointment);
-        }else{
+        } else {
             tv_custom_action_bar_title.setText(R.string.register_complaint);
         }
 
@@ -315,9 +310,9 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //Toast.makeText(getApplicationContext(),"You clicked Yes button",Toast.LENGTH_LONG).show();
                 JSONObject complaint_details = new JSONObject();
-                if(get_calling_class_code==0) {
+                if (get_calling_class_code == 0) {
                     try {
-                        complaint_details.put(Constants.strClientIdKey,Constants.clientId);
+                        complaint_details.put(Constants.strClientIdKey, Constants.clientId);
                         complaint_details.put("insert_update_code", get_calling_class_code); //insert call
                         complaint_details.put("name", in_name);
                         complaint_details.put("company_name", in_company);
@@ -333,10 +328,9 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else
-                {
+                } else {
                     try {
-                        complaint_details.put(Constants.strClientIdKey,Constants.clientId);
+                        complaint_details.put(Constants.strClientIdKey, Constants.clientId);
                         complaint_details.put("insert_update_code", get_calling_class_code); //update call
                         complaint_details.put("ticket_id", json_received_ticket_details.getString("ticket_id"));
                         complaint_details.put("requested_date", in_allotment_date);
@@ -350,14 +344,13 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                 ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = cm.getActiveNetworkInfo();
                 if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
-                    if(complaint_details.length()>0)
-                    {
+                    if (complaint_details.length() > 0) {
                         tv_error.setVisibility(View.GONE);
                         new RegisterComplaintHit().execute(complaint_details.toString());
 
                     }
 
-                }else{
+                } else {
                     //Toast.makeText(getApplicationContext(), "No Network!", Toast.LENGTH_SHORT).show();
                     tv_error.setText(R.string.no_network);
                     tv_error.setVisibility(View.VISIBLE);
@@ -375,7 +368,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private class RegisterComplaintHit extends AsyncTask<String,Void,String> {
+    private class RegisterComplaintHit extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -388,25 +381,24 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         }
 
 
-
         @Override
         protected String doInBackground(String... params) {
-            String jsonData = params[0],jsonResponse=null;
+            String jsonData = params[0], jsonResponse = null;
             URL url;
             HttpURLConnection conn = null;
 
-            try{
+            try {
                 url = new URL("http://bkinfotech.in/app/registerComplaint.php");
                 //url = new URL("http://192.168.1.34:81/bkinfotech/registerComplaint.php");
-                conn = (HttpURLConnection)url.openConnection();
+                conn = (HttpURLConnection) url.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type","application/json;charset=utf-8");
-                conn.setRequestProperty("Accept","application/json");
+                conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                conn.setRequestProperty("Accept", "application/json");
                 conn.setConnectTimeout(4000);
                 conn.connect();
 
-                Writer writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(),"UTF-8"));
+                Writer writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
                 writer.write(jsonData);
                 writer.close();
 
@@ -414,18 +406,17 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                 StringBuilder builder = new StringBuilder();
                 String input_line;
 
-                while((input_line=reader.readLine())!=null)
-                {
+                while ((input_line = reader.readLine()) != null) {
                     builder.append(input_line).append("\n");
                 }
                 //System.out.print("RESPONSE IN COMPLKAINT REGISTER ACITIVITY"+builder);
 
                 jsonResponse = builder.toString().trim();
-                Log.d("Register Complaint",jsonResponse);
+                Log.d("Register Complaint", jsonResponse);
                 return jsonResponse;
-            }catch (Exception e){
-                    pg.dismiss();
-                    Log.d("REGISTER E ACITIVITY", String.valueOf(e));
+            } catch (Exception e) {
+                pg.dismiss();
+                Log.d("REGISTER E ACITIVITY", String.valueOf(e));
             }
 
             return null;
@@ -435,8 +426,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            if (get_calling_class_code == 0)
-            {
+            if (get_calling_class_code == 0) {
                 try {
                     Log.d("Response", s);
                     pg.dismiss();
@@ -470,32 +460,30 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-            else{
+            } else {
                 try {
                     Log.d("Response", s);
                     pg.dismiss();
                     AlertDialog.Builder alert = new AlertDialog.Builder(ResgisterComplaintActivity.this);
-                    if(s.equals("1")) {
+                    if (s.equals("1")) {
                         alert.setMessage("New Date Requested Successfully");
-                    }
-                    else{
+                    } else {
                         alert.setMessage("New Date Already Requested Once");
                     }
                     alertDialog = alert.create();
                     alertDialog.setCancelable(false);
                     alertDialog.show();
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                alertDialog.dismiss();
-                                Intent user_activity = new Intent(getApplicationContext(), InProcessComplaintActivity.class);
-                                ResgisterComplaintActivity.this.finish();
-                                startActivity(user_activity);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            alertDialog.dismiss();
+                            Intent user_activity = new Intent(getApplicationContext(), InProcessComplaintActivity.class);
+                            ResgisterComplaintActivity.this.finish();
+                            startActivity(user_activity);
 
-                            }
-                        }, 2000);
+                        }
+                    }, 2000);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -505,17 +493,17 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         }
     }
 
-    private class DateAsync extends AsyncTask<Void,Void,String>
-    {
+    private class DateAsync extends AsyncTask<Void, Void, String> {
         String current_day_string;
-        int current_time_int,current_day_int,current_day_string_to_hash_map,current_month;
+        int current_time_int, current_day_int, current_day_string_to_hash_map, current_month;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.d("Inside provid"," pre execute provide_appointment_dates");
+            Log.d("Inside provid", " pre execute provide_appointment_dates");
             current_time_int = Integer.parseInt(new SimpleDateFormat("HH").format(Calendar.getInstance().getTime()));
-            current_day_int=  Integer.parseInt(new SimpleDateFormat("dd").format(Calendar.getInstance().getTime()));
-            current_month= Integer.parseInt(new SimpleDateFormat("MM").format(Calendar.getInstance().getTime()));
+            current_day_int = Integer.parseInt(new SimpleDateFormat("dd").format(Calendar.getInstance().getTime()));
+            current_month = Integer.parseInt(new SimpleDateFormat("MM").format(Calendar.getInstance().getTime()));
             current_day_string = new SimpleDateFormat("E").format(Calendar.getInstance().getTime());
             current_day_string_to_hash_map = days_associated_code.get(current_day_string);
 
@@ -542,7 +530,6 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         }
 
 
-
         @Override
         protected String doInBackground(Void... params) {
             provide_appointment_dates(current_day_int, current_month, current_day_string_to_hash_map);
@@ -552,12 +539,12 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("Inside provid"," POST execute provide_appointment_dates");
+            Log.d("Inside provid", " POST execute provide_appointment_dates");
         }
     }
-    void provide_appointment_dates(int local_current_day_int,int local_current_month,int local_current_day_string_to_hash_map)
-    {
-        Log.d("Inside provid"," Inside provide_appointment_dates");
+
+    void provide_appointment_dates(int local_current_day_int, int local_current_month, int local_current_day_string_to_hash_map) {
+        Log.d("Inside provid", " Inside provide_appointment_dates");
         /*local_current_day_int++;
         if(local_current_day_string_to_hash_map==7)
         {
@@ -567,10 +554,9 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         }*/
 
         //Log.d("local_current_day 2",String.valueOf(local_current_day_string_to_hash_map));
-        int count_dates=1;
-        Log.d("Inside  provid"," Inside inside case 2 provide_appointment_dates");
-        switch(local_current_month)
-        {
+        int count_dates = 1;
+        Log.d("Inside  provid", " Inside inside case 2 provide_appointment_dates");
+        switch (local_current_month) {
 
             case 1:
             case 3:
@@ -579,12 +565,10 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
             case 8:
             case 10:
 
-                Log.d("Inside  provid"," Inside inside provide_appointment_dates");
-                while(count_dates<6)
-                {
-                    if(local_current_day_int>=31)
-                    {
-                        if(local_current_day_int==31) {
+                Log.d("Inside  provid", " Inside inside provide_appointment_dates");
+                while (count_dates < 6) {
+                    if (local_current_day_int >= 31) {
+                        if (local_current_day_int == 31) {
                             if (local_current_day_string_to_hash_map != 1) {
                                 appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
                                 count_dates++;
@@ -594,7 +578,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                             }
                             local_current_month++;
                             local_current_day_int = 1;
-                        }else{
+                        } else {
                             local_current_month++;
                             local_current_day_int = 1;
                             if (local_current_day_string_to_hash_map != 1) {
@@ -607,35 +591,29 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                                 local_current_day_int++;
                             }
                         }
-                    }else{
-                        if(local_current_day_string_to_hash_map!=1)
-                        {
-                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1] ;
+                    } else {
+                        if (local_current_day_string_to_hash_map != 1) {
+                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
                             local_current_day_int++;
                             count_dates++;
                             local_current_day_string_to_hash_map++;
-                        }else{
+                        } else {
                             local_current_day_int++;
                             local_current_day_string_to_hash_map++;
                         }
                     }
-                    if(local_current_day_string_to_hash_map==8)
-                    {
+                    if (local_current_day_string_to_hash_map == 8) {
                         local_current_day_string_to_hash_map = 1;
                     }
                 }
 
 
-
-
                 break;
             case 2:
-                Log.d("Inside  provid"," Inside inside provide_appointment_dates");
-                while(count_dates<6)
-                {
-                    if(local_current_day_int>=28)
-                    {
-                        if(local_current_day_int==28) {
+                Log.d("Inside  provid", " Inside inside provide_appointment_dates");
+                while (count_dates < 6) {
+                    if (local_current_day_int >= 28) {
+                        if (local_current_day_int == 28) {
                             if (local_current_day_string_to_hash_map != 1) {
                                 appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
                                 count_dates++;
@@ -645,7 +623,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                             }
                             local_current_month++;
                             local_current_day_int = 1;
-                        }else{
+                        } else {
                             local_current_month++;
                             local_current_day_int = 1;
                             if (local_current_day_string_to_hash_map != 1) {
@@ -658,21 +636,19 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                                 local_current_day_int++;
                             }
                         }
-                    }else{
-                        if(local_current_day_string_to_hash_map!=1)
-                        {
-                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1] ;
+                    } else {
+                        if (local_current_day_string_to_hash_map != 1) {
+                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
                             local_current_day_int++;
                             count_dates++;
                             local_current_day_string_to_hash_map++;
-                        }else{
+                        } else {
                             local_current_day_int++;
                             local_current_day_string_to_hash_map++;
                         }
                     }
 
-                    if(local_current_day_string_to_hash_map==8)
-                    {
+                    if (local_current_day_string_to_hash_map == 8) {
                         local_current_day_string_to_hash_map = 1;
                     }
                 }
@@ -682,12 +658,10 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
             case 6:
             case 9:
             case 11:
-                Log.d("Inside  provid"," Inside inside provide_appointment_dates");
-                while(count_dates<6)
-                {
-                    if(local_current_day_int>=30)
-                    {
-                        if(local_current_day_int==30) {
+                Log.d("Inside  provid", " Inside inside provide_appointment_dates");
+                while (count_dates < 6) {
+                    if (local_current_day_int >= 30) {
+                        if (local_current_day_int == 30) {
                             if (local_current_day_string_to_hash_map != 1) {
                                 appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
                                 count_dates++;
@@ -697,7 +671,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                             }
                             local_current_month++;
                             local_current_day_int = 1;
-                        }else{
+                        } else {
                             local_current_month++;
                             local_current_day_int = 1;
                             if (local_current_day_string_to_hash_map != 1) {
@@ -710,32 +684,28 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                                 local_current_day_int++;
                             }
                         }
-                    }else{
-                        if(local_current_day_string_to_hash_map!=1)
-                        {
-                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1] ;
+                    } else {
+                        if (local_current_day_string_to_hash_map != 1) {
+                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
                             local_current_day_int++;
                             count_dates++;
                             local_current_day_string_to_hash_map++;
-                        }else{
+                        } else {
                             local_current_day_int++;
                             local_current_day_string_to_hash_map++;
                         }
                     }
-                    if(local_current_day_string_to_hash_map==8)
-                    {
+                    if (local_current_day_string_to_hash_map == 8) {
                         local_current_day_string_to_hash_map = 1;
                     }
                 }
 
                 break;
             case 12:
-                Log.d("Inside  provid"," Inside inside provide_appointment_dates");
-                while(count_dates<6)
-                {
-                    if(local_current_day_int>=31)
-                    {
-                        if(local_current_day_int==31) {
+                Log.d("Inside  provid", " Inside inside provide_appointment_dates");
+                while (count_dates < 6) {
+                    if (local_current_day_int >= 31) {
+                        if (local_current_day_int == 31) {
                             if (local_current_day_string_to_hash_map != 1) {
                                 appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
                                 count_dates++;
@@ -745,7 +715,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                             }
                             local_current_month = 1;
                             local_current_day_int = 1;
-                        }else{
+                        } else {
                             local_current_month++;
                             local_current_day_int = 1;
                             if (local_current_day_string_to_hash_map != 1) {
@@ -758,33 +728,28 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                                 local_current_day_int++;
                             }
                         }
-                    }else{
-                        if(local_current_day_string_to_hash_map!=1)
-                        {
-                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1] ;
+                    } else {
+                        if (local_current_day_string_to_hash_map != 1) {
+                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
                             local_current_day_int++;
                             count_dates++;
                             local_current_day_string_to_hash_map++;
-                        }else{
+                        } else {
                             local_current_day_int++;
                             local_current_day_string_to_hash_map++;
                         }
                     }
 
-                    if(local_current_day_string_to_hash_map==8)
-                    {
+                    if (local_current_day_string_to_hash_map == 8) {
                         local_current_day_string_to_hash_map = 1;
                     }
                 }
 
                 break;
         }
-        for(int j=0;j<appointment_dates.length;j++)
-        {
-            Log.d("DATESSSS",appointment_dates[j]);
+        for (int j = 0; j < appointment_dates.length; j++) {
+            Log.d("DATESSSS", appointment_dates[j]);
         }
-
-
 
 
         adapter_spinner_appointment_date = new ArrayAdapter<>(this, R.layout.custom_spinner, appointment_dates);

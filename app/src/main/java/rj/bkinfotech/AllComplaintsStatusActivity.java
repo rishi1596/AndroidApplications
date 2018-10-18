@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import rj.bkinfotech.AsyncTasks.ComplaintsAsync;
 import rj.bkinfotech.Constants.Constants;
 
 /**
@@ -50,9 +51,9 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
     LinearLayout oc;
     TextView tv_open, tv_close;
     int open_close = 0; //0 open 1 close
-    ColorStateList cl_open,cl_closed;
-    ProgressBar pb;
+    ColorStateList cl_open, cl_closed;
     static Activity allcomplaints;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -66,8 +67,6 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
         complaintModel = new ArrayList<>();
         listView = (ListView) findViewById(R.id.lv_id_complaints_list);
 
-        pb = (ProgressBar)findViewById(R.id.pb_id_progress);
-
         if (ui.equals("1")) {
             oc = (LinearLayout) findViewById(R.id.ll_id_openclose);
             oc.setVisibility(View.VISIBLE);
@@ -80,7 +79,6 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
         }
 
 
-
         tv_error = (TextView) findViewById(R.id.empty);
         if (savedInstanceState == null) {
             ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -91,38 +89,30 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
                     SharedPreferences sf = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
                     String rg_no = sf.getString("mobileno", null);
                     String code = "3";
-                    send_details.put(Constants.strClientIdKey,Constants.clientId);
+                    send_details.put(Constants.strClientIdKey, Constants.clientId);
                     send_details.put("registered_no", rg_no);
                     send_details.put("code", code);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                pb.setIndeterminate(true);
-
-
                 new ComplaintsAsync(this).execute(send_details.toString());
-                pb.setVisibility(View.GONE);
-               // pg.dismiss();
-                //Log.d("asdada",res.toString());
-               /*NewComplaintActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.new_complaint_activity);
-               ComplaintModel cm = new ComplaintModel();
-               binding.setComplaintmodel(cm);*/
             } else {
                 tv_error.setText(R.string.no_network);
                 tv_error.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(), "No Network", Toast.LENGTH_SHORT).show();
-                pb.setVisibility(View.GONE);
+
 
             }
         }
     }
+
     private void setCustomActionBar() {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setCustomView(R.layout.action_bar);
         TextView tv_custom_action_bar_title = (TextView) actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
-        ImageView iv_info = (ImageView)actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
         tv_custom_action_bar_title.setText(R.string.all_tickets);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         iv_info.setOnClickListener(this);
@@ -142,7 +132,6 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
         try {
             Log.d("NewComplaint", complaints);
             if (complaints.equals("1") || complaints.equals("0")) {
-                //ToDO new code added for raise again check it later
 
                 AlertDialog alertDialog;
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -163,7 +152,7 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
                         allcomplaints.finish();
                     }
                 }, 3000); //End
-            }else {
+            } else {
 
 
                 all_complaints = new JSONArray(complaints);
@@ -232,36 +221,36 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
 
     @Override
     public void onClick(View v) {
-        try{
-        switch (v.getId()) {
-            case R.id.tv_id_open:
-                if (open_close != 0) {
-                    //Toast.makeText(getApplicationContext(),"Open",Toast.LENGTH_SHORT).show();
-                    tv_open.setTextColor(cl_open);
-                    tv_close.setTextColor(cl_closed);
-                    complaintModel.clear();
-                    open_close = 0;
-                    open_or_close(STATIC_ALL_COMPLAINTS_STRING);
-                }
-                break;
-            case R.id.tv_id_closed:
+        try {
+            switch (v.getId()) {
+                case R.id.tv_id_open:
+                    if (open_close != 0) {
+                        //Toast.makeText(getApplicationContext(),"Open",Toast.LENGTH_SHORT).show();
+                        tv_open.setTextColor(cl_open);
+                        tv_close.setTextColor(cl_closed);
+                        complaintModel.clear();
+                        open_close = 0;
+                        open_or_close(STATIC_ALL_COMPLAINTS_STRING);
+                    }
+                    break;
+                case R.id.tv_id_closed:
 
-                if (open_close != 1) {
-                    //Toast.makeText(getApplicationContext(),"Closed",Toast.LENGTH_SHORT).show();
-                    tv_open.setTextColor(cl_closed);
-                    tv_close.setTextColor(cl_open);
-                    complaintModel.clear();
-                    open_close = 1;
-                    open_or_close(STATIC_ALL_COMPLAINTS_STRING);
-                }
-                break;
+                    if (open_close != 1) {
+                        //Toast.makeText(getApplicationContext(),"Closed",Toast.LENGTH_SHORT).show();
+                        tv_open.setTextColor(cl_closed);
+                        tv_close.setTextColor(cl_open);
+                        complaintModel.clear();
+                        open_close = 1;
+                        open_or_close(STATIC_ALL_COMPLAINTS_STRING);
+                    }
+                    break;
 
-            case R.id.iv_id_info:
-                Intent ticket_info_activity = new Intent(getApplicationContext(),TicketInfo.class);
-                startActivity(ticket_info_activity);
-                break;
-        }
-    }catch (Exception e){
+                case R.id.iv_id_info:
+                    Intent ticket_info_activity = new Intent(getApplicationContext(), TicketInfo.class);
+                    startActivity(ticket_info_activity);
+                    break;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

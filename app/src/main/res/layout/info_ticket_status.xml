@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:orientation="vertical"
+    android:id="@+id/ll_id_info_ticket_xml"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:background="#d6d6d6"
-    android:id="@+id/ll_id_info_ticket_xml"
-    >
+    android:orientation="vertical">
+
     <TextView
+        android:id="@+id/tv_id_info_close"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/info"
         android:background="@color/inputColor"
-        android:textColor="@color/fontColor"
-        android:gravity="center_horizontal"
-        android:textSize="18sp"
-        android:padding="5dp"
-        android:fontFamily="sans-serif-condensed"
-        android:textStyle="bold"
         android:drawableEnd="@drawable/whiteclose15"
         android:drawableRight="@drawable/whiteclose15"
         android:drawablePadding="3dp"
-        android:id="@+id/tv_id_info_close"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="@string/info"
+        android:textColor="@color/fontColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
 
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
-        >
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="15dp"
             android:layout_weight="0.1"
-            android:src="@drawable/pending"
-            />
+            android:src="@drawable/pending" />
         <!-- <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -51,27 +50,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
+            android:fontFamily="sans-serif"
             android:text="@string/ticket_penidng"
             android:textColor="@color/ticket_pending"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            />
+            android:textSize="16sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:weightSum="1"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
-        >
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="15dp"
             android:layout_weight="0.1"
-            android:src="@drawable/inprocess"
-            />
+            android:src="@drawable/inprocess" />
         <!--  <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -84,27 +81,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
+            android:fontFamily="sans-serif"
             android:text="@string/ticket_in_process"
             android:textColor="@color/ticket_in_process"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            />
+            android:textSize="16sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:weightSum="1"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
-        >
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="15dp"
             android:layout_weight="0.1"
-            android:src="@drawable/partial"
-            />
+            android:src="@drawable/partial" />
         <!-- <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -117,18 +112,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
+            android:fontFamily="sans-serif"
             android:text="@string/ticket_processed_partially"
-            android:textColor="@color/ticket_processed_partially" android:textSize="16sp" android:fontFamily="sans-serif"
-            />
+            android:textColor="@color/ticket_processed_partially"
+            android:textSize="16sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:weightSum="1"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
-        >
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="0dp"
@@ -149,25 +145,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
+            android:fontFamily="sans-serif"
             android:text="@string/ticket_processed"
-            android:textColor="@color/ticket_processed" android:textSize="16sp" android:fontFamily="sans-serif"
-            />
+            android:textColor="@color/ticket_processed"
+            android:textSize="16sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:weightSum="1"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
-        >
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="15dp"
             android:layout_weight="0.1"
-            android:src="@drawable/closed"
-            />
+            android:src="@drawable/closed" />
         <!--   <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -180,25 +176,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
+            android:fontFamily="sans-serif"
             android:text="@string/ticket_closed"
-            android:textColor="@color/ticket_closed" android:textSize="16sp" android:fontFamily="sans-serif"
-            />
+            android:textColor="@color/ticket_closed"
+            android:textSize="16sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:weightSum="1"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
-        >
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="15dp"
             android:layout_weight="0.1"
-            android:src="@drawable/raisedagain"
-            />
+            android:src="@drawable/raisedagain" />
         <!--  <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -212,11 +208,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
+            android:fontFamily="sans-serif"
             android:text="@string/ticket_raised_again"
             android:textColor="@color/raised_again"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            />
+            android:textSize="16sp" />
     </LinearLayout>
     <!--<Button
         android:layout_width="match_parent"

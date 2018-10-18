@@ -28,7 +28,7 @@ public class ComplaintModel {
     private String engineer_close_date = "";
 
 
-    public ComplaintModel(String ticket_id, String user_type, String problem_type, String description, String status, String engineer_appointed,
+    ComplaintModel(String ticket_id, String user_type, String problem_type, String description, String status, String engineer_appointed,
                           String complaint_reg_time,String complaint_reg_date,String raisedagain,String allotted_date,String allotted_slot,
                           String engineer_appointed_time,String engineer_appointed_date,String requested_date,String requested_slot,String engineer_close_time,String engineer_close_date)
     {

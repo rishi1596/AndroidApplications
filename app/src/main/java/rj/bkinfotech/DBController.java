@@ -13,10 +13,9 @@ import java.util.HashMap;
  * Created by jimeet29 on 19-12-2017.
  */
 
-public class DBController extends SQLiteOpenHelper{
-    public DBController(Context applicationcontext)
-    {
-        super(applicationcontext,"complaint.db",null,1);
+public class DBController extends SQLiteOpenHelper {
+    public DBController(Context applicationcontext) {
+        super(applicationcontext, "complaint.db", null, 1);
     }
 
     @Override
@@ -35,32 +34,32 @@ public class DBController extends SQLiteOpenHelper{
     public void insertComplaint(HashMap<String, String> complaint_details) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("ticketid",complaint_details.get("ticketid"));
-        cv.put("name",complaint_details.get("name"));
-        cv.put("companyname",complaint_details.get("companyname"));
-        cv.put("usertype",complaint_details.get("usertype"));
-        cv.put("problemtype",complaint_details.get("problemtype"));
-        cv.put("registeredno",complaint_details.get("registeredno"));
-        cv.put("alternateno",complaint_details.get("alternateno"));
-        cv.put("address",complaint_details.get("address"));
-        cv.put("description",complaint_details.get("description"));
-        cv.put("engineerappointed",complaint_details.get("engineerappointed"));
-        cv.put("ticketstatus",complaint_details.get("ticketstatus"));
-        cv.put("clientsidestatus",complaint_details.get("clientsidestatus"));
-        cv.put("engineersidestatus",complaint_details.get("engineersidestatus"));
+        cv.put("ticketid", complaint_details.get("ticketid"));
+        cv.put("name", complaint_details.get("name"));
+        cv.put("companyname", complaint_details.get("companyname"));
+        cv.put("usertype", complaint_details.get("usertype"));
+        cv.put("problemtype", complaint_details.get("problemtype"));
+        cv.put("registeredno", complaint_details.get("registeredno"));
+        cv.put("alternateno", complaint_details.get("alternateno"));
+        cv.put("address", complaint_details.get("address"));
+        cv.put("description", complaint_details.get("description"));
+        cv.put("engineerappointed", complaint_details.get("engineerappointed"));
+        cv.put("ticketstatus", complaint_details.get("ticketstatus"));
+        cv.put("clientsidestatus", complaint_details.get("clientsidestatus"));
+        cv.put("engineersidestatus", complaint_details.get("engineersidestatus"));
 
-        db.insertWithOnConflict("localcomplaintdetails",null,cv,SQLiteDatabase.CONFLICT_IGNORE);
+        db.insertWithOnConflict("localcomplaintdetails", null, cv, SQLiteDatabase.CONFLICT_IGNORE);
         db.close();
     }
 
-    public ArrayList<HashMap<String,String >> getComplaints(){
-        ArrayList<HashMap<String,String>> complaintsList = new ArrayList<HashMap<String, String>>();
+    public ArrayList<HashMap<String, String>> getComplaints() {
+        ArrayList<HashMap<String, String>> complaintsList = new ArrayList<HashMap<String, String>>();
         String get_complaint_query = "Select * from localcomplaintdetails order by id desc";
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(get_complaint_query,null);
+        Cursor cursor = db.rawQuery(get_complaint_query, null);
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String,String> map = new HashMap<>();
+                HashMap<String, String> map = new HashMap<>();
                 map.put("id", cursor.getString(0));
                 map.put("ticketid", cursor.getString(1));
                 map.put("name", cursor.getString(2));

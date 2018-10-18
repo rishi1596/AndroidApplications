@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import rj.bkinfotech.Constants.Constants;
 
 import static android.content.ContentValues.TAG;
 
@@ -22,7 +24,7 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // ...
-        String title =remoteMessage.getData().get("title");
+        String title = remoteMessage.getData().get("title");
         String content = remoteMessage.getData().get("content");
         sendNotification(title, content);
         // TODO(developer): Handle FCM messages here.
@@ -42,20 +44,21 @@ public class FirebaseService extends FirebaseMessagingService {
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
+
     private void sendNotification(String title, String content) {
 
         Intent intent;
-        String ftitle,fcontent;
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
+        String ftitle, fcontent;
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        ReusableCodeAdmin.createNotificationChannel(this);
         ftitle = title;
         fcontent = content;
         intent = new Intent(this, UserActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this, Constants.CHANNEL_ID)
                 .setSmallIcon(R.drawable.bk_logo_resized)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentTitle(ftitle)
                 .setContentInfo(fcontent)
                 .setAutoCancel(true)
@@ -64,8 +67,7 @@ public class FirebaseService extends FirebaseMessagingService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-
+        notificationManager.notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
 
 
     }

@@ -1,9 +1,13 @@
-package rj.bkinfotech;
+package rj.bkinfotech.AsyncTasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import rj.bkinfotech.Constants.Constants;
+import rj.bkinfotech.ReusableCodeAdmin;
+import rj.bkinfotech.TaskCompleted;
 
 /**
  * Created by jimeet29 on 22-12-2017.
@@ -11,13 +15,8 @@ import android.util.Log;
 
 public class ComplaintsAsync extends AsyncTask<String, Void, String> {
 
-    //ArrayList<String> complaintmodel;
-    ReusableCodeAdmin rca = new ReusableCodeAdmin();
-    String url = "http://bkinfotech.in/app/getSpecificUserComplaint.php";
-    //String url="http://192.168.1.35:81/bkinfotech/getSpecificUserComplaint.php";
-    String responseObject;
     private Context mContext;
-    ProgressDialog pg;
+    private ProgressDialog pg;
     private TaskCompleted mCallback;
 
     public ComplaintsAsync(Context context) {
@@ -38,19 +37,19 @@ public class ComplaintsAsync extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        rca.sendCredentials(params[0], url);
-        responseObject = rca.getCredentialsResponse();
-        return responseObject;
+        String url = Constants.url + Constants.userSpecificComplaintsEP;
+        ReusableCodeAdmin.sendCredentials(params[0], url);
+        return ReusableCodeAdmin.getCredentialsResponse();
     }
 
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+    protected void onPostExecute(String response) {
+        super.onPostExecute(response);
         try {
             pg.dismiss();
-            Log.d("Response JSON", s);
-            mCallback.onTaskComplete(s);
+            Log.d("Response JSON", response);
+            mCallback.onTaskComplete(response);
         } catch (Exception e) {
             e.printStackTrace();
         }

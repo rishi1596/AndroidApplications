@@ -12,7 +12,7 @@
 
     <string name="log_out">Log Out</string>
     <string name="log_out_text">Are you sure you want to LogOut?</string>
-    <string name="no_internet">No Network!</string>
+    <string name="no_internet">No Network! Please Try Again.</string>
     <string name="incorrect">Credentials are incorrect or Already Logged In</string>
     <string name="partially_done">Partial</string>
     <string name="problem_desc">Problem\'s Description:</string>
@@ -46,4 +46,15 @@
     <string name="ticket_solution">TICKET SOLUTION</string>
     <string name="credentials_dailog">Are the credentials correct?</string>
     <string name="privacy_policy"><u>Privacy Policy</u></string>
+
+    <!-- Notifications and its channels -->
+    <string name="channel_name">Complaints Notification</string>
+    <string name="channel_description">This channel is used to provide the user notifications regarding their complaints status.</string>
+
+    <!-- Auto Start Permission for miui devices -->
+    <string name="auto_start_permission">App AutoStart Permission</string>
+    <string name="permission_description">Please enable AutoStart Permission for the BK InfoTech application from the device settings, in order to receive notifications regarding ticket\'s status.</string>
+    <string name="dont_show_it_again">Don\'t show it again</string>
+    <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
 </resources>

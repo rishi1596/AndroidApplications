@@ -20,22 +20,34 @@ import rj.bkinfotech.Constants.Constants;
 
 public class SplashActivity extends AppCompatActivity {
 
-    ImageView bk_logo, bk_name;
-    Animation blink;
+    private ImageView bk_logo, bk_name;
+    private Animation blink;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
 
+        initialize();
+
+        startAnimation();
+
+        startActivityWithDelay();
+    }
+
+    private void initialize() {
         ReusableCodeAdmin.createNotificationChannel(SplashActivity.this);
-        bk_logo = (ImageView) findViewById(R.id.iv_id_bk_logo);
-        bk_name = (ImageView) findViewById(R.id.iv_id_bk_name);
-        blink = AnimationUtils.loadAnimation(getApplicationContext()
-                , R.anim.blink);
+        bk_logo = findViewById(R.id.iv_id_bk_logo);
+        bk_name = findViewById(R.id.iv_id_bk_name);
+        blink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+    }
+
+    private void startAnimation() {
         bk_logo.startAnimation(blink);
         bk_name.startAnimation(blink);
+    }
 
+    private void startActivityWithDelay() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -54,4 +66,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
     }
+
+
 }

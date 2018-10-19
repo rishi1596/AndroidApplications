@@ -129,4 +129,5 @@
     <string name="permission_description">Please enable AutoStart Permission for the BK InfoTech application from the device settings, in order to receive notifications regarding ticket\'s status.</string>
     <string name="dont_show_it_again">Don\'t show it again</string>
     <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
 </resources>

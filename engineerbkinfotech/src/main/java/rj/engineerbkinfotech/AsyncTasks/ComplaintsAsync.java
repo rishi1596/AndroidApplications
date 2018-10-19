@@ -1,4 +1,4 @@
-package rj.engineerbkinfotech;
+package rj.engineerbkinfotech.AsyncTasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,24 +6,23 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import rj.engineerbkinfotech.Constants.Constants;
+import rj.engineerbkinfotech.GPS;
+import rj.engineerbkinfotech.ReusableCodeAdmin;
+import rj.engineerbkinfotech.TaskCompleted;
+
 /**
  * Created by jimeet29 on 22-12-2017.
  */
 
- public class ComplaintsAsync extends AsyncTask<String,Void,String> {
+public class ComplaintsAsync extends AsyncTask<String, Void, String> {
 
-    //ArrayList<String> complaintmodel;
-ReusableCodeAdmin rca = new ReusableCodeAdmin();
-String url="http://bkinfotech.in/app/getSpecificEngineerComplaint.php";
-    //String url="http://192.168.1.33:81/bkinfotech/getSpecificEngineerComplaint.php";
-    String responseObject;
     private Context mContext;
-    ProgressDialog pg;
+    private ProgressDialog pg;
     private TaskCompleted mCallback;
-    GPS gps;
+    private GPS gps;
 
-    public ComplaintsAsync(Context context)
-    {
+    public ComplaintsAsync(Context context) {
         this.mContext = context;
         this.mCallback = (TaskCompleted) context;
     }
@@ -39,14 +38,12 @@ String url="http://bkinfotech.in/app/getSpecificEngineerComplaint.php";
     }
 
 
-
     @Override
     protected String doInBackground(String... params) {
-        rca.sendCredentials(params[0],url);
-        responseObject = rca.getCredentialsResponse();
-        return responseObject;
+        String url = Constants.url + params[1];
+        ReusableCodeAdmin.sendCredentials(params[0], url);
+        return ReusableCodeAdmin.getCredentialsResponse();
     }
-
 
     @Override
     protected void onPostExecute(String s) {
@@ -55,11 +52,8 @@ String url="http://bkinfotech.in/app/getSpecificEngineerComplaint.php";
         try {
             pg.dismiss();
             Log.d("Response JSON", s);
-
-
             mCallback.onTaskComplete(s);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

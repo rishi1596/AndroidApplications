@@ -1,31 +1,25 @@
 package rj.engineerbkinfotech;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import rj.engineerbkinfotech.Constants.Constants;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static rj.engineerbkinfotech.EngineerActivity.STATIC_ALL_COMPLAINTS;
@@ -35,14 +29,14 @@ import static rj.engineerbkinfotech.EngineerActivity.STATIC_ALL_COMPLAINTS;
  * Created by jimeet29 on 23-12-2017.
  */
 
-public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> implements View.OnClickListener{
+public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> implements View.OnClickListener {
 
 
     private ArrayList<ComplaintModel> complaints;
-     Context mContext;
+    private Context mContext;
     String code;
-    JSONObject specific_complaint_in_custom_adaptor,data;
-    JSONArray array_in_custom_adaptor;
+    private JSONObject specific_complaint_in_custom_adaptor, data;
+    private JSONArray array_in_custom_adaptor;
     public static final int CALL_BACK_CODE = 1;
 
 
@@ -67,10 +61,10 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
         View view_ticket_status;
     }
 
-    public CustomAdaptorNewComplaint(ArrayList<ComplaintModel> data, Context context) {
-        super(context,R.layout.new_complaint_activity,data);
+    CustomAdaptorNewComplaint(ArrayList<ComplaintModel> data, Context context) {
+        super(context, R.layout.new_complaint_activity, data);
         this.complaints = data;
-        this.mContext=context;
+        this.mContext = context;
 
     }
 
@@ -89,30 +83,29 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.new_complaint_activity, parent, false);
-            viewHolder.ticket_id = (TextView) convertView.findViewById(R.id.tv_id_ticketid);
-            viewHolder.name = (TextView) convertView.findViewById(R.id.tv_id_name);
-            viewHolder.company_name = (TextView) convertView.findViewById(R.id.tv_id_company_name);
-            viewHolder.usertype = (TextView) convertView.findViewById(R.id.tv_id_usertype);
-            viewHolder.problemtype = (TextView) convertView.findViewById(R.id.tv_id_problemtype);
-            viewHolder.description = (TextView) convertView.findViewById(R.id.tv_id_description);
-            viewHolder.address = (TextView) convertView.findViewById(R.id.tv_id_address);
+            viewHolder.ticket_id = convertView.findViewById(R.id.tv_id_ticketid);
+            viewHolder.name = convertView.findViewById(R.id.tv_id_name);
+            viewHolder.company_name = convertView.findViewById(R.id.tv_id_company_name);
+            viewHolder.usertype = convertView.findViewById(R.id.tv_id_usertype);
+            viewHolder.problemtype = convertView.findViewById(R.id.tv_id_problemtype);
+            viewHolder.description = convertView.findViewById(R.id.tv_id_description);
+            viewHolder.address = convertView.findViewById(R.id.tv_id_address);
 
-            viewHolder.complaint_reg_time = (TextView) convertView.findViewById(R.id.tv_id_reg_time);
-            viewHolder.complaint_reg_date = (TextView) convertView.findViewById(R.id.tv_id_reg_date);
-            viewHolder.iv_raised_again = (ImageView) convertView.findViewById(R.id.iv_id_raisedagain);
-            viewHolder.allotted_date = (TextView) convertView.findViewById(R.id.tv_id_allotted_date);
-            viewHolder.allotted_slot = (TextView) convertView.findViewById(R.id.tv_id_allotted_slot);
+            viewHolder.complaint_reg_time = convertView.findViewById(R.id.tv_id_reg_time);
+            viewHolder.complaint_reg_date = convertView.findViewById(R.id.tv_id_reg_date);
+            viewHolder.iv_raised_again = convertView.findViewById(R.id.iv_id_raisedagain);
+            viewHolder.allotted_date = convertView.findViewById(R.id.tv_id_allotted_date);
+            viewHolder.allotted_slot = convertView.findViewById(R.id.tv_id_allotted_slot);
 
-            viewHolder.btn_close = (Button)convertView.findViewById(R.id.btn_id_close);
-            viewHolder.btn_partial = (Button)convertView.findViewById(R.id.btn_id_partially_done);
+            viewHolder.btn_close = convertView.findViewById(R.id.btn_id_close);
+            viewHolder.btn_partial = convertView.findViewById(R.id.btn_id_partially_done);
 
-            viewHolder.ll_company_name = (LinearLayout) convertView.findViewById(R.id.ll_id_company_name);
+            viewHolder.ll_company_name = convertView.findViewById(R.id.ll_id_company_name);
 
             viewHolder.view_ticket_status = convertView.findViewById(R.id.view_id_ticket_status_color);
 
             convertView.setTag(viewHolder);
-        }else
-        {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
 
         }
@@ -124,18 +117,12 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
         viewHolder.ticket_id.setText(compplaintModel.getTicket_id());
         viewHolder.name.setText(compplaintModel.getName());
-        if(compplaintModel.getCompany_name().equalsIgnoreCase("NULL")) {
-            viewHolder.company_name.setText("N/A");
-            viewHolder.ll_company_name.setVisibility(View.VISIBLE);
-        }else if(compplaintModel.getCompany_name().equalsIgnoreCase("NULL"))
-        {
-            viewHolder.company_name.setText("N/A");
-            viewHolder.ll_company_name.setVisibility(View.VISIBLE);
-        }else
-        {
+
+        if (compplaintModel.getCompany_name() != null && !compplaintModel.getCompany_name().isEmpty()) {
             viewHolder.company_name.setText(compplaintModel.getCompany_name());
             viewHolder.ll_company_name.setVisibility(View.VISIBLE);
         }
+
         viewHolder.usertype.setText(compplaintModel.getUser_type());
         viewHolder.problemtype.setText(compplaintModel.getProblem_type());
         viewHolder.description.setText(compplaintModel.getDescription());
@@ -146,32 +133,30 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
         viewHolder.allotted_date.setText(compplaintModel.getAllotted_date());
         viewHolder.allotted_slot.setText(compplaintModel.getAllotted_slot());
 
-        if(compplaintModel.getRaisedagain().equals("1"))
-        {
+        if (compplaintModel.getRaisedagain().equals("1")) {
             viewHolder.iv_raised_again.setVisibility(View.VISIBLE);
         }
-        switch(compplaintModel.getTicketstatus())
-        {
-            case "Pending":
 
+        switch (compplaintModel.getTicketstatus()) {
+            case Constants.TICKET_PENDING:
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_pending);
                 break;
-            case "Ticket In Process":
+            case Constants.TICKET_IN_PROCESS:
                 viewHolder.btn_close.setVisibility(View.VISIBLE);
                 viewHolder.btn_partial.setVisibility(View.VISIBLE);
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_in_process);
                 break;
-            case "Ticket Processed":
+            case Constants.TICKET_PROCESSED:
                 viewHolder.btn_close.setVisibility(View.GONE);
                 viewHolder.btn_partial.setVisibility(View.GONE);
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_processed);
                 break;
-            case "Ticket Processed Partially":
+            case Constants.TICKET_PROCESSED_PARTIALLY:
                 viewHolder.btn_close.setVisibility(View.VISIBLE);
                 viewHolder.btn_partial.setVisibility(View.GONE);
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_processed_partially);
                 break;
-            case "Closed":
+            case Constants.TICKET_CLOSED:
                 viewHolder.btn_close.setVisibility(View.GONE);
                 viewHolder.btn_partial.setVisibility(View.GONE);
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_closed);
@@ -179,18 +164,6 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
             default:
                 break;
         }
-
-     /*   if(compplaintModel.getEngineerstatus().equals("Closed"))
-        {
-            viewHolder.btn_close.setVisibility(View.GONE);
-            viewHolder.btn_partial.setVisibility(View.GONE);
-        }else if(compplaintModel.getEngineerstatus().equalsIgnoreCase("Partially Closed")) {
-            viewHolder.btn_close.setVisibility(View.VISIBLE);
-            viewHolder.btn_partial.setVisibility(View.GONE);
-        }else {
-            viewHolder.btn_close.setVisibility(View.VISIBLE);
-            viewHolder.btn_partial.setVisibility(View.VISIBLE);
-        }*/
 
         viewHolder.btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,14 +174,13 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
                     i.setFlags(FLAG_ACTIVITY_NEW_TASK);
                     array_in_custom_adaptor = STATIC_ALL_COMPLAINTS;
                     specific_complaint_in_custom_adaptor = (JSONObject) array_in_custom_adaptor.get(position);
-                    i.putExtra("Problem",specific_complaint_in_custom_adaptor.get("description").toString());
-                    i.putExtra("ticket_id", specific_complaint_in_custom_adaptor.get("ticket_id").toString());
-                    i.putExtra("Partial/Close","2");   //3:partial  2:close
+                    i.putExtra(Constants.IE_KEY_PROBLEM, specific_complaint_in_custom_adaptor.get(Constants.KEY_DESCRIPTION).toString());
+                    i.putExtra(Constants.IE_KEY_TICKET_ID, specific_complaint_in_custom_adaptor.get(Constants.KEY_TICKET_ID).toString());
+                    i.putExtra(Constants.IE_KEY_PARTIAL_CLOSE, Constants.CLOSE_TICKET);   //3:partial  2:close
                     mContext.startActivity(i);
 
-                }catch (Exception e)
-                {
-                    Log.d("Exception in Dialog",e.toString());
+                } catch (Exception e) {
+                    Log.d("Exception in Dialog", e.toString());
                 }
 
                 Log.d("POSITION", String.valueOf(position));
@@ -224,19 +196,18 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
                     i.setFlags(FLAG_ACTIVITY_NEW_TASK);
                     array_in_custom_adaptor = STATIC_ALL_COMPLAINTS;
                     specific_complaint_in_custom_adaptor = (JSONObject) array_in_custom_adaptor.get(position);
-                    i.putExtra("Problem",specific_complaint_in_custom_adaptor.get("description").toString());
-                    i.putExtra("ticket_id", specific_complaint_in_custom_adaptor.get("ticket_id").toString());
-                    i.putExtra("Partial/Close","3");   //3:partial  2:close
+                    i.putExtra(Constants.IE_KEY_PROBLEM, specific_complaint_in_custom_adaptor.get(Constants.KEY_DESCRIPTION).toString());
+                    i.putExtra(Constants.IE_KEY_TICKET_ID, specific_complaint_in_custom_adaptor.get(Constants.KEY_TICKET_ID).toString());
+                    i.putExtra(Constants.IE_KEY_PARTIAL_CLOSE, Constants.PARTIALLY_CLOSE_TICKET);   //3:partial  2:close
 
                     mContext.startActivity(i);
 
-                }catch (Exception e)
-                {
-                    Log.d("Exception in Dialog",e.toString());
+                } catch (Exception e) {
+                    Log.d("Exception in Dialog", e.toString());
                 }
 
                 Log.d("POSITION", String.valueOf(position));
-       // viewHolder.ticket_id.setOnClickListener(this);
+                // viewHolder.ticket_id.setOnClickListener(this);
             }
         });
         // Return the completed view to render on screen
@@ -245,9 +216,15 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
     @Override
     public void onClick(View v) {
+        /*switch (v.getId()){
+            case R.id.btn_id_partially_done:
+                //todo it later because not getting the position
+                break;
+            case R.id.btn_id_close:
+                break;
+        }*/
 
     }
-
 
 
 }

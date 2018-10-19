@@ -18,9 +18,9 @@ import rj.adminbkinfotech1.Constants.Constants;
  */
 
 public class SplashActivity extends AppCompatActivity {
-    ImageView bk_logo, bk_name;
-    TextView tv_admin;
-    Animation blink;
+    private ImageView bk_logo, bk_name;
+    private TextView tv_admin;
+    private Animation blink;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,16 +28,17 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.splash_activity);
 
         initialize();
-        startAnimation();
-        startActivityWithDelay();
 
+        startAnimation();
+
+        startActivityWithDelay();
     }
 
-
     private void initialize() {
-        bk_logo = (ImageView) findViewById(R.id.iv_id_bk_logo);
-        bk_name = (ImageView) findViewById(R.id.iv_id_bk_name);
-        tv_admin = (TextView) findViewById(R.id.tv_id_admin);
+        ReusableCodeAdmin.createNotificationChannel(SplashActivity.this);
+        bk_logo = findViewById(R.id.iv_id_bk_logo);
+        bk_name = findViewById(R.id.iv_id_bk_name);
+        tv_admin = findViewById(R.id.tv_id_admin);
         blink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
     }
 

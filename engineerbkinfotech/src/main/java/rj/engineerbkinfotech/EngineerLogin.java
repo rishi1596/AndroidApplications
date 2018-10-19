@@ -1,17 +1,12 @@
 package rj.engineerbkinfotech;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,12 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONObject;
 
+import rj.engineerbkinfotech.AsyncTasks.LogInOutAsync;
 import rj.engineerbkinfotech.Constants.Constants;
 
 public class EngineerLogin extends AppCompatActivity implements TaskCompleted, View.OnClickListener {
@@ -38,8 +33,6 @@ public class EngineerLogin extends AppCompatActivity implements TaskCompleted, V
     JSONObject login_details;
     LocationManager locationManager;
     GPS gps;
-    //String url="http://bkinfotech.in/app/engineerLogin.php";
-    //String url="http://192.168.1.35:81/bkinfotech/engineerLogin.php";
 
 
     @Override
@@ -56,10 +49,10 @@ public class EngineerLogin extends AppCompatActivity implements TaskCompleted, V
 
     private void initialize() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        et_username = (EditText) findViewById(R.id.et_id_username);
-        et_password = (EditText) findViewById(R.id.et_id_password);
-        tv_error = (TextView) findViewById(R.id.tv_id_error);
-        btn_login = (Button) findViewById(R.id.btn_id_submit);
+        et_username = findViewById(R.id.et_id_username);
+        et_password = findViewById(R.id.et_id_password);
+        tv_error = findViewById(R.id.tv_id_error);
+        btn_login = findViewById(R.id.btn_id_submit);
         gps = new GPS(EngineerLogin.this);
 
         //ToDo Next Update
@@ -83,10 +76,10 @@ public class EngineerLogin extends AppCompatActivity implements TaskCompleted, V
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setCustomView(R.layout.action_bar);
-        TextView tv_custom_action_bar_title = (TextView) actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
+        TextView tv_custom_action_bar_title = actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
         tv_custom_action_bar_title.setText(R.string.app_name);
-        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
-        ImageView iv_log_out = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_log_out);
+        ImageView iv_info = actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        ImageView iv_log_out = actionBar.getCustomView().findViewById(R.id.iv_id_log_out);
         iv_info.setVisibility(View.GONE);
         iv_log_out.setVisibility(View.GONE);
         /*iv_info.setOnClickListener(this);
@@ -109,11 +102,11 @@ public class EngineerLogin extends AppCompatActivity implements TaskCompleted, V
 
                     firebase_token = FirebaseInstanceId.getInstance().getToken();
                     login_details.put(Constants.strClientIdKey, Constants.clientId);
-                    login_details.put("username", in_username);
-                    login_details.put("password", in_password);
-                    login_details.put("token", firebase_token);
+                    login_details.put(Constants.strUserNameKey, in_username);
+                    login_details.put(Constants.strPasswordKey, in_password);
+                    login_details.put(Constants.strTokenKey, firebase_token);
                     String code = "1";
-                    login_details.put("code", code);
+                    login_details.put(Constants.strCodeKey, code);
                     Log.d("Login_details Engineer", login_details.toString());
 
                 } catch (Exception e) {
@@ -149,14 +142,13 @@ public class EngineerLogin extends AppCompatActivity implements TaskCompleted, V
         try {
             //JSONObject response_server = new JSONObject(s);
             if (result.equals("1")) {
-                SharedPreferences sp =getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
+                SharedPreferences sp = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putBoolean("fr", true);
-                editor.putString("username", in_username);
+                editor.putBoolean(Constants.sharedPreferencesFirstRun, true);
+                editor.putString(Constants.strUserNameKey, in_username);
                 editor.apply();
 
                 Intent engineerActivity = new Intent(getApplicationContext(), EngineerActivity.class);
-                engineerActivity.putExtra("EngineerUsername", in_username);
                 startActivity(engineerActivity);
                 EngineerLogin.this.finish();
             } else {
@@ -165,7 +157,7 @@ public class EngineerLogin extends AppCompatActivity implements TaskCompleted, V
                 // Toast.makeText(getApplicationContext(), "Credentials are incorrect", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Log.d("Admin Login response", e.toString());
+            Log.d("Engineer Login response", e.toString());
         }
     }
 

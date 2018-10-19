@@ -90,7 +90,14 @@ public class Constants {
     public static final String devicesArr[] = {"oppo", "vivo", "xiaomi", "Letv", "Honor"};
 
     //Channel Id for notification
-    public static final String CHANNEL_ID = "1510";
+    public static final String CHANNEL_ID = "1509";
     public static final int NOTIFICATION_ID = 0;
+
+    //Ticket Status
+    public static final String TICKET_PENDING = "pending";
+    public static final String TICKET_PROCESSED_PARTIALLY = "Ticket Processed Partially";
+    public static final String TICKET_IN_PROCESS = "Ticket In Process";
+    public static final String TICKET_PROCESSED = "Ticket Processed";
+    public static final String TICKET_CLOSED = "Closed";
 
 }

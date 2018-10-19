@@ -13,7 +13,7 @@ import android.widget.TextView;
  * Created by jimeet29 on 17-06-2018.
  */
 
-public class TicketInfo extends AppCompatActivity {
+public class TicketInfo extends AppCompatActivity implements View.OnClickListener {
     int deviceWidth, deviceHeight;
     TextView tv_info_close;
 
@@ -60,16 +60,15 @@ public class TicketInfo extends AppCompatActivity {
 
 
     private void setListeners() {
-        tv_info_close.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (v.getId() == R.id.tv_id_info_close) {
-                    finish();
-                    return true;
-                }
+        tv_info_close.setOnClickListener(this);
+    }
 
-                return false;
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_id_info_close:
+                finish();
+                break;
+        }
     }
 }

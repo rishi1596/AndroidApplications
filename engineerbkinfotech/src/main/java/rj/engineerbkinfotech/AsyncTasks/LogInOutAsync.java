@@ -1,27 +1,25 @@
-package rj.engineerbkinfotech;
+package rj.engineerbkinfotech.AsyncTasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import rj.engineerbkinfotech.Constants.Constants;
+import rj.engineerbkinfotech.ReusableCodeAdmin;
+import rj.engineerbkinfotech.TaskCompleted;
+
 /**
  * Created by jimeet29 on 26-01-2018.
  */
 
-public class LogInOutAsync extends AsyncTask<String,Void,String> {
-    //ArrayList<String> complaintmodel;
-    ReusableCodeAdmin rca = new ReusableCodeAdmin();
-    //String url="http://bkinfotech.in/app/getAllComplaints.php";
-    //String url="http://192.168.1.35:81/bkinfotech/getAllComplaints.php";
-    String url="http://bkinfotech.in/app/engineerLogin.php";
-    String responseObject;
+public class LogInOutAsync extends AsyncTask<String, Void, String> {
+
     private Context mContext;
-    ProgressDialog pg;
+    private ProgressDialog pg;
     private TaskCompleted mCallback;
 
-    public LogInOutAsync(Context context)
-    {
+    public LogInOutAsync(Context context) {
         this.mContext = context;
         this.mCallback = (TaskCompleted) context;
     }
@@ -37,18 +35,22 @@ public class LogInOutAsync extends AsyncTask<String,Void,String> {
 
     @Override
     protected String doInBackground(String... params) {
+        String url = Constants.url + Constants.getEngineerLoginEP;
+        ReusableCodeAdmin.sendCredentials(params[0], url);
+        return ReusableCodeAdmin.getCredentialsResponse();
 
-        rca.sendCredentials(params[0],url);
-        responseObject = rca.getCredentialsResponse();
-        return responseObject;
     }
 
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        pg.dismiss();
-        Log.d("Response JSON Login Out",s);
-        mCallback.onTaskComplete(s);
+        try {
+            pg.dismiss();
+            Log.d("Response JSON Login Out", s);
+            mCallback.onTaskComplete(s);
+        } catch (Exception e) {
+            Log.w("LogInOutAsync",e.toString());
+        }
     }
 }

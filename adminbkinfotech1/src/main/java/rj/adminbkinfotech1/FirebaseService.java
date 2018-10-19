@@ -58,7 +58,7 @@ public class FirebaseService extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
                 PendingIntent.FLAG_ONE_SHOT);
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this,Constants.CHANNEL_ID)
                 .setSmallIcon(R.drawable.bk_logo_resized)
                 .setContentTitle(ftitle)
                 .setContentInfo(fcontent)

@@ -1,6 +1,5 @@
 package rj.engineerbkinfotech;
 
-import android.*;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
@@ -8,23 +7,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -39,7 +34,10 @@ import org.json.JSONObject;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import rj.engineerbkinfotech.AsyncTasks.ComplaintsAsync;
+import rj.engineerbkinfotech.AsyncTasks.LogInOutAsync;
 import rj.engineerbkinfotech.Constants.Constants;
+import rj.engineerbkinfotech.CustomDialogEngineer.CustomDialogBoxEngineer;
 
 /**
  * Created by jimeet29 on 26-12-2017.
@@ -83,9 +81,9 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
 
         initialize();
 
-
         setCustomActionBar();
 
+        checkIfMiUiDevice();
 
         //Todo for next Update
       /*  if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
@@ -107,19 +105,16 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                 send_details = new JSONObject();
                 try {
                     //SharedPreferences sf = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
-                    String uname = sp.getString("username", null);
+                    String uname = sp.getString(Constants.strUserNameKey, null);
                     String code = "1";
                     send_details.put(Constants.strClientIdKey, Constants.clientId);
-                    send_details.put("username", uname);
-                    send_details.put("code", code);
+                    send_details.put(Constants.strUserNameKey, uname);
+                    send_details.put(Constants.strCodeKey, code);
                     Log.d("Engineer Detail", send_details.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                new ComplaintsAsync(this).execute(send_details.toString());
-
-
+                new ComplaintsAsync(EngineerActivity.this).execute(send_details.toString(), Constants.getEngineerComplaintsEP);
             } else {
                 //Toast.makeText(getApplicationContext(),"No Network",Toast.LENGTH_SHORT).show();
                 tv_error.setText(R.string.no_network);
@@ -134,11 +129,12 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         GPSObj = new GPS(EngineerActivity.this);
         pg = new ProgressDialog(EngineerActivity.this);
-        tv_error = (TextView) findViewById(R.id.empty);
-        tv_privacy_policy = (TextView) findViewById(R.id.tv_id_privacy_policy);
+        tv_error = findViewById(R.id.empty);
+        tv_privacy_policy = findViewById(R.id.tv_id_privacy_policy);
         complaintModel = new ArrayList<>();
-        listView = (ListView) findViewById(R.id.lv_id_complaints_list);
+        listView = findViewById(R.id.lv_id_complaints_list);
         tv_privacy_policy.setOnClickListener(this);
+        ReusableCodeAdmin.createNotificationChannel(EngineerActivity.this);
     }
 
     private void setCustomActionBar() {
@@ -146,74 +142,29 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setCustomView(R.layout.action_bar);
-        TextView tv_custom_action_bar_title = (TextView) actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
+        TextView tv_custom_action_bar_title = actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
         tv_custom_action_bar_title.setText(titleText);
         tv_custom_action_bar_title.setTextSize(23.0f);
         tv_custom_action_bar_title.setGravity(Gravity.START);
-        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
-        ImageView iv_log_out = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_log_out);
+        ImageView iv_info = actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        ImageView iv_log_out = actionBar.getCustomView().findViewById(R.id.iv_id_log_out);
         iv_info.setOnClickListener(this);
         iv_log_out.setOnClickListener(this);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
     }
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu,menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.id_log_out:
-                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(EngineerActivity.this);
-                alertBuilder.setMessage(R.string.log_out_text);
-                alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logOut_details = new JSONObject();
-                        SharedPreferences sf = getSharedPreferences("settings",0);
-
-                        try {
-                            logOut_details.put("username",sf.getString("username",null));
-                            String code = "2";
-                            logOut_details.put("code",code);
-                            Log.d("Engineer Details",logOut_details.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-                        if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
-                            //if(isInternetActive()) {
-                               // Log.d("Inside if","true");
-                                if (logOut_details.length() > 0) {
-                                    new LogInOutAsync(EngineerActivity.this).execute(logOut_details.toString());
-                                }else {
-                                    Toast.makeText(getApplicationContext(), "No Network! Please Try Again.", Toast.LENGTH_SHORT).show();
-                                }
-                           // }
-                        }
-                    }
-                });
-                alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-
-                AlertDialog logOutAlert = alertBuilder.create();
-                logOutAlert.show();
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    private void checkIfMiUiDevice() {
+        if (ReusableCodeAdmin.isOtherDevice()) {
+            SharedPreferences sp = getSharedPreferences
+                    (Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
+            if (!sp.getBoolean(Constants.sharedPreferencesDontShowAutoStartPermissionDialog, false)) {
+                FragmentManager ft = getSupportFragmentManager();
+                DialogFragment dialogFragment = new CustomDialogBoxEngineer();
+                dialogFragment.show(ft, "autoStartDialog");
+            }
         }
-    }*/
+    }
 
     @Override
     public void onClick(View v) {
@@ -232,10 +183,10 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                         SharedPreferences sf = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
 
                         try {
-                            logOut_details.put("username", sf.getString("username", null));
+                            logOut_details.put(Constants.strUserNameKey, sf.getString(Constants.strUserNameKey, null));
                             String code = "2";
                             logOut_details.put(Constants.strClientIdKey, Constants.clientId);
-                            logOut_details.put("code", code);
+                            logOut_details.put(Constants.strCodeKey, code);
                             Log.d("Engineer Details", logOut_details.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -248,7 +199,7 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                             if (logOut_details.length() > 0) {
                                 new LogInOutAsync(EngineerActivity.this).execute(logOut_details.toString());
                             } else {
-                                Toast.makeText(getApplicationContext(), "No Network! Please Try Again.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                             }
                             // }
                         }
@@ -292,7 +243,7 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
             RESULT = Integer.parseInt(result);
 
             SharedPreferences.Editor editor = sp.edit();
-            editor.putBoolean("fr", false);
+            editor.putBoolean(Constants.sharedPreferencesFirstRun, false);
             editor.apply();
 
             Intent engineerActivity = new Intent(getApplicationContext(), EngineerLogin.class);
@@ -304,42 +255,39 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
             try {
                 all_complaints = new JSONArray(result);
                 if (all_complaints.length() == 0) {
-                    tv_error.setText("No Complaints");
+                    tv_error.setText(R.string.no_network);
                     tv_error.setVisibility(View.VISIBLE);
                 }
                 STATIC_ALL_COMPLAINTS = new JSONArray(result);
                 Log.d("NewComplaint", String.valueOf(STATIC_ALL_COMPLAINTS));
                 for (int i = 0; i < all_complaints.length(); i++) {
                     engineer_complaint = (JSONObject) all_complaints.get(i);
-                    String ticket_id = engineer_complaint.getString("ticket_id");
-                    String name = engineer_complaint.getString("name");
-                    String company_name = engineer_complaint.getString("companyname");
-                    String user_type = engineer_complaint.getString("usertype");
-                    String problemtype = engineer_complaint.getString("problemtype");
-                    String description = engineer_complaint.getString("description");
-                    String address = engineer_complaint.getString("address");
+                    String ticket_id = engineer_complaint.getString(Constants.KEY_TICKET_STATUS);
+                    String name = engineer_complaint.getString(Constants.KEY_NAME);
+                    String company_name = engineer_complaint.getString(Constants.KEY_COMPANY_NAME);
+                    String user_type = engineer_complaint.getString(Constants.KEY_USER_TYPE);
+                    String problemtype = engineer_complaint.getString(Constants.KEY_PROBLEM_TYPE);
+                    String description = engineer_complaint.getString(Constants.KEY_DESCRIPTION);
+                    String address = engineer_complaint.getString(Constants.KEY_ADDRESS);
+
                     //String engineerstatus = engineer_complaint.getString("engineersidestatus");
-                    String complaint_reg_time = engineer_complaint.getString("complaint_reg_time");
-                    String complaint_reg_date = engineer_complaint.getString("complaint_reg_date");
-                    String allotted_date = engineer_complaint.getString("allotted_date");
-                    String allotted_slot = engineer_complaint.getString("allotted_slot");
-                    String ticketstatus = engineer_complaint.getString("ticketstatus");
-                    String raisedagain = engineer_complaint.getString("raisedagain");
-                    complaintModel.add(new ComplaintModel(ticket_id, name, company_name, user_type, problemtype, description,
-                            address, complaint_reg_time, complaint_reg_date, allotted_date, allotted_slot, ticketstatus, raisedagain));
+                    String complaint_reg_time = engineer_complaint.getString(Constants.KEY_COMPLAINT_REG_TIME);
+                    String complaint_reg_date = engineer_complaint.getString(Constants.KEY_COMPLAINT_REG_DATE);
+                    String allotted_date = engineer_complaint.getString(Constants.KEY_ALLOTTED_DATE);
+                    String allotted_slot = engineer_complaint.getString(Constants.KEY_ALLOTTED_SLOT);
+                    String ticketstatus = engineer_complaint.getString(Constants.KEY_TICKET_STATUS);
+                    String raisedagain = engineer_complaint.getString(Constants.KEY_RAISED_AGAIN);
+                    complaintModel.add(new ComplaintModel(ticket_id, name, company_name, user_type, problemtype,
+                            description, address, complaint_reg_time, complaint_reg_date, allotted_date,
+                            allotted_slot, ticketstatus, raisedagain));
                     adapter = new CustomAdaptorNewComplaint(complaintModel, getApplicationContext());
 
                     listView.setAdapter(adapter);
-
                 }
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -357,7 +305,6 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
         try {
 
@@ -374,7 +321,5 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
             e.printStackTrace();
         }
     }
-
-
 }
 

@@ -40,12 +40,12 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initialize() {
-        btn_register_complaint = (Button) findViewById(R.id.btn_id_register_complaint);
-        btn_in_process_complaints = (Button) findViewById(R.id.btn_id_in_process_complaints);
-        btn_view_all_complaints = (Button) findViewById(R.id.btn_id_view_all_complaints);
-        btn_view_about_us = (Button) findViewById(R.id.btn_id_view_about_us);
-        btn_offers = (Button) findViewById(R.id.btn_id_view_offers);
-        fab_app_feedback = (FloatingActionButton) findViewById(R.id.fab_id_app_feedback);
+        btn_register_complaint = findViewById(R.id.btn_id_register_complaint);
+        btn_in_process_complaints = findViewById(R.id.btn_id_in_process_complaints);
+        btn_view_all_complaints = findViewById(R.id.btn_id_view_all_complaints);
+        btn_view_about_us = findViewById(R.id.btn_id_view_about_us);
+        btn_offers = findViewById(R.id.btn_id_view_offers);
+        fab_app_feedback = findViewById(R.id.fab_id_app_feedback);
         ReusableCodeAdmin.createNotificationChannel(UserActivity.this);
     }
 
@@ -64,9 +64,9 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setCustomView(R.layout.action_bar);
-        TextView tv_custom_action_bar_title = (TextView) actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
+        TextView tv_custom_action_bar_title = actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
         tv_custom_action_bar_title.setText(R.string.app_name);
-        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        ImageView iv_info = actionBar.getCustomView().findViewById(R.id.iv_id_info);
         iv_info.setVisibility(View.GONE);
         iv_info.setOnClickListener(this);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -99,7 +99,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_id_view_all_complaints:
                 Intent complaints_status = new Intent(getApplicationContext(), AllComplaintsStatusActivity.class);
-                complaints_status.putExtra(Constants.USER_INTERFACE_IE_KEY, Constants.USER_INTERFACE_VALUE_ONE);
+                complaints_status.putExtra(Constants.IE_KEY_USER_INTERFACE, Constants.USER_INTERFACE_VALUE_ONE);
                 startActivity(complaints_status);
                 break;
             case R.id.btn_id_view_about_us:

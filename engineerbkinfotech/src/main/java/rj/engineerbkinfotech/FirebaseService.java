@@ -12,6 +12,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import rj.engineerbkinfotech.Constants.Constants;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -52,9 +54,9 @@ public class FirebaseService extends FirebaseMessagingService {
         fcontent = content;
         intent = new Intent(this, EngineerActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this,Constants.CHANNEL_ID)
                 .setSmallIcon(R.drawable.bk_logo_resized)
                 .setContentTitle(ftitle)
                 .setContentInfo(fcontent)
@@ -64,9 +66,6 @@ public class FirebaseService extends FirebaseMessagingService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-
-
-
+        notificationManager.notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
     }
 }

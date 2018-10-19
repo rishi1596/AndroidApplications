@@ -64,13 +64,13 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
         String ui = getIntent().getStringExtra("UserInterface");
         setContentView(R.layout.list_in_process_complaint_activity);
         complaintModel = new ArrayList<>();
-        listView = (ListView) findViewById(R.id.lv_id_complaints_list);
+        listView = findViewById(R.id.lv_id_complaints_list);
 
         if (ui.equals("1")) {
-            oc = (LinearLayout) findViewById(R.id.ll_id_openclose);
+            oc = findViewById(R.id.ll_id_openclose);
             oc.setVisibility(View.VISIBLE);
-            tv_open = (TextView) findViewById(R.id.tv_id_open);
-            tv_close = (TextView) findViewById(R.id.tv_id_closed);
+            tv_open = findViewById(R.id.tv_id_open);
+            tv_close = findViewById(R.id.tv_id_closed);
             tv_open.setOnClickListener(this);
             tv_close.setOnClickListener(this);
             cl_open = tv_open.getTextColors();
@@ -78,7 +78,7 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
         }
 
 
-        tv_error = (TextView) findViewById(R.id.empty);
+        tv_error = findViewById(R.id.empty);
         if (savedInstanceState == null) {
             ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
@@ -110,8 +110,8 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setCustomView(R.layout.action_bar);
-        TextView tv_custom_action_bar_title = (TextView) actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
-        ImageView iv_info = (ImageView) actionBar.getCustomView().findViewById(R.id.iv_id_info);
+        TextView tv_custom_action_bar_title = actionBar.getCustomView().findViewById(R.id.tv_id_custom_action_bar_title);
+        ImageView iv_info = actionBar.getCustomView().findViewById(R.id.iv_id_info);
         tv_custom_action_bar_title.setText(R.string.all_tickets);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         iv_info.setOnClickListener(this);
@@ -151,7 +151,7 @@ public class AllComplaintsStatusActivity extends AppCompatActivity implements Ta
 
                         Intent intent = new Intent(getApplicationContext(), AllComplaintsStatusActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra(Constants.USER_INTERFACE_IE_KEY, Constants.USER_INTERFACE_VALUE_ONE);
+                        intent.putExtra(Constants.IE_KEY_USER_INTERFACE, Constants.USER_INTERFACE_VALUE_ONE);
                         startActivity(intent);
                         allcomplaints.finish();
                     }

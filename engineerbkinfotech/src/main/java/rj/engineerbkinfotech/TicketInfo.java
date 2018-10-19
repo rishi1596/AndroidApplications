@@ -13,9 +13,10 @@ import android.widget.TextView;
  * Created by jimeet29 on 17-06-2018.
  */
 
-public class TicketInfo extends AppCompatActivity {
-    int deviceWidth,deviceHeight;
+public class TicketInfo extends AppCompatActivity implements View.OnClickListener {
+    int deviceWidth, deviceHeight;
     TextView tv_info_close;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +34,8 @@ public class TicketInfo extends AppCompatActivity {
     }
 
 
-
     private void initialize() {
-        tv_info_close = (TextView)findViewById(R.id.tv_id_info_close);
+        tv_info_close = findViewById(R.id.tv_id_info_close);
     }
 
     private void determineDeviceDimensions() {
@@ -49,7 +49,7 @@ public class TicketInfo extends AppCompatActivity {
     private void setWindowDimensions() {
         //Window Dimension are modified here
         // Method 1
-        this.getWindow().setLayout(deviceWidth-150, ViewGroup.LayoutParams.WRAP_CONTENT);
+        this.getWindow().setLayout(deviceWidth - 150, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         //Method 2
         /*WindowManager.LayoutParams params = getWindow().getAttributes();
@@ -58,19 +58,16 @@ public class TicketInfo extends AppCompatActivity {
         this.getWindow().setAttributes(params);*/
     }
 
-
     private void setListeners() {
-        tv_info_close.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(v.getId() == R.id.tv_id_info_close)
-                {
-                    finish();
-                    return true;
-                }
+        tv_info_close.setOnClickListener(this);
+    }
 
-                return false;
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_id_info_close:
+                finish();
+                break;
+        }
     }
 }

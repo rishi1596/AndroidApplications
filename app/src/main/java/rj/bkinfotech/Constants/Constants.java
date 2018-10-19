@@ -73,7 +73,7 @@ public class Constants {
     public static final String sharedPreferencesDontShowAutoStartPermissionDialog = "dontshowautostartpermissiondialog";
 
     //Intent Extras Key
-    public static final String USER_INTERFACE_IE_KEY = "UserInterface";
+    public static final String IE_KEY_USER_INTERFACE = "UserInterface";
     public static final String USER_INTERFACE_VALUE_ONE = "1";
 
 
@@ -93,7 +93,6 @@ public class Constants {
     public static final String appointment_dates_slots[] = {"Select the Time", "Morning", "Afternoon", "Evening"};
 
     //Ticket Status
-
     public static final String TICKET_PENDING = "pending";
     public static final String TICKET_PROCESSED_PARTIALLY = "Ticket Processed Partially";
     public static final String TICKET_IN_PROCESS = "Ticket In Process";

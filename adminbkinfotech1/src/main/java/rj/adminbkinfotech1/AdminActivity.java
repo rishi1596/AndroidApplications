@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import org.json.JSONObject;
 import rj.adminbkinfotech1.AsyncTasks.LogInOutAsync;
 import rj.adminbkinfotech1.AsyncTasks.getEngineerNamesOrAddressAsync;
 import rj.adminbkinfotech1.Constants.Constants;
+import rj.adminbkinfotech1.CustomDialogAdmin.CustomDialogBoxAdmin;
 
 /**
  * Created by jimeet29 on 21-12-2017.
@@ -57,6 +60,9 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
         setCustomActionBar();
 
+        checkIfMiUiDevice();
+
+
         try {
             if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
                 JSONObject send_details = new JSONObject();
@@ -84,7 +90,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         btnAllTickets = (Button) findViewById(R.id.btn_id_all_complaint);
         btnRaiseNewTicket = (Button) findViewById(R.id.btn_id_raise_new_ticket);
         fab_app_feedback = (FloatingActionButton) findViewById(R.id.fab_id_app_feedback);
-
+        ReusableCodeAdmin.createNotificationChannel(AdminActivity.this);
     }
 
     private void setListerners() {
@@ -117,6 +123,18 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         uname = uname.substring(0, 1).toUpperCase() + uname.substring(1);
         titleText = "Welcome " + uname;
         setTitle("Welcome " + uname);
+    }
+
+    private void checkIfMiUiDevice() {
+        if (ReusableCodeAdmin.isOtherDevice()) {
+            SharedPreferences sp = getSharedPreferences
+                    (Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
+            if (!sp.getBoolean(Constants.sharedPreferencesDontShowAutoStartPermissionDialog, false)) {
+                FragmentManager ft = getSupportFragmentManager();
+                DialogFragment dialogFragment = new CustomDialogBoxAdmin();
+                dialogFragment.show(ft, "autoStartDialog");
+            }
+        }
     }
 
     @Override

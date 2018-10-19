@@ -49,6 +49,7 @@ public class Constants {
     public static final int sharedPreferencesAccessMode = 0;
     public static final String sharedPreferencesEngineerNames = "engineers";
     public static final String sharedPreferencesUserNames = "username";
+    public static final String sharedPreferencesDontShowAutoStartPermissionDialog = "dontshowautostartpermissiondialog";
 
     public static final String appointment_dates_slots[] = {"Select the Time", "Morning", "Afternoon", "Evening"};
 
@@ -84,5 +85,12 @@ public class Constants {
     public static final String KEY_ENGINEER_CLOSE_DATE = "engineer_close_date";
     public static final String KEY_ENGINEER_SIDE_STATUS = "engineersidestatus";
     public static final String KEY_ADDRESS = "address";
+
+    //Manufacturers
+    public static final String devicesArr[] = {"oppo", "vivo", "xiaomi", "Letv", "Honor"};
+
+    //Channel Id for notification
+    public static final String CHANNEL_ID = "1510";
+    public static final int NOTIFICATION_ID = 0;
 
 }

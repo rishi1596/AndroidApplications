@@ -12,6 +12,5 @@ public class Constants {
 
     //SharedPreferences
     public static final String sharedPreferencesFileNameSettings = "settings";
-    public static final String sharedPreferencesFileNameReset = "reset";
     public static final int sharedPreferencesAccessMode = 0;
 }

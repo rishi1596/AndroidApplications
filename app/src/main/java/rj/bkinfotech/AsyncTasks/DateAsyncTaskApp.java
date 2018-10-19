@@ -1,19 +1,17 @@
-package rj.adminbkinfotech1.AsyncTasks;
+package rj.bkinfotech.AsyncTasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
-import java.security.spec.ECField;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-import rj.adminbkinfotech1.TaskCompleted;
+import rj.bkinfotech.TaskCompleted;
 
-public class DateAsyncTask extends AsyncTask<Void, Void, String[]> {
+public class DateAsyncTaskApp extends AsyncTask<Void, Void, String[]> {
     private String array_of_month[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private String array_of_day_code[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     private HashMap<String, Integer> days_associated_code;
@@ -24,7 +22,7 @@ public class DateAsyncTask extends AsyncTask<Void, Void, String[]> {
     private TaskCompleted mCallback;
 
 
-    public DateAsyncTask(Context context) {
+    public DateAsyncTaskApp(Context context) {
         this.mCallback = (TaskCompleted) context;
 
         days_associated_code = new HashMap<>();

@@ -6,4 +6,6 @@ package rj.bkinfotech;
 
 public interface TaskCompleted {
     public void onTaskComplete(String result);
+
+    void onTaskComplete(String[] result);
 }

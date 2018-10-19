@@ -23,7 +23,6 @@ public class Constants {
     //Key Names of json response from api
     public static final String keyErrorCode = "error_code";
     public static final String keyResponse = "response";
-    public static final String keyAddress = "address";
 
     //Success Response
     public static final String successResponse = "1";
@@ -62,5 +61,28 @@ public class Constants {
     //login logout request Codes
     public static final String strLogin = "1";
     public static final String strLogout = "2";
+
+    //Each Ticket object KEYS
+    public static final String KEY_TICKET_STATUS = "ticketstatus";
+    public static final String KEY_TICKET_ID = "ticket_id";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_COMPANY_NAME = "companyname";
+    public static final String KEY_USER_TYPE = "usertype";
+    public static final String KEY_PROBLEM_TYPE = "problemtype";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_COMPLAINT_REG_TIME = "complaint_reg_time";
+    public static final String KEY_COMPLAINT_REG_DATE = "complaint_reg_date";
+    public static final String KEY_RAISED_AGAIN = "raisedagain";
+    public static final String KEY_ALLOTTED_DATE = "allotted_date";
+    public static final String KEY_ALLOTTED_SLOT = "allotted_slot";
+    public static final String KEY_ENGINEER_APPOINTED = "engineerappointed";
+    public static final String KEY_ENGINEER_APPOINTED_TIME = "engineer_appointed_time";
+    public static final String KEY_ENGINEER_APPOINTED_DATE = "engineer_appointed_date";
+    public static final String KEY_REQUESTED_DATE = "requested_date";
+    public static final String KEY_REQUESTED_SLOT = "requested_slot";
+    public static final String KEY_ENGINEER_CLOSE_TIME = "engineer_close_time";
+    public static final String KEY_ENGINEER_CLOSE_DATE = "engineer_close_date";
+    public static final String KEY_ENGINEER_SIDE_STATUS = "engineersidestatus";
+    public static final String KEY_ADDRESS = "address";
 
 }

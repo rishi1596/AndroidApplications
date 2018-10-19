@@ -42,7 +42,7 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
     private Context mContext;
     String code;
     JSONObject data;
-    private int activity;
+    private int activity; //0 for inprocesscomplaintsactivity and 1 for allcomplaintsactivity
     JSONArray array_in_custom_adaptor;
     Intent intent;
 
@@ -149,10 +149,10 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
 
         switch (compplaintModel.getStatus()) {
-            case "Pending":
+            case Constants.TICKET_PENDING:
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_pending);
                 break;
-            case "Ticket In Process":
+            case Constants.TICKET_IN_PROCESS:
                 viewHolder.engineer_appointed.setText(compplaintModel.getEngineer_appointed());
                 viewHolder.ll_engineer_name.setVisibility(View.VISIBLE);
 
@@ -167,14 +167,14 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
                 }
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_in_process);
                 break;
-            case "Ticket Processed":
+            case Constants.TICKET_PROCESSED:
                 viewHolder.btn_close.setVisibility(View.VISIBLE);
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_processed);
                 break;
-            case "Ticket Processed Partially":
+            case Constants.TICKET_PROCESSED_PARTIALLY:
                 viewHolder.view_ticket_status.setBackgroundResource(R.color.ticket_processed_partially);
                 break;
-            case "Closed":  //for raise again button
+            case Constants.TICKET_CLOSED:  //for raise again button
                 if (activity != 0) {
                     viewHolder.btn_close.setText(R.string.raise_again);
                     viewHolder.btn_close.setVisibility(View.VISIBLE);
@@ -195,8 +195,8 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
                         code = "2";
                         intent = new Intent(mContext, TicketFeedback.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("code", code);
-                        intent.putExtra("ticket_id", update_ticket_id);
+                        intent.putExtra(Constants.strCodeKey, code);
+                        intent.putExtra(Constants.KEY_TICKET_ID, update_ticket_id);
                         Log.d("TicketAdap", String.valueOf(update_ticket_id));
                         mContext.startActivity(intent);
 
@@ -243,6 +243,11 @@ public class CustomAdaptorNewComplaint extends ArrayAdapter<ComplaintModel> impl
 
     @Override
     public void onTaskComplete(String result) {
+
+    }
+
+    @Override
+    public void onTaskComplete(String[] result) {
 
     }
 }

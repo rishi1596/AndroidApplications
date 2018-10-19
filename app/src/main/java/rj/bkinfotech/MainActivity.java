@@ -18,8 +18,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONObject;
+
 import rj.bkinfotech.AsyncTasks.UserRegistrationAsync;
 import rj.bkinfotech.Constants.Constants;
 
@@ -168,6 +171,11 @@ public class MainActivity extends AppCompatActivity implements TaskCompleted {
         } catch (Exception e) {
             Log.w(TAG + "onTaskComplete", e.toString());
         }
+    }
+
+    @Override
+    public void onTaskComplete(String[] result) {
+
     }
 }
 

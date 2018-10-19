@@ -172,4 +172,9 @@ public class TicketFeedback extends AppCompatActivity implements TaskCompleted, 
                 break;
         }
     }
+
+    @Override
+    public void onTaskComplete(String[] result) {
+
+    }
 }

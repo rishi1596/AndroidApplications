@@ -99,7 +99,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_id_view_all_complaints:
                 Intent complaints_status = new Intent(getApplicationContext(), AllComplaintsStatusActivity.class);
-                complaints_status.putExtra("UserInterface", "1");
+                complaints_status.putExtra(Constants.USER_INTERFACE_IE_KEY, Constants.USER_INTERFACE_VALUE_ONE);
                 startActivity(complaints_status);
                 break;
             case R.id.btn_id_view_about_us:
@@ -110,7 +110,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(getApplicationContext(), "Coming Soon!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab_id_app_feedback:
-                Intent implicit_email_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "appbkinfotech@gmail.com"));
+                Intent implicit_email_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + Constants.MAIL_ID));
                 implicit_email_intent.putExtra(Intent.EXTRA_SUBJECT, "Application Feedback");
                 startActivity(implicit_email_intent);
                 break;

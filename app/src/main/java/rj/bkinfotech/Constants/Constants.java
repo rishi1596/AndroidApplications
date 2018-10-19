@@ -8,13 +8,39 @@ public class Constants {
     //Api endpoint
     public static final String registerNewUserEP = "newUserDetails.php";
     public static final String userSpecificComplaintsEP = "getSpecificUserComplaint.php";
+    public static final String registerNewComplaintsEP = "registerComplaint.php";
 
-    //For API Hit KEY for Json
+    //For API Hit 'keys'
     public static final String strClientIdKey = "clientId";
+    public static final String strCodeKey = "code";
+    public static final String strRegisteredNoKey = "registered_no";
 
     //Key Names of json response from api
     public static final String keyErrorCode = "error_code";
     public static final String keyResponse = "response";
+
+    //Each Ticket object KEYS
+    public static final String KEY_TICKET_STATUS = "ticketstatus";
+    public static final String KEY_TICKET_ID = "ticket_id";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_COMPANY_NAME = "companyname";
+    public static final String KEY_USER_TYPE = "usertype";
+    public static final String KEY_PROBLEM_TYPE = "problemtype";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_COMPLAINT_REG_TIME = "complaint_reg_time";
+    public static final String KEY_COMPLAINT_REG_DATE = "complaint_reg_date";
+    public static final String KEY_RAISED_AGAIN = "raisedagain";
+    public static final String KEY_ALLOTTED_DATE = "allotted_date";
+    public static final String KEY_ALLOTTED_SLOT = "allotted_slot";
+    public static final String KEY_ENGINEER_APPOINTED = "engineerappointed";
+    public static final String KEY_ENGINEER_APPOINTED_TIME = "engineer_appointed_time";
+    public static final String KEY_ENGINEER_APPOINTED_DATE = "engineer_appointed_date";
+    public static final String KEY_REQUESTED_DATE = "requested_date";
+    public static final String KEY_REQUESTED_SLOT = "requested_slot";
+    public static final String KEY_ENGINEER_CLOSE_TIME = "engineer_close_time";
+    public static final String KEY_ENGINEER_CLOSE_DATE = "engineer_close_date";
+    public static final String KEY_ENGINEER_SIDE_STATUS = "engineersidestatus";
+    public static final String KEY_ADDRESS = "address";
 
     //Success Response
     public static final String successResponse = "1";
@@ -46,6 +72,11 @@ public class Constants {
     public static final String sharedPreferencesFirstRun = "fr";
     public static final String sharedPreferencesDontShowAutoStartPermissionDialog = "dontshowautostartpermissiondialog";
 
+    //Intent Extras Key
+    public static final String USER_INTERFACE_IE_KEY = "UserInterface";
+    public static final String USER_INTERFACE_VALUE_ONE = "1";
+
+
     //Dialog Box button texts
     public static final String strYes = "Yes";
     public static final String strNo = "No";
@@ -56,5 +87,18 @@ public class Constants {
 
     //Manufacturers
     public static final String devicesArr[] = {"oppo", "vivo", "xiaomi", "Letv", "Honor"};
+
+    public static final String MAIL_ID = "appbkinfotech@gmail.com";
+
+    public static final String appointment_dates_slots[] = {"Select the Time", "Morning", "Afternoon", "Evening"};
+
+    //Ticket Status
+
+    public static final String TICKET_PENDING = "pending";
+    public static final String TICKET_PROCESSED_PARTIALLY = "Ticket Processed Partially";
+    public static final String TICKET_IN_PROCESS = "Ticket In Process";
+    public static final String TICKET_PROCESSED = "Ticket Processed";
+    public static final String TICKET_CLOSED = "Closed";
+
 }
 

@@ -230,7 +230,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity implements Vie
                             complaint_details_response.optString(Constants.keyResponse)
                                     .equalsIgnoreCase(Constants.successResponse)) {
                         try {
-                            et_address.setText(complaint_details_response.optString(Constants.keyAddress));
+                            et_address.setText(complaint_details_response.optString(Constants.KEY_ADDRESS));
                         } catch (Exception e) {
                             Log.d(TAG, "Falied to set address to ET");
                         }

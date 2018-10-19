@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,11 +66,11 @@ public class InProcessComplaintActivity extends AppCompatActivity implements Tas
                 send_details = new JSONObject();
                 try {
                     SharedPreferences sf = getSharedPreferences(Constants.sharedPreferencesFileNameSettings, Constants.sharedPreferencesAccessMode);
-                    String rg_no = sf.getString("mobileno", null);
+                    String rg_no = sf.getString(Constants.sharedPreferencesMobileNo, null);
                     String code = "1";
                     send_details.put(Constants.strClientIdKey, Constants.clientId);
-                    send_details.put("registered_no", rg_no);
-                    send_details.put("code", code);
+                    send_details.put(Constants.strRegisteredNoKey, rg_no);
+                    send_details.put(Constants.strCodeKey, code);
                     System.out.println(send_details.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -80,7 +79,7 @@ public class InProcessComplaintActivity extends AppCompatActivity implements Tas
             } else {
                 tv_error.setText(R.string.no_network);
                 tv_error.setVisibility(View.VISIBLE);
-                Toast.makeText(getApplicationContext(), "No Network", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.no_network, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -127,31 +126,33 @@ public class InProcessComplaintActivity extends AppCompatActivity implements Tas
                 Log.d("NewComplaint", String.valueOf(STATIC_ALL_COMPLAINTS));
                 for (int i = 0; i < all_complaints.length(); i++) {
                     engineer_complaint = (JSONObject) all_complaints.get(i);
-                    String ticket_id = engineer_complaint.getString("ticket_id");
+                    String ticket_id = engineer_complaint.getString(Constants.KEY_TICKET_ID);
                     //String name = engineer_complaint.getString("name");
                     //String company_name = engineer_complaint.getString("companyname");
-                    String user_type = engineer_complaint.getString("usertype");
-                    String problemtype = engineer_complaint.getString("problemtype");
-                    String description = engineer_complaint.getString("description");
-                    String complaint_reg_time = engineer_complaint.getString("complaint_reg_time");
-                    String complaint_reg_date = engineer_complaint.getString("complaint_reg_date");
-                    String raisedagain = engineer_complaint.getString("raisedagain");
-                    String allotted_date = engineer_complaint.getString("allotted_date");
-                    String allotted_slot = engineer_complaint.getString("allotted_slot");
-                    String engineer_appointed = engineer_complaint.getString("engineerappointed");
-                    String engineer_appointed_time = engineer_complaint.getString("engineer_appointed_time");
-                    String engineer_appointed_date = engineer_complaint.getString("engineer_appointed_date");
-                    String ticketstatus = engineer_complaint.getString("ticketstatus");
-                    String requested_date = engineer_complaint.getString("requested_date");
-                    String requested_slot = engineer_complaint.getString("requested_slot");
-                    String engineer_close_time = engineer_complaint.getString("engineer_close_time");
-                    String engineer_close_date = engineer_complaint.getString("engineer_close_date");
+                    String user_type = engineer_complaint.getString(Constants.KEY_USER_TYPE);
+                    String problemtype = engineer_complaint.getString(Constants.KEY_PROBLEM_TYPE);
+                    String description = engineer_complaint.getString(Constants.KEY_DESCRIPTION);
+                    String complaint_reg_time = engineer_complaint.getString(Constants.KEY_COMPLAINT_REG_TIME);
+                    String complaint_reg_date = engineer_complaint.getString(Constants.KEY_COMPLAINT_REG_DATE);
+                    String raisedagain = engineer_complaint.getString(Constants.KEY_RAISED_AGAIN);
+                    String allotted_date = engineer_complaint.getString(Constants.KEY_ALLOTTED_DATE);
+                    String allotted_slot = engineer_complaint.getString(Constants.KEY_ALLOTTED_SLOT);
+                    String engineer_appointed = engineer_complaint.getString(Constants.KEY_ENGINEER_APPOINTED);
+                    String engineer_appointed_time = engineer_complaint.getString(Constants.KEY_ENGINEER_APPOINTED_TIME);
+                    String engineer_appointed_date = engineer_complaint.getString(Constants.KEY_ENGINEER_APPOINTED_DATE);
+                    String ticketstatus = engineer_complaint.getString(Constants.KEY_TICKET_STATUS);
+                    String requested_date = engineer_complaint.getString(Constants.KEY_REQUESTED_DATE);
+                    String requested_slot = engineer_complaint.getString(Constants.KEY_REQUESTED_SLOT);
+                    String engineer_close_time = engineer_complaint.getString(Constants.KEY_ENGINEER_CLOSE_TIME);
+                    String engineer_close_date = engineer_complaint.getString(Constants.KEY_ENGINEER_CLOSE_DATE);
                     //String engineer_status = engineer_complaint.getString("engineersidestatus");
                     //String address = engineer_complaint.getString("address");
 
 
-                    complaintModel.add(new ComplaintModel(ticket_id, user_type, problemtype, description, ticketstatus, engineer_appointed, complaint_reg_time, complaint_reg_date, raisedagain,
-                            allotted_date, allotted_slot, engineer_appointed_time, engineer_appointed_date, requested_date, requested_slot, engineer_close_time, engineer_close_date));
+                    complaintModel.add(new ComplaintModel(ticket_id, user_type, problemtype, description,
+                            ticketstatus, engineer_appointed, complaint_reg_time, complaint_reg_date, raisedagain,
+                            allotted_date, allotted_slot, engineer_appointed_time, engineer_appointed_date,
+                            requested_date, requested_slot, engineer_close_time, engineer_close_date));
                     adapter = new CustomAdaptorNewComplaint(complaintModel, getApplicationContext(), 0);
 
                     listView.setAdapter(adapter);
@@ -167,7 +168,8 @@ public class InProcessComplaintActivity extends AppCompatActivity implements Tas
                             Intent specific_complaint = new Intent(getApplicationContext(), ResgisterComplaintActivity.class);
 
 
-                            if (engineer_complaint.getString("ticketstatus").equalsIgnoreCase("pending") || engineer_complaint.getString("ticketstatus").equalsIgnoreCase("Ticket Processed Partially")) {
+                            if (engineer_complaint.getString(Constants.KEY_TICKET_STATUS).equalsIgnoreCase(Constants.TICKET_PENDING) ||
+                                    engineer_complaint.getString(Constants.KEY_TICKET_STATUS).equalsIgnoreCase(Constants.TICKET_PROCESSED_PARTIALLY)) {
                                 Toast.makeText(getApplicationContext(), R.string.date_not_alloted, Toast.LENGTH_SHORT).show();
                             } else {
                                /* if (null)
@@ -193,5 +195,9 @@ public class InProcessComplaintActivity extends AppCompatActivity implements Tas
         }
     }
 
+    @Override
+    public void onTaskComplete(String[] result) {
+
+    }
 }
 

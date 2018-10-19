@@ -41,14 +41,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import rj.bkinfotech.AsyncTasks.DateAsyncTaskApp;
+import rj.bkinfotech.AsyncTasks.RegisterComplaintHit;
 import rj.bkinfotech.Constants.Constants;
 
 /**
  * Created by jimeet29 on 09-12-2017.
  */
 
-public class ResgisterComplaintActivity extends AppCompatActivity {
+public class ResgisterComplaintActivity extends AppCompatActivity implements TaskCompleted, View.OnClickListener {
     EditText et_name, et_company_name, et_contact_no, et_alt_contact_no, et_description;
+
 
     TextView tv_error;
     Spinner spinner_user_type, spinner_problem_type;
@@ -66,17 +69,13 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
     String prefs_name, prefs_company, prefs_alt_mob_no, prefs_address, prefs_in_contact_no;
     AlertDialog alertDialog;
     SharedPreferences settings;
-    int get_calling_class_code = 0;  // 0 insert 1 update
+    int get_calling_class_code = 0;  // 0 to insert  1 to update
     String received_ticket_details;
     JSONObject json_received_ticket_details;
     String in_allotment_date, in_allotment_date_slot;
 
-    String array_of_month[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    String array_of_day_code[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-    HashMap<String, Integer> days_associated_code;
     ArrayAdapter<String> adapter_spinner_appointment_date, adapter_spinner_appointment_date_slot;
     String appointment_dates[];
-    String appointment_dates_slots[] = {"Select the Time", "Morning", "Afternoon", "Evening"};
     String confirmation_dailog_message = "";
 
     @Override
@@ -87,45 +86,27 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         if (get_calling_class_code == 1) {
             setTitle("Change Appointment");
             received_ticket_details = getIntent().getStringExtra("jsonobject");
-            confirmation_dailog_message = String.valueOf(R.string.change_appointment_dailog);
+            confirmation_dailog_message = getResources().getString(R.string.change_appointment_dailog);
         }
-        confirmation_dailog_message = String.valueOf(R.string.raise_ticket_dailog);
+        confirmation_dailog_message = getResources().getString(R.string.raise_ticket_dailog);
+
         setContentView(R.layout.register_complaint_activity);
 
         setCustomActionBar();
 
-        et_name = (EditText) findViewById(R.id.et_id_name);
-        et_company_name = (EditText) findViewById(R.id.et_id_company_name);
-        et_contact_no = (EditText) findViewById(R.id.et_id_reg_contact_no);
-        et_alt_contact_no = (EditText) findViewById(R.id.et_id_alt_contact_no);
-        //et_address = (EditText) findViewById(R.id.et_id_address);
-        et_description = (EditText) findViewById(R.id.et_id_description);
-        spinner_user_type = (Spinner) findViewById(R.id.spinner_select_type);
-        spinner_problem_type = (Spinner) findViewById(R.id.spinner_problem_type);
-        tv_error = (TextView) findViewById(R.id.tv_error);
-        tv_ast_name = (TextView) findViewById(R.id.tv_id_name_ast);
-        tv_ast_user_type = (TextView) findViewById(R.id.tv_id_user_type_ast);
-        tv_ast_problem_type = (TextView) findViewById(R.id.tv_id_problem_type_ast);
-        tv_ast_desc = (TextView) findViewById(R.id.tv_id_desc_ask);
+        initialize();
 
-        ll_allotted_date = (LinearLayout) findViewById(R.id.ll_id_already_allotted_time);
-        tv_allotted_date = (TextView) findViewById(R.id.tv_id_allotted_date);
-        tv_allotted_slot = (TextView) findViewById(R.id.tv_id_allotted_slot);
-        spinner_allot_date = (Spinner) findViewById(R.id.spinner_appointment_dates);
-        spinner_allot_slot = (Spinner) findViewById(R.id.spinner_appointment_date_slots);
-        ll_apt_dates = (LinearLayout) findViewById(R.id.ll_id_apt_dates);
-        ll_apt_slots = (LinearLayout) findViewById(R.id.ll_id_apt_slots);
+        setValuesFromSharedPreferences();
 
-        days_associated_code = new HashMap<>();
-        days_associated_code.put("Sun", 1);
-        days_associated_code.put("Mon", 2);
-        days_associated_code.put("Tue", 3);
-        days_associated_code.put("Wed", 4);
-        days_associated_code.put("Thu", 5);
-        days_associated_code.put("Fri", 6);
-        days_associated_code.put("Sat", 7);
+        setListeners();
 
+    }
 
+    private void setListeners() {
+        register_complaint.setOnClickListener(this);
+    }
+
+    private void setValuesFromSharedPreferences() {
         ArrayAdapter userTypeAdapter = ArrayAdapter.createFromResource(this, R.array.select_type, R.layout.custom_spinner);
         userTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_user_type.setAdapter(userTypeAdapter);
@@ -177,7 +158,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
 
                 appointment_dates = new String[6];
                 appointment_dates[0] = "Select Allotment Date";
-                new DateAsync().execute();
+                new DateAsyncTaskApp(ResgisterComplaintActivity.this).execute();
                 json_received_ticket_details = new JSONObject(received_ticket_details);
 
                 spinner_user_type.setSelection(((ArrayAdapter) spinner_user_type.getAdapter()).getPosition(json_received_ticket_details.getString("usertype")));
@@ -191,96 +172,36 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                 et_description.setTextColor(Color.parseColor("#272d35"));
                 tv_allotted_date.setText(json_received_ticket_details.getString("allotted_date"));
                 tv_allotted_slot.setText(json_received_ticket_details.getString("allotted_slot"));
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
-       /* prefs_address = settings.getString("address",null);
-        if(prefs_address!=null)
-        {
-            in_address = prefs_address;
-            et_address.setText(in_address);
-        }*/
+    }
+
+    private void initialize() {
+        et_name = (EditText) findViewById(R.id.et_id_name);
+        et_company_name = (EditText) findViewById(R.id.et_id_company_name);
+        et_contact_no = (EditText) findViewById(R.id.et_id_reg_contact_no);
+        et_alt_contact_no = (EditText) findViewById(R.id.et_id_alt_contact_no);
+        //et_address = (EditText) findViewById(R.id.et_id_address);
+        et_description = (EditText) findViewById(R.id.et_id_description);
+        spinner_user_type = (Spinner) findViewById(R.id.spinner_select_type);
+        spinner_problem_type = (Spinner) findViewById(R.id.spinner_problem_type);
+        tv_error = (TextView) findViewById(R.id.tv_error);
+        tv_ast_name = (TextView) findViewById(R.id.tv_id_name_ast);
+        tv_ast_user_type = (TextView) findViewById(R.id.tv_id_user_type_ast);
+        tv_ast_problem_type = (TextView) findViewById(R.id.tv_id_problem_type_ast);
+        tv_ast_desc = (TextView) findViewById(R.id.tv_id_desc_ask);
+
+        ll_allotted_date = (LinearLayout) findViewById(R.id.ll_id_already_allotted_time);
+        tv_allotted_date = (TextView) findViewById(R.id.tv_id_allotted_date);
+        tv_allotted_slot = (TextView) findViewById(R.id.tv_id_allotted_slot);
+        spinner_allot_date = (Spinner) findViewById(R.id.spinner_appointment_dates);
+        spinner_allot_slot = (Spinner) findViewById(R.id.spinner_appointment_date_slots);
+        ll_apt_dates = (LinearLayout) findViewById(R.id.ll_id_apt_dates);
+        ll_apt_slots = (LinearLayout) findViewById(R.id.ll_id_apt_slots);
 
         register_complaint = (Button) findViewById(R.id.btn_id_launch_complaint);
-
-
-        register_complaint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (get_calling_class_code == 0) {
-
-                    in_name = et_name.getText().toString().trim();
-                    in_company = et_company_name.getText().toString().trim();
-                    in_alt_contact_no = et_alt_contact_no.getText().toString().trim();
-                    //in_address = et_address.getText().toString().trim();
-                    in_description = et_description.getText().toString().trim();
-                    in_user_type = String.valueOf(spinner_user_type.getSelectedItemPosition());
-                    in_problem_type = String.valueOf(spinner_problem_type.getSelectedItemPosition());
-                    Log.d("user type", in_user_type + in_problem_type);
-                    if (in_name.isEmpty() || !in_name.matches(NamePattern)) {
-                        Toast.makeText(getApplicationContext(), "Please Enter a Valid Name", Toast.LENGTH_SHORT).show();
-                        tv_error.setText(R.string.validation_name);
-                        tv_error.setVisibility(View.VISIBLE);
-                    } else if (!in_company.isEmpty() && !in_company.matches(CompanyPattern)) {
-
-                        Toast.makeText(getApplicationContext(), "Please Enter a Valid Company Name", Toast.LENGTH_SHORT).show();
-                        tv_error.setText(R.string.validation_company_name);
-                        tv_error.setVisibility(View.VISIBLE);
-
-                    } else if (in_user_type.equalsIgnoreCase("0")) {
-                        Toast.makeText(getApplicationContext(), "Please Select a User type", Toast.LENGTH_SHORT).show();
-                        tv_error.setText(R.string.validation_user_type);
-                        tv_error.setVisibility(View.VISIBLE);
-                    } else if (in_problem_type.equalsIgnoreCase("0")) {
-                        Toast.makeText(getApplicationContext(), "Please Select a Problem type", Toast.LENGTH_SHORT).show();
-                        tv_error.setText(R.string.validation_problem_type);
-                        tv_error.setVisibility(View.VISIBLE);
-                    } else if (in_alt_contact_no.length() != 0 && !in_alt_contact_no.matches(MobilePattern)) {
-
-                        Toast.makeText(getApplicationContext(), "Please Enter a Valid Mobile No.", Toast.LENGTH_SHORT).show();
-                        tv_error.setText(R.string.validation_alt_mno);
-                        tv_error.setVisibility(View.VISIBLE);
-
-                    }/*else if(!in_address.matches(AddressPattern))
-                {
-                    Toast.makeText(getApplicationContext(), "Please Enter a Valid Address", Toast.LENGTH_SHORT).show();
-                    tv_error.setText(R.string.validation_address);
-                    tv_error.setVisibility(View.VISIBLE);
-                }*/ else if (!in_description.matches(DescriptionPattern)) {
-                        Toast.makeText(getApplicationContext(), "Please Enter a Valid Description", Toast.LENGTH_SHORT).show();
-                        tv_error.setText(R.string.validation_desc);
-                        tv_error.setVisibility(View.VISIBLE);
-                    } else {
-                        confirmation_dialog();
-                    }
-                } else {
-                    in_allotment_date = String.valueOf(spinner_allot_date.getSelectedItemPosition());
-                    in_allotment_date_slot = String.valueOf(spinner_allot_slot.getSelectedItemPosition());
-                    if (in_allotment_date.equals("0")) {
-                        tv_error.setText(R.string.spinner_allotment_error);
-                        tv_error.setVisibility(View.VISIBLE);
-
-                    } else if (in_allotment_date_slot.equals("0")) {
-                        tv_error.setText(R.string.spinner_slot_error);
-                        tv_error.setVisibility(View.VISIBLE);
-                    } else {
-                        in_user_type = spinner_user_type.getSelectedItem().toString();
-                        in_problem_type = spinner_problem_type.getSelectedItem().toString();
-                        in_allotment_date = spinner_allot_date.getSelectedItem().toString();
-                        in_allotment_date_slot = spinner_allot_slot.getSelectedItem().toString();
-                        confirmation_dialog();
-                    }
-                }
-            }
-        });
-
-
     }
 
     private void setCustomActionBar() {
@@ -346,8 +267,8 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
                 if (networkInfo != null && networkInfo.isConnected() && networkInfo.isAvailable()) {
                     if (complaint_details.length() > 0) {
                         tv_error.setVisibility(View.GONE);
-                        new RegisterComplaintHit().execute(complaint_details.toString());
-
+                        new RegisterComplaintHit(ResgisterComplaintActivity.this)
+                                .execute(complaint_details.toString(), Constants.registerNewComplaintsEP);
                     }
 
                 } else {
@@ -368,7 +289,81 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private class RegisterComplaintHit extends AsyncTask<String, Void, String> {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_id_launch_complaint:
+
+                if (get_calling_class_code == 0) {
+
+                    in_name = et_name.getText().toString().trim();
+                    in_company = et_company_name.getText().toString().trim();
+                    in_alt_contact_no = et_alt_contact_no.getText().toString().trim();
+                    //in_address = et_address.getText().toString().trim();
+                    in_description = et_description.getText().toString().trim();
+                    in_user_type = String.valueOf(spinner_user_type.getSelectedItemPosition());
+                    in_problem_type = String.valueOf(spinner_problem_type.getSelectedItemPosition());
+                    if (in_name.isEmpty() || !in_name.matches(NamePattern)) {
+                        Toast.makeText(getApplicationContext(), "Please Enter a Valid Name", Toast.LENGTH_SHORT).show();
+                        tv_error.setText(R.string.validation_name);
+                        tv_error.setVisibility(View.VISIBLE);
+                    } else if (!in_company.isEmpty() && !in_company.matches(CompanyPattern)) {
+
+                        Toast.makeText(getApplicationContext(), "Please Enter a Valid Company Name", Toast.LENGTH_SHORT).show();
+                        tv_error.setText(R.string.validation_company_name);
+                        tv_error.setVisibility(View.VISIBLE);
+
+                    } else if (in_user_type.equalsIgnoreCase("0")) {
+                        Toast.makeText(getApplicationContext(), "Please Select a User type", Toast.LENGTH_SHORT).show();
+                        tv_error.setText(R.string.validation_user_type);
+                        tv_error.setVisibility(View.VISIBLE);
+                    } else if (in_problem_type.equalsIgnoreCase("0")) {
+                        Toast.makeText(getApplicationContext(), "Please Select a Problem type", Toast.LENGTH_SHORT).show();
+                        tv_error.setText(R.string.validation_problem_type);
+                        tv_error.setVisibility(View.VISIBLE);
+                    } else if (in_alt_contact_no.length() != 0 && !in_alt_contact_no.matches(MobilePattern)) {
+
+                        Toast.makeText(getApplicationContext(), "Please Enter a Valid Mobile No.", Toast.LENGTH_SHORT).show();
+                        tv_error.setText(R.string.validation_alt_mno);
+                        tv_error.setVisibility(View.VISIBLE);
+
+                    }/*else if(!in_address.matches(AddressPattern))
+                {
+                    Toast.makeText(getApplicationContext(), "Please Enter a Valid Address", Toast.LENGTH_SHORT).show();
+                    tv_error.setText(R.string.validation_address);
+                    tv_error.setVisibility(View.VISIBLE);
+                }*/ else if (!in_description.matches(DescriptionPattern)) {
+                        Toast.makeText(getApplicationContext(), "Please Enter a Valid Description", Toast.LENGTH_SHORT).show();
+                        tv_error.setText(R.string.validation_desc);
+                        tv_error.setVisibility(View.VISIBLE);
+                    } else {
+                        confirmation_dialog();
+                    }
+                } else {
+                    in_allotment_date = String.valueOf(spinner_allot_date.getSelectedItemPosition());
+                    in_allotment_date_slot = String.valueOf(spinner_allot_slot.getSelectedItemPosition());
+                    if (in_allotment_date.equals("0")) {
+                        tv_error.setText(R.string.spinner_allotment_error);
+                        tv_error.setVisibility(View.VISIBLE);
+
+                    } else if (in_allotment_date_slot.equals("0")) {
+                        tv_error.setText(R.string.spinner_slot_error);
+                        tv_error.setVisibility(View.VISIBLE);
+                    } else {
+                        in_user_type = spinner_user_type.getSelectedItem().toString();
+                        in_problem_type = spinner_problem_type.getSelectedItem().toString();
+                        in_allotment_date = spinner_allot_date.getSelectedItem().toString();
+                        in_allotment_date_slot = spinner_allot_slot.getSelectedItem().toString();
+                        confirmation_dialog();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+   /* private class RegisterComplaintHit extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -491,276 +486,95 @@ public class ResgisterComplaintActivity extends AppCompatActivity {
             }
 
         }
+    }*/
+
+    @Override
+    public void onTaskComplete(String result) {
+        try {
+            if (get_calling_class_code == 0) {
+                try {
+                    Log.d("Response", result);
+                    pg.dismiss();
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("name", in_name);
+                    editor.putString("company_name", in_company);
+                    //editor.putString("address",in_address);
+                    editor.putString("alternate_no", in_alt_contact_no);
+                    editor.apply();
+
+                    JSONObject complaint_details_response = new JSONObject(result);
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(ResgisterComplaintActivity.this);
+                    alert.setMessage("Ticket Number for following complaint is " + complaint_details_response.get("ticket_id").toString());
+
+                    alertDialog = alert.create();
+                    alertDialog.setCancelable(false);
+                    alertDialog.show();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            alertDialog.dismiss();
+                            Intent user_activity = new Intent(getApplicationContext(), InProcessComplaintActivity.class);
+                            ResgisterComplaintActivity.this.finish();
+                            startActivity(user_activity);
+
+                        }
+                    }, 3000);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    Log.d("Response", result);
+                    pg.dismiss();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(ResgisterComplaintActivity.this);
+                    if (result.equals("1")) {
+                        alert.setMessage("New Date Requested Successfully");
+                    } else {
+                        alert.setMessage("New Date Already Requested Once");
+                    }
+                    alertDialog = alert.create();
+                    alertDialog.setCancelable(false);
+                    alertDialog.show();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            alertDialog.dismiss();
+                            Intent user_activity = new Intent(getApplicationContext(), InProcessComplaintActivity.class);
+                            ResgisterComplaintActivity.this.finish();
+                            startActivity(user_activity);
+
+                        }
+                    }, 2000);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            Log.e("onTaskComplete", e.toString());
+        }
     }
 
-    private class DateAsync extends AsyncTask<Void, Void, String> {
-        String current_day_string;
-        int current_time_int, current_day_int, current_day_string_to_hash_map, current_month;
+    @Override
+    public void onTaskComplete(String[] appointedDates) {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d("Inside provid", " pre execute provide_appointment_dates");
-            current_time_int = Integer.parseInt(new SimpleDateFormat("HH").format(Calendar.getInstance().getTime()));
-            current_day_int = Integer.parseInt(new SimpleDateFormat("dd").format(Calendar.getInstance().getTime()));
-            current_month = Integer.parseInt(new SimpleDateFormat("MM").format(Calendar.getInstance().getTime()));
-            current_day_string = new SimpleDateFormat("E").format(Calendar.getInstance().getTime());
-            current_day_string_to_hash_map = days_associated_code.get(current_day_string);
+        try {
+            adapter_spinner_appointment_date = new ArrayAdapter<>(this, R.layout.custom_spinner, appointment_dates);
+            adapter_spinner_appointment_date.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+            spinner_allot_date.setAdapter(adapter_spinner_appointment_date);
+            spinner_allot_date.getBackground().setColorFilter(getResources().getColor(R.color.editTextBgColor), PorterDuff.Mode.SRC_ATOP);
 
-            /*Log.d("current_time_int", String.valueOf(current_time_int));
-            Log.d("current_time_int", String.valueOf(current_day_int));
-            Log.d("current_time_int", String.valueOf(current_month));
-            Log.d("current_time_int", String.valueOf(current_day_string));*/
-
-/*
-            current_time_int = 13;
-            current_day_int=  13;
-
-
-//include current_day_string_to_hash_map code to set it back to initial value
-            current_month= 6;
-            current_day_string = "Wed";
-            current_day_string_to_hash_map = days_associated_code.get(current_day_string);//7
-            //Log.d("local_current_day 1",String.valueOf(current_day_string_to_hash_map));
-            Log.d("current_time_int", String.valueOf(current_time_int));
-            Log.d("current_time_int", String.valueOf(current_day_int));
-            Log.d("current_time_int", String.valueOf(current_month));
-            Log.d("current_time_int", String.valueOf(current_day_string));*/
-
+            adapter_spinner_appointment_date_slot = new ArrayAdapter<>(this, R.layout.custom_spinner, Constants.appointment_dates_slots);
+            adapter_spinner_appointment_date_slot.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+            spinner_allot_slot.setAdapter(adapter_spinner_appointment_date_slot);
+            spinner_allot_slot.getBackground().setColorFilter(getResources().getColor(R.color.editTextBgColor), PorterDuff.Mode.SRC_ATOP);
+        } catch (Exception e) {
+            Log.d("OnTaskRegisterCom", e.toString());
         }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-            provide_appointment_dates(current_day_int, current_month, current_day_string_to_hash_map);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.d("Inside provid", " POST execute provide_appointment_dates");
-        }
-    }
-
-    void provide_appointment_dates(int local_current_day_int, int local_current_month, int local_current_day_string_to_hash_map) {
-        Log.d("Inside provid", " Inside provide_appointment_dates");
-        /*local_current_day_int++;
-        if(local_current_day_string_to_hash_map==7)
-        {
-            local_current_day_string_to_hash_map=1;
-        }else{
-            local_current_day_string_to_hash_map++;
-        }*/
-
-        //Log.d("local_current_day 2",String.valueOf(local_current_day_string_to_hash_map));
-        int count_dates = 1;
-        Log.d("Inside  provid", " Inside inside case 2 provide_appointment_dates");
-        switch (local_current_month) {
-
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-
-                Log.d("Inside  provid", " Inside inside provide_appointment_dates");
-                while (count_dates < 6) {
-                    if (local_current_day_int >= 31) {
-                        if (local_current_day_int == 31) {
-                            if (local_current_day_string_to_hash_map != 1) {
-                                appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                                count_dates++;
-                                local_current_day_string_to_hash_map++;
-                            } else {
-                                local_current_day_string_to_hash_map++;
-                            }
-                            local_current_month++;
-                            local_current_day_int = 1;
-                        } else {
-                            local_current_month++;
-                            local_current_day_int = 1;
-                            if (local_current_day_string_to_hash_map != 1) {
-                                appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                                local_current_day_int++;
-                                local_current_day_string_to_hash_map++;
-                                count_dates++;
-                            } else {
-                                local_current_day_string_to_hash_map++;
-                                local_current_day_int++;
-                            }
-                        }
-                    } else {
-                        if (local_current_day_string_to_hash_map != 1) {
-                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                            local_current_day_int++;
-                            count_dates++;
-                            local_current_day_string_to_hash_map++;
-                        } else {
-                            local_current_day_int++;
-                            local_current_day_string_to_hash_map++;
-                        }
-                    }
-                    if (local_current_day_string_to_hash_map == 8) {
-                        local_current_day_string_to_hash_map = 1;
-                    }
-                }
-
-
-                break;
-            case 2:
-                Log.d("Inside  provid", " Inside inside provide_appointment_dates");
-                while (count_dates < 6) {
-                    if (local_current_day_int >= 28) {
-                        if (local_current_day_int == 28) {
-                            if (local_current_day_string_to_hash_map != 1) {
-                                appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                                count_dates++;
-                                local_current_day_string_to_hash_map++;
-                            } else {
-                                local_current_day_string_to_hash_map++;
-                            }
-                            local_current_month++;
-                            local_current_day_int = 1;
-                        } else {
-                            local_current_month++;
-                            local_current_day_int = 1;
-                            if (local_current_day_string_to_hash_map != 1) {
-                                appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                                local_current_day_int++;
-                                local_current_day_string_to_hash_map++;
-                                count_dates++;
-                            } else {
-                                local_current_day_string_to_hash_map++;
-                                local_current_day_int++;
-                            }
-                        }
-                    } else {
-                        if (local_current_day_string_to_hash_map != 1) {
-                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                            local_current_day_int++;
-                            count_dates++;
-                            local_current_day_string_to_hash_map++;
-                        } else {
-                            local_current_day_int++;
-                            local_current_day_string_to_hash_map++;
-                        }
-                    }
-
-                    if (local_current_day_string_to_hash_map == 8) {
-                        local_current_day_string_to_hash_map = 1;
-                    }
-                }
-
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                Log.d("Inside  provid", " Inside inside provide_appointment_dates");
-                while (count_dates < 6) {
-                    if (local_current_day_int >= 30) {
-                        if (local_current_day_int == 30) {
-                            if (local_current_day_string_to_hash_map != 1) {
-                                appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                                count_dates++;
-                                local_current_day_string_to_hash_map++;
-                            } else {
-                                local_current_day_string_to_hash_map++;
-                            }
-                            local_current_month++;
-                            local_current_day_int = 1;
-                        } else {
-                            local_current_month++;
-                            local_current_day_int = 1;
-                            if (local_current_day_string_to_hash_map != 1) {
-                                appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                                local_current_day_int++;
-                                local_current_day_string_to_hash_map++;
-                                count_dates++;
-                            } else {
-                                local_current_day_string_to_hash_map++;
-                                local_current_day_int++;
-                            }
-                        }
-                    } else {
-                        if (local_current_day_string_to_hash_map != 1) {
-                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                            local_current_day_int++;
-                            count_dates++;
-                            local_current_day_string_to_hash_map++;
-                        } else {
-                            local_current_day_int++;
-                            local_current_day_string_to_hash_map++;
-                        }
-                    }
-                    if (local_current_day_string_to_hash_map == 8) {
-                        local_current_day_string_to_hash_map = 1;
-                    }
-                }
-
-                break;
-            case 12:
-                Log.d("Inside  provid", " Inside inside provide_appointment_dates");
-                while (count_dates < 6) {
-                    if (local_current_day_int >= 31) {
-                        if (local_current_day_int == 31) {
-                            if (local_current_day_string_to_hash_map != 1) {
-                                appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                                count_dates++;
-                                local_current_day_string_to_hash_map++;
-                            } else {
-                                local_current_day_string_to_hash_map++;
-                            }
-                            local_current_month = 1;
-                            local_current_day_int = 1;
-                        } else {
-                            local_current_month++;
-                            local_current_day_int = 1;
-                            if (local_current_day_string_to_hash_map != 1) {
-                                appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                                local_current_day_int++;
-                                local_current_day_string_to_hash_map++;
-                                count_dates++;
-                            } else {
-                                local_current_day_string_to_hash_map++;
-                                local_current_day_int++;
-                            }
-                        }
-                    } else {
-                        if (local_current_day_string_to_hash_map != 1) {
-                            appointment_dates[count_dates] = local_current_day_int + " " + array_of_month[local_current_month - 1] + " " + array_of_day_code[local_current_day_string_to_hash_map - 1];
-                            local_current_day_int++;
-                            count_dates++;
-                            local_current_day_string_to_hash_map++;
-                        } else {
-                            local_current_day_int++;
-                            local_current_day_string_to_hash_map++;
-                        }
-                    }
-
-                    if (local_current_day_string_to_hash_map == 8) {
-                        local_current_day_string_to_hash_map = 1;
-                    }
-                }
-
-                break;
-        }
-        for (int j = 0; j < appointment_dates.length; j++) {
-            Log.d("DATESSSS", appointment_dates[j]);
-        }
-
-
-        adapter_spinner_appointment_date = new ArrayAdapter<>(this, R.layout.custom_spinner, appointment_dates);
-        adapter_spinner_appointment_date.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner_allot_date.setAdapter(adapter_spinner_appointment_date);
-        spinner_allot_date.getBackground().setColorFilter(getResources().getColor(R.color.editTextBgColor), PorterDuff.Mode.SRC_ATOP);
-
-        adapter_spinner_appointment_date_slot = new ArrayAdapter<>(this, R.layout.custom_spinner, appointment_dates_slots);
-        adapter_spinner_appointment_date_slot.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner_allot_slot.setAdapter(adapter_spinner_appointment_date_slot);
-        spinner_allot_slot.getBackground().setColorFilter(getResources().getColor(R.color.editTextBgColor), PorterDuff.Mode.SRC_ATOP);
 
     }
 

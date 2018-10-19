@@ -60,7 +60,7 @@ public class ReusableCodeAdmin {
         return returnResponse;
     }
 
-    public static void createNotificationChannel(Context context) {
+    static void createNotificationChannel(Context context) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -76,7 +76,7 @@ public class ReusableCodeAdmin {
         }
     }
 
-    public static boolean isOtherDevice() {
+    static boolean isOtherDevice() {
         String manufacturer = Build.MANUFACTURER;
 
         for (int i = 0; i < Constants.devicesArr.length; i++) {

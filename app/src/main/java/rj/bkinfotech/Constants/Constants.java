@@ -9,6 +9,8 @@ public class Constants {
     public static final String registerNewUserEP = "newUserDetails.php";
     public static final String userSpecificComplaintsEP = "getSpecificUserComplaint.php";
     public static final String registerNewComplaintsEP = "registerComplaint.php";
+    public static final String resetUserDetailsEP = "resetUserDetails.php";
+    public static final String otpValidateUserEP = "otpValidateUser.php";
 
     //For API Hit 'keys'
     public static final String strClientIdKey = "clientId";
@@ -71,6 +73,7 @@ public class Constants {
     public static final String sharedPreferencesMobileNo = "mobileno";
     public static final String sharedPreferencesFirstRun = "fr";
     public static final String sharedPreferencesDontShowAutoStartPermissionDialog = "dontshowautostartpermissiondialog";
+    public static final String sharedPreferencesResetActivityCount = "Count";
 
     //Intent Extras Key
     public static final String IE_KEY_USER_INTERFACE = "UserInterface";

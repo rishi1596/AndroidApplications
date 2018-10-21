@@ -83,8 +83,6 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
 
         setCustomActionBar();
 
-        checkIfMiUiDevice();
-
         //Todo for next Update
       /*  if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             GPSObj.showSettingsAlert();
@@ -126,8 +124,9 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
     }
 
     private void initialize() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        GPSObj = new GPS(EngineerActivity.this);
+        //todo next update
+        //locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //GPSObj = new GPS(EngineerActivity.this);
         pg = new ProgressDialog(EngineerActivity.this);
         tv_error = findViewById(R.id.empty);
         tv_privacy_policy = findViewById(R.id.tv_id_privacy_policy);
@@ -218,7 +217,7 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                 break;
 
             case R.id.tv_id_privacy_policy:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bkinfotech.in/privacy_policy.html"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bkinfotech.in/privacy_policy_engg.html"));
                 startActivity(browserIntent);
                 break;
         }
@@ -255,39 +254,41 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
             try {
                 all_complaints = new JSONArray(result);
                 if (all_complaints.length() == 0) {
-                    tv_error.setText(R.string.no_network);
+                    tv_error.setText(R.string.no_complaints);
                     tv_error.setVisibility(View.VISIBLE);
-                }
-                STATIC_ALL_COMPLAINTS = new JSONArray(result);
-                Log.d("NewComplaint", String.valueOf(STATIC_ALL_COMPLAINTS));
-                for (int i = 0; i < all_complaints.length(); i++) {
-                    engineer_complaint = (JSONObject) all_complaints.get(i);
-                    String ticket_id = engineer_complaint.getString(Constants.KEY_TICKET_STATUS);
-                    String name = engineer_complaint.getString(Constants.KEY_NAME);
-                    String company_name = engineer_complaint.getString(Constants.KEY_COMPANY_NAME);
-                    String user_type = engineer_complaint.getString(Constants.KEY_USER_TYPE);
-                    String problemtype = engineer_complaint.getString(Constants.KEY_PROBLEM_TYPE);
-                    String description = engineer_complaint.getString(Constants.KEY_DESCRIPTION);
-                    String address = engineer_complaint.getString(Constants.KEY_ADDRESS);
+                } else {
+                    STATIC_ALL_COMPLAINTS = new JSONArray(result);
+                    Log.d("NewComplaint", String.valueOf(STATIC_ALL_COMPLAINTS));
+                    for (int i = 0; i < all_complaints.length(); i++) {
+                        engineer_complaint = (JSONObject) all_complaints.get(i);
+                        String ticket_id = engineer_complaint.getString(Constants.KEY_TICKET_STATUS);
+                        String name = engineer_complaint.getString(Constants.KEY_NAME);
+                        String company_name = engineer_complaint.getString(Constants.KEY_COMPANY_NAME);
+                        String user_type = engineer_complaint.getString(Constants.KEY_USER_TYPE);
+                        String problemtype = engineer_complaint.getString(Constants.KEY_PROBLEM_TYPE);
+                        String description = engineer_complaint.getString(Constants.KEY_DESCRIPTION);
+                        String address = engineer_complaint.getString(Constants.KEY_ADDRESS);
 
-                    //String engineerstatus = engineer_complaint.getString("engineersidestatus");
-                    String complaint_reg_time = engineer_complaint.getString(Constants.KEY_COMPLAINT_REG_TIME);
-                    String complaint_reg_date = engineer_complaint.getString(Constants.KEY_COMPLAINT_REG_DATE);
-                    String allotted_date = engineer_complaint.getString(Constants.KEY_ALLOTTED_DATE);
-                    String allotted_slot = engineer_complaint.getString(Constants.KEY_ALLOTTED_SLOT);
-                    String ticketstatus = engineer_complaint.getString(Constants.KEY_TICKET_STATUS);
-                    String raisedagain = engineer_complaint.getString(Constants.KEY_RAISED_AGAIN);
-                    complaintModel.add(new ComplaintModel(ticket_id, name, company_name, user_type, problemtype,
-                            description, address, complaint_reg_time, complaint_reg_date, allotted_date,
-                            allotted_slot, ticketstatus, raisedagain));
-                    adapter = new CustomAdaptorNewComplaint(complaintModel, getApplicationContext());
+                        //String engineerstatus = engineer_complaint.getString("engineersidestatus");
+                        String complaint_reg_time = engineer_complaint.getString(Constants.KEY_COMPLAINT_REG_TIME);
+                        String complaint_reg_date = engineer_complaint.getString(Constants.KEY_COMPLAINT_REG_DATE);
+                        String allotted_date = engineer_complaint.getString(Constants.KEY_ALLOTTED_DATE);
+                        String allotted_slot = engineer_complaint.getString(Constants.KEY_ALLOTTED_SLOT);
+                        String ticketstatus = engineer_complaint.getString(Constants.KEY_TICKET_STATUS);
+                        String raisedagain = engineer_complaint.getString(Constants.KEY_RAISED_AGAIN);
+                        complaintModel.add(new ComplaintModel(ticket_id, name, company_name, user_type, problemtype,
+                                description, address, complaint_reg_time, complaint_reg_date, allotted_date,
+                                allotted_slot, ticketstatus, raisedagain));
+                        adapter = new CustomAdaptorNewComplaint(complaintModel, getApplicationContext());
 
-                    listView.setAdapter(adapter);
+                        listView.setAdapter(adapter);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+        checkIfMiUiDevice();
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {

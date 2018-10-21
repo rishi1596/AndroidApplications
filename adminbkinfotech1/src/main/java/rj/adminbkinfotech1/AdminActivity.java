@@ -38,7 +38,7 @@ import rj.adminbkinfotech1.CustomDialogAdmin.CustomDialogBoxAdmin;
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener, TaskCompleted {
     Button btnNewPendingTickets, btnAppointedTickets, btnAllTickets, btnRaiseNewTicket;
     JSONObject logOut_details;
-
+    private TextView tv_privacy_policy;
     SharedPreferences sp;
     //int firstrun;
     ConnectivityManager cm;
@@ -90,6 +90,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         btnAllTickets = (Button) findViewById(R.id.btn_id_all_complaint);
         btnRaiseNewTicket = (Button) findViewById(R.id.btn_id_raise_new_ticket);
         fab_app_feedback = (FloatingActionButton) findViewById(R.id.fab_id_app_feedback);
+        tv_privacy_policy = findViewById(R.id.tv_id_privacy_policy);
         ReusableCodeAdmin.createNotificationChannel(AdminActivity.this);
     }
 
@@ -99,6 +100,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         btnAllTickets.setOnClickListener(this);
         btnRaiseNewTicket.setOnClickListener(this);
         fab_app_feedback.setOnClickListener(this);
+        tv_privacy_policy.setOnClickListener(this);
     }
 
     private void setCustomActionBar() {
@@ -200,6 +202,10 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 Intent implicit_email_intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "appbkinfotech@gmail.com"));
                 implicit_email_intent.putExtra(Intent.EXTRA_SUBJECT, "Application Feedback (Admin)");
                 startActivity(implicit_email_intent);
+                break;
+            case R.id.tv_id_privacy_policy:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bkinfotech.in/privacy_policy_admin.html"));
+                startActivity(browserIntent);
                 break;
             default:
                 break;

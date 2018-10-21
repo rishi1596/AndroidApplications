@@ -2,7 +2,7 @@
     <string name="android_app_name">BKInfo Engineer</string>
     <string name="app_name">B K InfoTech</string>
     <string name="app_type">ENGINEER</string>
-
+    <string name="app_version">1.0.1</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>

@@ -261,7 +261,7 @@ public class EngineerActivity extends AppCompatActivity implements TaskCompleted
                     Log.d("NewComplaint", String.valueOf(STATIC_ALL_COMPLAINTS));
                     for (int i = 0; i < all_complaints.length(); i++) {
                         engineer_complaint = (JSONObject) all_complaints.get(i);
-                        String ticket_id = engineer_complaint.getString(Constants.KEY_TICKET_STATUS);
+                        String ticket_id = engineer_complaint.getString(Constants.KEY_TICKET_ID);
                         String name = engineer_complaint.getString(Constants.KEY_NAME);
                         String company_name = engineer_complaint.getString(Constants.KEY_COMPANY_NAME);
                         String user_type = engineer_complaint.getString(Constants.KEY_USER_TYPE);

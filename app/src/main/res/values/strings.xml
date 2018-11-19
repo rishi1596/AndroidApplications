@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">B K InfoTech</string>
     <string name="mobile_no">Please Enter your Mobile no.</string>
-    <string name="app_version">1.0.1</string>
+    <string name="app_version">1.0.3</string>
     <string name="email">Please Enter your Email Address</string>
     <string name="already"><u> Already Registered? </u></string>
     <string name="register">Register</string>

@@ -225,7 +225,7 @@ public class ResgisterComplaintActivity extends AppCompatActivity implements Tas
 
     private void confirmation_dialog() {
         final AlertDialog.Builder alertBox = new AlertDialog.Builder(ResgisterComplaintActivity.this);
-        alertBox.setMessage(Integer.parseInt(confirmation_dailog_message));
+        alertBox.setMessage(confirmation_dailog_message);
         alertBox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -337,6 +337,8 @@ public class ResgisterComplaintActivity extends AppCompatActivity implements Tas
                         tv_error.setText(R.string.validation_desc);
                         tv_error.setVisibility(View.VISIBLE);
                     } else {
+                        in_user_type = spinner_user_type.getSelectedItem().toString();
+                        in_problem_type = spinner_problem_type.getSelectedItem().toString();
                         confirmation_dialog();
                     }
                 } else {

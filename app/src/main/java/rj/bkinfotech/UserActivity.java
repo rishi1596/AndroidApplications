@@ -26,7 +26,6 @@ import rj.bkinfotech.CustomDialog.CustomDialogBox;
 public class UserActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn_register_complaint, btn_in_process_complaints, btn_view_all_complaints, btn_view_about_us, btn_offers;
     private FloatingActionButton fab_app_feedback;
-    private TextView tv_privacy_policy;
 
 
     @Override
@@ -47,7 +46,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         btn_view_about_us = findViewById(R.id.btn_id_view_about_us);
         btn_offers = findViewById(R.id.btn_id_view_offers);
         fab_app_feedback = findViewById(R.id.fab_id_app_feedback);
-        tv_privacy_policy = findViewById(R.id.tv_id_privacy_policy);
         ReusableCodeAdmin.createNotificationChannel(UserActivity.this);
     }
 
@@ -58,7 +56,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         btn_view_about_us.setOnClickListener(this);
         btn_offers.setOnClickListener(this);
         fab_app_feedback.setOnClickListener(this);
-        tv_privacy_policy.setOnClickListener(this);
     }
 
 
@@ -121,10 +118,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 Intent ticket_info_activity = new Intent(getApplicationContext(), TicketInfo.class);
                 startActivity(ticket_info_activity);
                 break;
-            case R.id.tv_id_privacy_policy:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bkinfotech.in/privacy_policy_app.html"));
-                startActivity(browserIntent);
-                break;
+
         }
     }
 }
